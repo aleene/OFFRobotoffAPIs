@@ -8,21 +8,73 @@
 
 /* Begin PBXBuildFile section */
 		AB43116D292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43116C292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift */; };
-		AB43116F292A7F0600FE21BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43116E292A7F0600FE21BC /* ContentView.swift */; };
+		AB43116F292A7F0600FE21BC /* RBTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43116E292A7F0600FE21BC /* RBTFView.swift */; };
 		AB431171292A7F0800FE21BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB431170292A7F0800FE21BC /* Assets.xcassets */; };
 		AB431174292A7F0800FE21BC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB431173292A7F0800FE21BC /* Preview Assets.xcassets */; };
+		AB431180292A7F4500FE21BC /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117A292A7F4400FE21BC /* AuthController.swift */; };
+		AB431181292A7F4500FE21BC /* OFFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117B292A7F4400FE21BC /* OFFAPI.swift */; };
+		AB431182292A7F4500FE21BC /* OFFProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117C292A7F4500FE21BC /* OFFProductType.swift */; };
+		AB431183292A7F4500FE21BC /* OFFBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117D292A7F4500FE21BC /* OFFBarcode.swift */; };
+		AB431184292A7F4500FE21BC /* HTTPLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */; };
+		AB431185292A7F4500FE21BC /* RBTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117F292A7F4500FE21BC /* RBTF.swift */; };
+		AB43118A292A7FBB00FE21BC /* RBTFQuestionsProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB431189292A7FBB00FE21BC /* RBTFQuestionsProduct.swift */; };
+		AB43118C292BB3FC00FE21BC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AB43118B292BB3FC00FE21BC /* README.md */; };
+		AB43118E292BBC7700FE21BC /* RBTFQuestionsForProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43118D292BBC7700FE21BC /* RBTFQuestionsForProductView.swift */; };
+		AB431191292BBCEF00FE21BC /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = AB431190292BBCEF00FE21BC /* Collections */; };
+		ABEDA127292BCB270033193B /* FSNMInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA123292BCB270033193B /* FSNMInput.swift */; };
+		ABEDA128292BCB270033193B /* FSNMDictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA124292BCB270033193B /* FSNMDictView.swift */; };
+		ABEDA129292BCB270033193B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA125292BCB270033193B /* ListView.swift */; };
+		ABEDA12A292BCB270033193B /* FSNMDictElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA126292BCB270033193B /* FSNMDictElementView.swift */; };
+		ABEDA13C292BD3070033193B /* RBTFQuestionsProductURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA12C292BD1A80033193B /* RBTFQuestionsProductURLTests.swift */; };
+		ABEDA13E292BDFDE0033193B /* RBTFQuestionsRandomURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA13D292BDFDE0033193B /* RBTFQuestionsRandomURLTests.swift */; };
+		ABEDA141292BE25C0033193B /* RBTFQuestionsRandomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA13F292BE17A0033193B /* RBTFQuestionsRandomView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ABEDA137292BD2FA0033193B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB431161292A7F0600FE21BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB431168292A7F0600FE21BC;
+			remoteInfo = OFFRobotoffAPIs;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		AB431169292A7F0600FE21BC /* OFFRobotoffAPIs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OFFRobotoffAPIs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB43116C292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFRobotoffAPIsApp.swift; sourceTree = "<group>"; };
-		AB43116E292A7F0600FE21BC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AB43116E292A7F0600FE21BC /* RBTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFView.swift; sourceTree = "<group>"; };
 		AB431170292A7F0800FE21BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB431173292A7F0800FE21BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AB43117A292A7F4400FE21BC /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		AB43117B292A7F4400FE21BC /* OFFAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAPI.swift; sourceTree = "<group>"; };
+		AB43117C292A7F4500FE21BC /* OFFProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProductType.swift; sourceTree = "<group>"; };
+		AB43117D292A7F4500FE21BC /* OFFBarcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFBarcode.swift; sourceTree = "<group>"; };
+		AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPLibrary.swift; sourceTree = "<group>"; };
+		AB43117F292A7F4500FE21BC /* RBTF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTF.swift; sourceTree = "<group>"; };
+		AB431189292A7FBB00FE21BC /* RBTFQuestionsProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsProduct.swift; sourceTree = "<group>"; };
+		AB43118B292BB3FC00FE21BC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AB43118D292BBC7700FE21BC /* RBTFQuestionsForProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsForProductView.swift; sourceTree = "<group>"; };
+		ABEDA123292BCB270033193B /* FSNMInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSNMInput.swift; sourceTree = "<group>"; };
+		ABEDA124292BCB270033193B /* FSNMDictView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSNMDictView.swift; sourceTree = "<group>"; };
+		ABEDA125292BCB270033193B /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		ABEDA126292BCB270033193B /* FSNMDictElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSNMDictElementView.swift; sourceTree = "<group>"; };
+		ABEDA12C292BD1A80033193B /* RBTFQuestionsProductURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsProductURLTests.swift; sourceTree = "<group>"; };
+		ABEDA133292BD2FA0033193B /* OFFRobotoffAPIsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OFFRobotoffAPIsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABEDA13D292BDFDE0033193B /* RBTFQuestionsRandomURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsRandomURLTests.swift; sourceTree = "<group>"; };
+		ABEDA13F292BE17A0033193B /* RBTFQuestionsRandomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RBTFQuestionsRandomView.swift; path = OFFRobotoffAPIs/Demo/RBTFQuestionsRandomView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		AB431166292A7F0600FE21BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB431191292BBCEF00FE21BC /* Collections in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABEDA130292BD2FA0033193B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,7 +87,9 @@
 		AB431160292A7F0600FE21BC = {
 			isa = PBXGroup;
 			children = (
+				AB43118B292BB3FC00FE21BC /* README.md */,
 				AB43116B292A7F0600FE21BC /* OFFRobotoffAPIs */,
+				ABEDA134292BD2FA0033193B /* OFFRobotoffAPIsTests */,
 				AB43116A292A7F0600FE21BC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				AB431169292A7F0600FE21BC /* OFFRobotoffAPIs.app */,
+				ABEDA133292BD2FA0033193B /* OFFRobotoffAPIsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -52,7 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				AB43116C292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift */,
-				AB43116E292A7F0600FE21BC /* ContentView.swift */,
+				AB431187292A7F7000FE21BC /* Demo */,
+				AB431188292A7F9600FE21BC /* Robotoff */,
 				AB431170292A7F0800FE21BC /* Assets.xcassets */,
 				AB431172292A7F0800FE21BC /* Preview Content */,
 			);
@@ -65,6 +121,59 @@
 				AB431173292A7F0800FE21BC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AB431186292A7F4E00FE21BC /* Required */ = {
+			isa = PBXGroup;
+			children = (
+				AB43117A292A7F4400FE21BC /* AuthController.swift */,
+				AB43117F292A7F4500FE21BC /* RBTF.swift */,
+				AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */,
+				AB43117B292A7F4400FE21BC /* OFFAPI.swift */,
+				AB43117D292A7F4500FE21BC /* OFFBarcode.swift */,
+				AB43117C292A7F4500FE21BC /* OFFProductType.swift */,
+			);
+			path = Required;
+			sourceTree = "<group>";
+		};
+		AB431187292A7F7000FE21BC /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				AB43116E292A7F0600FE21BC /* RBTFView.swift */,
+				ABEDA13F292BE17A0033193B /* RBTFQuestionsRandomView.swift */,
+				AB43118D292BBC7700FE21BC /* RBTFQuestionsForProductView.swift */,
+				ABEDA12B292BCB2C0033193B /* Generic */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		AB431188292A7F9600FE21BC /* Robotoff */ = {
+			isa = PBXGroup;
+			children = (
+				AB431189292A7FBB00FE21BC /* RBTFQuestionsProduct.swift */,
+				AB431186292A7F4E00FE21BC /* Required */,
+			);
+			path = Robotoff;
+			sourceTree = "<group>";
+		};
+		ABEDA12B292BCB2C0033193B /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				ABEDA126292BCB270033193B /* FSNMDictElementView.swift */,
+				ABEDA124292BCB270033193B /* FSNMDictView.swift */,
+				ABEDA123292BCB270033193B /* FSNMInput.swift */,
+				ABEDA125292BCB270033193B /* ListView.swift */,
+			);
+			path = Generic;
+			sourceTree = "<group>";
+		};
+		ABEDA134292BD2FA0033193B /* OFFRobotoffAPIsTests */ = {
+			isa = PBXGroup;
+			children = (
+				ABEDA12C292BD1A80033193B /* RBTFQuestionsProductURLTests.swift */,
+				ABEDA13D292BDFDE0033193B /* RBTFQuestionsRandomURLTests.swift */,
+			);
+			path = OFFRobotoffAPIsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,9 +192,30 @@
 			dependencies = (
 			);
 			name = OFFRobotoffAPIs;
+			packageProductDependencies = (
+				AB431190292BBCEF00FE21BC /* Collections */,
+			);
 			productName = OFFRobotoffAPIs;
 			productReference = AB431169292A7F0600FE21BC /* OFFRobotoffAPIs.app */;
 			productType = "com.apple.product-type.application";
+		};
+		ABEDA132292BD2FA0033193B /* OFFRobotoffAPIsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABEDA139292BD2FA0033193B /* Build configuration list for PBXNativeTarget "OFFRobotoffAPIsTests" */;
+			buildPhases = (
+				ABEDA12F292BD2FA0033193B /* Sources */,
+				ABEDA130292BD2FA0033193B /* Frameworks */,
+				ABEDA131292BD2FA0033193B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABEDA138292BD2FA0033193B /* PBXTargetDependency */,
+			);
+			name = OFFRobotoffAPIsTests;
+			productName = OFFRobotoffAPIsTests;
+			productReference = ABEDA133292BD2FA0033193B /* OFFRobotoffAPIsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -100,6 +230,10 @@
 					AB431168292A7F0600FE21BC = {
 						CreatedOnToolsVersion = 14.1;
 					};
+					ABEDA132292BD2FA0033193B = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = AB431168292A7F0600FE21BC;
+					};
 				};
 			};
 			buildConfigurationList = AB431164292A7F0600FE21BC /* Build configuration list for PBXProject "OFFRobotoffAPIs" */;
@@ -111,11 +245,15 @@
 				Base,
 			);
 			mainGroup = AB431160292A7F0600FE21BC;
+			packageReferences = (
+				AB43118F292BBCEF00FE21BC /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = AB43116A292A7F0600FE21BC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				AB431168292A7F0600FE21BC /* OFFRobotoffAPIs */,
+				ABEDA132292BD2FA0033193B /* OFFRobotoffAPIsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -125,8 +263,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB43118C292BB3FC00FE21BC /* README.md in Resources */,
 				AB431174292A7F0800FE21BC /* Preview Assets.xcassets in Resources */,
 				AB431171292A7F0800FE21BC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABEDA131292BD2FA0033193B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,12 +283,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB43116F292A7F0600FE21BC /* ContentView.swift in Sources */,
+				AB431183292A7F4500FE21BC /* OFFBarcode.swift in Sources */,
+				AB431185292A7F4500FE21BC /* RBTF.swift in Sources */,
+				ABEDA127292BCB270033193B /* FSNMInput.swift in Sources */,
+				AB431181292A7F4500FE21BC /* OFFAPI.swift in Sources */,
+				AB43116F292A7F0600FE21BC /* RBTFView.swift in Sources */,
+				ABEDA12A292BCB270033193B /* FSNMDictElementView.swift in Sources */,
+				AB431184292A7F4500FE21BC /* HTTPLibrary.swift in Sources */,
+				AB431180292A7F4500FE21BC /* AuthController.swift in Sources */,
+				AB43118A292A7FBB00FE21BC /* RBTFQuestionsProduct.swift in Sources */,
+				ABEDA128292BCB270033193B /* FSNMDictView.swift in Sources */,
+				AB43118E292BBC7700FE21BC /* RBTFQuestionsForProductView.swift in Sources */,
+				AB431182292A7F4500FE21BC /* OFFProductType.swift in Sources */,
+				ABEDA141292BE25C0033193B /* RBTFQuestionsRandomView.swift in Sources */,
+				ABEDA129292BCB270033193B /* ListView.swift in Sources */,
 				AB43116D292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABEDA12F292BD2FA0033193B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABEDA13E292BDFDE0033193B /* RBTFQuestionsRandomURLTests.swift in Sources */,
+				ABEDA13C292BD3070033193B /* RBTFQuestionsProductURLTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ABEDA138292BD2FA0033193B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB431168292A7F0600FE21BC /* OFFRobotoffAPIs */;
+			targetProxy = ABEDA137292BD2FA0033193B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		AB431175292A7F0800FE21BC /* Debug */ = {
@@ -195,7 +371,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -249,7 +425,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -270,11 +446,12 @@
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,11 +476,12 @@
 				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -314,6 +492,42 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ABEDA13A292BD2FA0033193B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.OFFRobotoffAPIsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OFFRobotoffAPIs.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OFFRobotoffAPIs";
+			};
+			name = Debug;
+		};
+		ABEDA13B292BD2FA0033193B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.OFFRobotoffAPIsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OFFRobotoffAPIs.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OFFRobotoffAPIs";
 			};
 			name = Release;
 		};
@@ -338,7 +552,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		ABEDA139292BD2FA0033193B /* Build configuration list for PBXNativeTarget "OFFRobotoffAPIsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABEDA13A292BD2FA0033193B /* Debug */,
+				ABEDA13B292BD2FA0033193B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AB43118F292BBCEF00FE21BC /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AB431190292BBCEF00FE21BC /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AB43118F292BBCEF00FE21BC /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AB431161292A7F0600FE21BC /* Project object */;
 }
