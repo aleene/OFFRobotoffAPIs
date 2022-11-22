@@ -12,9 +12,14 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     
     @Published var questionsResponse: RBTF.QuestionsResponse?
     @Published var barcode: OFFBarcode = OFFBarcode(barcode: "")
+    @Published var count: String?
+    @Published var language: String?
     @Published var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
+    private var countInt : Int? {
+        count != nil ? Int(count!) : nil
+    }
     
     var questionsDictArray: [OrderedDictionary<String, String>] {
         guard let questions = questionsResponse?.questions else { return [] }
@@ -24,7 +29,7 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     // get the properties
     func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsProduct(with: barcode, count: nil, lang: nil) { (result) in
+        rbtfSession.RBTFQuestionsProduct(with: barcode, count: countInt, lang: language) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -42,6 +47,8 @@ struct RBTFQuestionsForProductView: View {
     @StateObject var model = RBTFQuestionsForProductViewModel()
     
     @State private var barcode: String = "3760091720115"
+    @State private var language: String = "en:"
+    @State private var count: String = "1"
     @State private var isFetching = false
     
     // Either show a barcode input field wth the possibility to start a fetch.
@@ -54,14 +61,15 @@ struct RBTFQuestionsForProductView: View {
                 if let products = model.questionsResponse {
                     
                     if products.status == "found" {
-                        ListView(text: "The questions for the product with barcode \(model.barcode.barcode)", dictArray: model.questionsDictArray)
+                        ListView(text: "The questions for the product with barcode \(model.barcode.barcode) with" + (model.count ?? "nil") + "and language" + (model.language ?? "en:"), dictArray: model.questionsDictArray)
                     } else {
-                        Text("No questions for \(model.barcode.barcode) available")
+                        let text = "No questions for questions of \(model.barcode.barcode) with" + (model.count ?? "nil") + "and language" + (model.language ?? "en:") + "available"
+                        Text(text)
                     }
                 } else if model.errorMessage != nil {
                     Text(model.errorMessage!)
                 } else {
-                    Text("Search in progress for questions of \(model.barcode.barcode)")
+                    Text("Search in progress for questions of \(model.barcode.barcode) with" + (model.count ?? "nil") + "and language" + (model.language ?? "en:"))
                 }
             }
             .navigationTitle("Products")
@@ -70,6 +78,8 @@ struct RBTFQuestionsForProductView: View {
             Text("This fetch retrieves the questions for a product.")
                 .padding()
             InputView(title: "Enter barcode", placeholder: barcode, text: $barcode)
+            InputView(title: "Enter language code", placeholder: language, text: $language)
+            InputView(title: "Enter count", placeholder: count, text: $count)
             Button(action: {
                 
                 model.barcode = OFFBarcode(barcode: barcode)

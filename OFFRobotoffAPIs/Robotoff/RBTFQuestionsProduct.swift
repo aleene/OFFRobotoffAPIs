@@ -85,7 +85,12 @@ extension RBTF {
 extension URLSession {
     
 /**
- Function which provides the question for a specific product.
+ Function which retrieves the possible questions for a specific product.
+ 
+- Parameters:
+    - offbarcode: the OFFBarcode for the product;
+    - count: the  maximum numer of questions to be retrived for this product. If not specified the value is **1**;
+    - lang: the language code for the question and possible answer. If not specified **en** is assumed (english);
 
 - returns:
  A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
