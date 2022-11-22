@@ -16,7 +16,7 @@ struct ListView: View {
     var body: some View {
         Text(text)
         List(dictArray.indices, id:\.self) { index in
-            FSNMDictView(dict: dictArray[index])
+            DictView(dict: dictArray[index])
         }
         .listStyle(.grouped)
     }

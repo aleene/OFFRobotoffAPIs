@@ -8,7 +8,7 @@
 import SwiftUI
 import Collections
 
-struct FSNMDictView: View {
+struct DictView: View {
 
     // These variables will only be set from outside
     // They are decoupled from datatypes
@@ -18,15 +18,15 @@ struct FSNMDictView: View {
     internal var body: some View {
         Section() {
             ForEach(dict.elements, id:\.key) {
-                FSNMDictElementView(dict: [$0.key:$0.value])
+                DictElementView(dict: [$0.key:$0.value])
             }
         }
     }
 }
 
-struct FSNMProductTagsListSectionView_Previews: PreviewProvider {
+struct DictView_Previews: PreviewProvider {
     
     static var previews: some View {
-        FSNMDictView(dict: ["test":"test"])
+        DictView(dict: ["test":"test"])
     }
 }

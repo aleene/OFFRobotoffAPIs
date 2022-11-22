@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FSNMInput: View {
+struct InputView: View {
     public var title: String
     public var placeholder: String
     @Binding var text: String
@@ -28,12 +28,12 @@ struct FSNMInput: View {
     }
 }
 
-struct FSNMBarcodeInput_Previews: PreviewProvider {
+struct InputView_Previews: PreviewProvider {
     
     static let text = "enter a field"
     
     static var previews: some View {
-        FSNMInput(title: "Field", placeholder: "a number", text: .constant(text))
+        InputView(title: "Field", placeholder: "a number", text: .constant(text))
             .previewLayout(.sizeThatFits)
     
     }

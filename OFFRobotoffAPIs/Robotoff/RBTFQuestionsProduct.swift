@@ -90,8 +90,9 @@ extension URLSession {
 - returns:
  A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 */
-    func RBTFQuestionsProduct(with barcode: OFFBarcode, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
-        fetch(request: HTTPRequest(api: .questions, barcode: barcode), responses: [200:RBTF.QuestionsResponse.self]) { (result) in
+    func RBTFQuestionsProduct(with barcode: OFFBarcode, count: Int?, lang: String?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+        let request = HTTPRequest(api: .questions, barcode: barcode, count: count, lang: lang)
+        fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)
             return
         }

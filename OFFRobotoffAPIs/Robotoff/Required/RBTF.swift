@@ -308,6 +308,23 @@ Init for all producttypes supported by OFF. This will setup the correct host and
         self.path = self.path + "/" + barcode.barcode.description
     }
 
+    init(api: RBTF.APIs, barcode: OFFBarcode, count: Int?, lang: String?) {
+        self.init(api: api)
+        self.path = self.path + "/" + barcode.barcode.description
+        if count != nil || lang != nil {
+            var queryItems: [URLQueryItem] = []
+            
+            if let validCount = count {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+            if let validLang = lang,
+               validLang.count == 3,
+               validLang.hasSuffix(":") {
+                queryItems.append(URLQueryItem(name: "lang", value: validLang ))
+            }
+        }
+    }
+
 }
 
 // The specific errors that can be produced by the server

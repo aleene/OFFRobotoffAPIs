@@ -24,7 +24,7 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     // get the properties
     func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsProduct(with: barcode) { (result) in
+        rbtfSession.RBTFQuestionsProduct(with: barcode, count: nil, lang: nil) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -69,7 +69,7 @@ struct RBTFQuestionsForProductView: View {
         } else {
             Text("This fetch retrieves the questions for a product.")
                 .padding()
-            FSNMInput(title: "Enter barcode", placeholder: barcode, text: $barcode)
+            InputView(title: "Enter barcode", placeholder: barcode, text: $barcode)
             Button(action: {
                 
                 model.barcode = OFFBarcode(barcode: barcode)

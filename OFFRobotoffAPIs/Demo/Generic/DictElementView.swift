@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FSNMDictElementView: View {
+struct DictElementView: View {
     public var dict: [String:String]
     
     var body: some View {
@@ -18,9 +18,9 @@ struct FSNMDictElementView: View {
     }
 }
 
-struct FSNMDictElementView_Previews: PreviewProvider {
+struct DictElementView_Previews: PreviewProvider {
     static var testDict = ["test":"value"]
     static var previews: some View {
-        FSNMDictElementView(dict: testDict)
+        DictElementView(dict: testDict)
     }
 }
