@@ -13,7 +13,7 @@ import Foundation
 extension RBTF {
 /// the datastructure retrieved for reponse 200 for the Questions Product API
     public struct QuestionsResponse: Codable {
-        var status: String?
+        private var status: String?
         var count: Int?
         var questions: [Question]?
         
@@ -27,36 +27,46 @@ extension RBTF {
             return nil
         }
         
+        var responseStatus: QuestionsResponseStatus {
+            QuestionsResponseStatus.value(for: status)
+        }
+
     }
     
     enum QuestionsResponseStatus: String, CaseIterable {
         case found = "found"
         case no_questions = "no_questions"
+        case unknown = "unknown"
+        
+        static func value(for string: String?) -> QuestionsResponseStatus {
+            guard let validString = string else { return .unknown }
+            for item in QuestionsResponseStatus.allCases {
+                if item.rawValue == validString {
+                    return item
+                }
+            }
+            return .unknown
+        }
+
     }
 
     public struct Question: Codable {
         var barcode: String?
-        var type: String?
+        private var type: String?
         var value: String?
         var question: String?
-        var insight_id: String? // needed to report back?
+        var insight_id: String?
+        private var insight_type: String?
         var value_tag: String?
         var source_image_url: String?
         
         
-        var questionType: RBTFQuestionType {
-            switch type {
-            case "brand": return .brand
-            case "category": return .category
-            case "expiration_date": return .expirationDate
-            case "ingredient_spellcheck": return .ingredientSpellcheck
-            case "label": return .label
-            case "nutrient": return .nutrient
-            case "packager_code": return .packagerCode
-            case "product_weight": return .quantity
-            case "store": return .store
-            default: return .unknown
-            }
+        var insightType: InsightType {
+            InsightType.value(for: insight_type)
+        }
+        
+        var questionType : QuestionType {
+            QuestionType.value(for: type)
         }
         
         static func ==(lhs: Question, rhs: Question) -> Bool {
@@ -67,17 +77,43 @@ extension RBTF {
 
     }
     
-    enum RBTFQuestionType {
-        case brand
-        case category
-        case expirationDate
-        case ingredientSpellcheck
-        case label
-        case nutrient
-        case packagerCode
-        case quantity
-        case store
-        case unknown
+    enum QuestionType: String, CaseIterable {
+        case add_binary = "add-binary"
+        case unknown = "unknown"
+        
+        static func value(for string: String?) -> QuestionType {
+            guard let validString = string else { return .unknown }
+            for item in QuestionType.allCases {
+                if item.rawValue == validString {
+                    return item
+                }
+            }
+            return .unknown
+        }
+    }
+    
+    enum InsightType: String, CaseIterable {
+        case brand = "brand"
+        case category = "category"
+        case expirationDate = "expirationDate"
+        case ingredientSpellcheck = "ingredientSpellcheck"
+        case label = "label"
+        case nutrient = "nutrient"
+        case packagerCode = "packagerCode"
+        case quantity = "quantity"
+        case store = "store"
+        case unknown = "unknown"
+        
+        static func value(for string: String?) -> InsightType {
+            guard let validString = string else { return .unknown }
+            for item in InsightType.allCases {
+                if item.rawValue == validString {
+                    return item
+                }
+            }
+            return .unknown
+        }
+
     }
 
 }

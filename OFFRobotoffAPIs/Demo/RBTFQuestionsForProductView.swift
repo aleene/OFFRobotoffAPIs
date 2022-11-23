@@ -60,16 +60,20 @@ struct RBTFQuestionsForProductView: View {
             VStack {
                 if let products = model.questionsResponse {
                     
-                    if products.status == "found" {
-                        ListView(text: "The questions for the product with barcode \(model.barcode.barcode) with" + (model.count ?? "nil") + "and language" + (model.language ?? "en:"), dictArray: model.questionsDictArray)
-                    } else {
-                        let text = "No questions for questions of \(model.barcode.barcode) with" + (model.count ?? "nil") + "and language" + (model.language ?? "en:") + "available"
+                    if products.statusResponse == .found {
+                        let text = "The questions for the product with barcode \(model.barcode.barcode) with " + (model.count ?? "nil") + " and language " + (model.language ?? "en:")
+                        ListView(text: text, dictArray: model.questionsDictArray)
+                    } else if products.statusResponse == .no_questions {
+                        let text = "No questions for questions of \(model.barcode.barcode) with " + (model.count ?? "nil") + " and language " + (model.language ?? "en:") + " available"
                         Text(text)
+                    } else {
+                        Text("We have an issue as this is a non-existing response")
                     }
                 } else if model.errorMessage != nil {
                     Text(model.errorMessage!)
                 } else {
-                    Text("Search in progress for questions of \(model.barcode.barcode) with" + (model.count ?? "nil") + "and language" + (model.language ?? "en:"))
+                    let text = "Search in progress for questions of \(model.barcode.barcode) with " + (model.count ?? "nil") + " and language " + (model.language ?? "en:")
+                    Text(text)
                 }
             }
             .navigationTitle("Products")
@@ -110,10 +114,11 @@ fileprivate extension RBTF.Question {
     var dict: OrderedDictionary<String, String> {
         var temp: OrderedDictionary<String, String> = [:]
         temp["barcode"] = barcode ?? "nil"
-        temp["type"] = type ?? "nil"
+        temp["type"] = questionType.rawValue
         temp["value"] = value ?? "nil"
         temp["question"] = question ?? "nil"
         temp["insight_id"] = insight_id ?? "nil"
+        temp["insight_type"] = insightType.rawValue
         temp["value_tag"] = value_tag ?? "nil"
         temp["source_image_url"] = source_image_url ?? "nil"
         return temp

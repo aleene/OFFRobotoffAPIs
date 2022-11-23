@@ -58,7 +58,7 @@ If the API-call results in one or more questions, the following example json. In
 ```
 The **questions**-field contains an array of questions, with the following fields for each question:
 - barcode: the barcode of the product (String with only numerical fields);
-- type: ?
+- type: the question type, add-binary is a true/false/skip question;
 - value: the possible answer for the question (a user can confirm, abstain or deny) in the language specified in the API-call;
 - question: The question that can be presented to the user in the language specified in the API-call;
 - insight_id: the id for this question, which must be used as reference for further API-calls;

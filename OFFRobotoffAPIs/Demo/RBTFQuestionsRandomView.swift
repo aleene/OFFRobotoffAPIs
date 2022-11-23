@@ -94,10 +94,11 @@ fileprivate extension RBTF.Question {
     var dict: OrderedDictionary<String, String> {
         var temp: OrderedDictionary<String, String> = [:]
         temp["barcode"] = barcode ?? "nil"
-        temp["type"] = type ?? "nil"
+        temp["type"] = questionType.rawValue
         temp["value"] = value ?? "nil"
         temp["question"] = question ?? "nil"
         temp["insight_id"] = insight_id ?? "nil"
+        temp["insight_type"] = insightType.rawValue
         temp["value_tag"] = value_tag ?? "nil"
         temp["source_image_url"] = source_image_url ?? "nil"
         return temp
