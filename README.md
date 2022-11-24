@@ -76,6 +76,25 @@ When the API-call does not result in any questions, the following json is return
   "status": "no_questions"
 }
 ```
+### Insight types
+The insight type, i.e. the subject the question is about, can have the following values. These values are converted to the enum InsightType
+- **brand**: extracts the product's brand from the image OCR.
+- **category**: predicts the category of a product.
+- **expiration_date**: extracts the expiration date from the image OCR.
+- **image_orientation**: predicts the image orientation of the given image.
+- **ingredient_spellcheck**: corrects the spelling in the given ingredients list.
+- **image_flag**: flags inappropriate images based on OCR text.
+- **image_lang**: detects which languages are mentioned on the product from the image OCR.
+- **label**: predicts a label that appears on the product packaging photo.
+- **location**: the location of where the product comes from from the image OCR.
+- **nutrient**: the list of nutrients mentioned in a product, alongside their numeric value from the image OCR.
+- **nutrient_mention**: mentions of nutrients from the image OCR (without actual values).
+- **nutrition_image**: tags images that have nutrition information based on the 'nutrient_mention' insight and the 'image_orientation' insight.
+- **nutrition_table_structure**: detects the nutritional table structure from the image.
+- **packaging**: detects the type of packaging based on the image OCR.
+- **product_weight**: extracts the product weight from the image OCR.
+- **store**: the store where the given product is sold from the image OCR.
+- **trace**: detects traces that are present in the product from the image OCR.
 
 ## Errors
 

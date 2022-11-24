@@ -51,7 +51,7 @@ struct RBTFQuestionsRandomView: View {
             VStack {
                 if let products = model.questionsResponse {
                     
-                    if products.statusResponse == .found {
+                    if products.responseStatus  == .found {
                         ListView(text: "Random questions", dictArray: model.questionsDictArray)
                     } else {
                         Text("No random questions available")

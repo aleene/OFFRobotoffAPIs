@@ -324,6 +324,55 @@ Init for all producttypes supported by OFF. This will setup the correct host and
             }
         }
     }
+    
+    init(api: RBTF.APIs, languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?) {
+        self.init(api: api)
+        // Are any query parameters required?
+        if count != nil ||
+            languageCode != nil ||
+            count != nil ||
+            !insightTypes.isEmpty ||
+            country != nil ||
+            !brands.isEmpty ||
+            valueTag != nil ||
+            page != nil {
+            var queryItems: [URLQueryItem] = []
+            
+            if let validLang = languageCode,
+               validLang.count == 3,
+               validLang.hasSuffix(":") {
+                queryItems.append(URLQueryItem(name: "lang", value: validLang ))
+            }
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+            
+            if !insightTypes.isEmpty {
+                let insights = insightTypes.map({ $0.rawValue }).joined(separator: ",")
+                queryItems.append(URLQueryItem(name: "insight_types", value: "\(insights)" ))
+            }
+            
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+            
+            if !brands.isEmpty {
+                let brandsString = brands.joined(separator: ",")
+                queryItems.append(URLQueryItem(name: "brands", value: "\(brandsString)" ))
+            }
+            
+            if let validValueTag = valueTag {
+                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
+            }
+            
+            if let validPage = page,
+               validPage >= 1 {
+                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
+            }
+        }
+    }
 
 }
 
