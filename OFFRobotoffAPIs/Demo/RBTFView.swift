@@ -19,6 +19,9 @@ struct RBTFView: View {
                 NavigationLink(destination: RBTFQuestionsRandomView() ) {
                     Text("Random Questions API")
                 }
+            NavigationLink(destination: RBTFQuestionsPopularView() ) {
+                Text("Popular Questions API")
+            }
         }
         .navigationTitle("Robotoff API's")
     }

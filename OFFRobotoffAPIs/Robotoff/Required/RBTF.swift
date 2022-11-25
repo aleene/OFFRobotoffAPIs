@@ -14,11 +14,13 @@ struct RBTF {
     enum APIs {
         case questions
         case random
+        case popular
         
         var path: String {
             switch self {
             case .questions: return "/questions"
             case .random: return "/questions/random"
+            case .popular: return "/questions/popular"
             }
         }
     }
@@ -49,183 +51,7 @@ struct RBTF {
 }
 
 extension URLSession {
-   
-/// An alternative name URLSession to make clear all usage must be related to FSNM
-    typealias FSNMSession = URLSession
 
-/**
-Generic function for multiple FSNM API's. Most of these API's can return two succesfull response codes. It is assumed that all successful calls that return the data have response code 200 and the successful calls that return an error have response code 422.
-*/
-    func fetchRBTFArray<T:Decodable> (request: HTTPRequest, response: T.Type, completion: @escaping (_ result: ( Result<[T], RBTFError> ) ) -> Void) {
-        
-        load(request: request) { result in
-            switch result {
-            case .success(let response):
-                //print("fetchArray: response: \(response.status.rawValue)")
-
-                if response.status.rawValue == 200 {
-                    OFFAPI.decodeArray(data: response.body, type: T.self) { result in
-                        switch result {
-                        case .success(let array):
-                            completion( .success(array) )
-                            return
-                        case .failure:
-                            if let data = response.body {
-                                if let validString = String(data: data, encoding: .utf8) {
-                                    if !validString.isEmpty {
-                                        if validString == "null" {
-                                            completion( (.failure(RBTFError.null) ))
-                                        } else {
-                                            completion( (.failure(RBTFError.dataType)) )
-                                        }
-                                    } else {
-                                        completion( (.failure(RBTFError.dataType) ))
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else if response.status.rawValue == 422 {
-                    OFFAPI.decode(data: response.body, type: RBTF.ValidationError.self) { result in
-                        switch result {
-                        case .success(let validationError):
-                            if let validValidationError = validationError as? T {
-                                completion( .failure(RBTFError.validationError(validValidationError)) )
-                                return
-                            } else {
-                                completion( .failure(RBTFError.dataType) )
-                                return
-                            }
-                        case .failure:
-                            if let data = response.body {
-                                if let validString = String(data: data, encoding: .utf8) {
-                                    if !validString.isEmpty {
-                                        if validString == "null" {
-                                            completion( .failure(RBTFError.null) )
-                                        } else {
-                                            completion( .failure(RBTFError.dataType) )
-                                        }
-                                    } else {
-                                        completion( (.failure(RBTFError.dataType) ))
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else if response.status.rawValue == 404 {
-                    // the expected one dit not work, so try another
-                    OFFAPI.decode(data: response.body, type: RBTF.Detail.self) { result in
-                        switch result {
-                        case .success(let detail):
-                            completion( .failure(RBTFError.detail(detail)) )
-                            return
-                        default:
-                            completion( .failure(RBTFError.dataType) )
-                            return
-                        }
-                    }
-                } else {
-                    //print(response.status.rawValue)
-
-                    if let data = response.body {
-                        if let str = String(data: data, encoding: .utf8) {
-                            completion( .failure(RBTFError.analyse(str)) )
-                            return
-                        } else {
-                            completion( .failure(RBTFError.dataNil) )
-                            return
-                        }
-                    }
-                }
-            case .failure(_):
-                // the original response failed
-                print (result.response.debugDescription)
-                completion( .failure(RBTFError.connectionFailure) )
-                return
-            }
-        }
-
-    }
-
-/**
-Generic function for multiple FSNM API's. Most of these API's can return two succesfull response codes. It is assumed that all successful calls that return the data have response code 200 with a string as response and the successful calls that return an error have response code 422.
-*/
-    func fetchRBTFString (request: HTTPRequest, completion: @escaping (_ result: (Result<String, RBTFError>) ) -> Void) {
-                    
-        load(request: request) { result in
-            switch result {
-            case .success(let response):
-                if response.status.rawValue == 200 {
-                    //print("fetchString: response: \(response.status.rawValue)")
-                    if let data = response.body {
-                        let str = String(data: data, encoding: .utf8)
-                        // should check what T1 is
-                        if let validString = str {
-                            if !validString.isEmpty {
-                                if validString == "null" {
-                                    completion( (.failure(RBTFError.null) ))
-                                } else {
-                                    completion( (Result.success(validString)) )
-                                }
-                            } else {
-                                completion( (.failure(RBTFError.dataType) ))
-                            }
-                        }
-                    }
-                } else if response.status.rawValue == 422 {
-                    //print("fetchString: response: \(response.status.rawValue)")
-                    OFFAPI.decode(data: response.body, type: RBTF.ValidationError.self) { result in
-                        switch result {
-                        case .success(let validationError):
-                            completion( (.failure(RBTFError.validationError(validationError))) )
-                            return
-                        case .failure:
-                            // the expected one did not work, so try another
-                            OFFAPI.decode(data: response.body, type: RBTF.Detail.self) { result in
-                                switch result {
-                                case .success(let detail):
-                                    completion( .failure(RBTFError.detail(detail)) )
-                                    return
-                                case .failure:
-                                    if let data = response.body {
-                                        if let validString = String(data: data, encoding: .utf8) {
-                                            if !validString.isEmpty {
-                                                if validString == "null" {
-                                                    completion( (.failure(RBTFError.null) ))
-                                                } else {
-                                                    completion( (Result.success(validString)) )
-                                                }
-                                            } else {
-                                                completion( (.failure(RBTFError.dataType) ))
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if let data = response.body {
-                        //print("fetchString: response: \(response.status.rawValue)")
-                        if let str = String(data: data, encoding: .utf8) {
-                            completion( (.failure(RBTFError.analyse(str))) )
-                            return
-                        } else {
-                            completion( (.failure(RBTFError.dataNil)) )
-                            return
-                        }
-                    }
-                }
-            case .failure(_):
-                // the original response failed
-                print (result.response.debugDescription)
-                completion( (.failure(RBTFError.connectionFailure)) )
-                return
-            }
-        }
-
-    }
-    
 /// Used for responses
     public func fetch<T>(request: HTTPRequest, responses: [Int : T.Type], completion: @escaping (Result<T, RBTFError>) -> Void) where T : Decodable {
         
