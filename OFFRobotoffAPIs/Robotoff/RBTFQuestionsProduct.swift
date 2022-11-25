@@ -203,14 +203,16 @@ Function to retrieve a random product wth a question with a list of query parame
     - country: filter by country tag
     - brands: list, filter by brands
     - valueTag: filter by value tag, i.e the value that is going to be sent to Product Opener, example: value\_tag=en:organic
-
     - page: page index to return (starting at 1), default=1
-- returns:
+
+ - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
+ 
+Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
 */
     func RBTFQuestionsRandom(languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
         let request = HTTPRequest(api: .random, languageCode: languageCode, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
-        fetch(request: HTTPRequest(api: .random), responses: [200:RBTF.QuestionsResponse.self]) { (result) in
+        fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)
             return
         }

@@ -46,11 +46,33 @@ struct RBTFQuestionsForProductView: View {
     
     @StateObject var model = RBTFQuestionsForProductViewModel()
     
-    @State private var barcode: String = "3760091720115"
-    @State private var language: String = "en:"
-    @State private var count: String = "1"
+    @State private var barcode: String = ""
+    @State private var language: String = ""
+    @State private var count: String = ""
     @State private var isFetching = false
     
+    private var string1: String {
+        var text = "The questions for the product with barcode \(model.barcode.barcode) with "
+        text += (model.count ?? "nil")
+        text += " and language " + (model.language ?? "en:")
+        return text
+    }
+    
+    private var string2: String {
+        var text = "No questions for product \(model.barcode.barcode) with " + (model.count ?? "nil")
+        text += " and language "
+        text += (model.language ?? "en:") + " available"
+        return text
+    }
+    
+    private var string3: String {
+        var text = "Search in progress for questions of \(model.barcode.barcode) with "
+        text += (model.count ?? "nil")
+        text += " and language "
+        text += (model.language ?? "en:")
+        return text
+    }
+
     // Either show a barcode input field wth the possibility to start a fetch.
     // If the fetch is doen show the results
     
@@ -59,33 +81,29 @@ struct RBTFQuestionsForProductView: View {
         if isFetching {
             VStack {
                 if let products = model.questionsResponse {
-                    
-                    if products.statusResponse == .found {
-                        let text = "The questions for the product with barcode \(model.barcode.barcode) with " + (model.count ?? "nil") + " and language " + (model.language ?? "en:")
-                        ListView(text: text, dictArray: model.questionsDictArray)
-                    } else if products.statusResponse == .no_questions {
-                        let text = "No questions for questions of \(model.barcode.barcode) with " + (model.count ?? "nil") + " and language " + (model.language ?? "en:") + " available"
-                        Text(text)
-                    } else {
+                    switch products.responseStatus {
+                    case .found:
+                        ListView(text: string1, dictArray: model.questionsDictArray)
+                    case .no_questions:
+                        Text(string2)
+                    case .unknown:
                         Text("We have an issue as this is a non-existing response")
                     }
                 } else if model.errorMessage != nil {
                     Text(model.errorMessage!)
                 } else {
-                    let text = "Search in progress for questions of \(model.barcode.barcode) with " + (model.count ?? "nil") + " and language " + (model.language ?? "en:")
-                    Text(text)
+                    Text(string3)
                 }
             }
-            .navigationTitle("Products")
+            .navigationTitle("Questions")
 
         } else {
             Text("This fetch retrieves the questions for a product.")
                 .padding()
-            InputView(title: "Enter barcode", placeholder: barcode, text: $barcode)
-            InputView(title: "Enter language code", placeholder: language, text: $language)
-            InputView(title: "Enter count", placeholder: count, text: $count)
+            InputView(title: "Enter barcode", placeholder: "4056489098683", text: $barcode)
+            InputView(title: "Enter language code", placeholder: "en", text: $language)
+            InputView(title: "Enter count", placeholder: "25", text: $count)
             Button(action: {
-                
                 model.barcode = OFFBarcode(barcode: barcode)
                 model.update()
                 isFetching = true
@@ -96,7 +114,7 @@ struct RBTFQuestionsForProductView: View {
             .navigationTitle("Product Questions")
             .onAppear {
                 isFetching = false
-            }
+        }
         }
     }
 }
@@ -124,3 +142,4 @@ fileprivate extension RBTF.Question {
         return temp
     }
 }
+

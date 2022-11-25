@@ -11,7 +11,15 @@ import Collections
 class RBTFQuestionsRandomViewModel: ObservableObject {
 
     @Published var questionsResponse: RBTF.QuestionsResponse?
-    @Published var barcode: OFFBarcode = OFFBarcode(barcode: "")
+    
+    @Published var language: String?
+    @Published var count: UInt?
+    @Published var country: String?
+    @Published var brands: String?
+    @Published var valueTag: String?
+    @Published var page: UInt?
+    @Published var insightTypes: String?
+
     @Published var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
@@ -20,11 +28,28 @@ class RBTFQuestionsRandomViewModel: ObservableObject {
         guard let questions = questionsResponse?.questions else { return [] }
         return questions.map({ $0.dict })
     }
+    
+    var brandsInput: [String] {
+        brands != nil ? [brands!] : []
+    }
 
+    var insightTypesInput: [RBTF.InsightType] {
+        if insightTypes != nil {
+            var input: [RBTF.InsightType] = []
+            let strings = insightTypes!.split(separator: ",")
+            for element in strings {
+                input.append(RBTF.InsightType.value(for: String(element)))
+            }
+            return input
+        } else {
+            return []
+        }
+    }
+    
     // get the properties
     func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsRandom() { (result) in
+        rbtfSession.RBTFQuestionsRandom(languageCode: language, count: count, insightTypes: insightTypesInput, country: country, brands: brandsInput, valueTag: valueTag, page: page){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -40,6 +65,14 @@ class RBTFQuestionsRandomViewModel: ObservableObject {
 struct RBTFQuestionsRandomView: View {
     @StateObject var model = RBTFQuestionsRandomViewModel()
     
+    @State private var language: String = ""
+    @State private var count: String = ""
+    @State private var country: String = ""
+    @State private var brands: String = ""
+    @State private var valueTag: String = ""
+    @State private var insightTypes: String = ""
+    @State private var page: String = ""
+
     @State private var isFetching = false
     
     // Either show a barcode input field wth the possibility to start a fetch.
@@ -67,6 +100,13 @@ struct RBTFQuestionsRandomView: View {
         } else {
             Text("This fetch retrieves random questions.")
                 .padding()
+            InputView(title: "Enter language code", placeholder: "en", text: $language)
+            InputView(title: "Enter count", placeholder: "25", text: $count)
+            InputView(title: "Enter country", placeholder: "en:france", text: $country)
+            InputView(title: "Enter brands", placeholder: "brand1, brand2, all", text: $brands)
+            InputView(title: "Enter value tag", placeholder: "some value", text: $valueTag)
+            InputView(title: "Enter insight types", placeholder: "all", text: $insightTypes)
+            InputView(title: "Enter page", placeholder: "1", text: $page)
             Button( action: {
                 model.update()
                 isFetching = true

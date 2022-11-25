@@ -13,16 +13,22 @@ struct InputView: View {
     @Binding var text: String
     
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             Text(title)
                 .font(.footnote)
                 .bold()
-            TextField(placeholder, text: $text)
-                .padding(.horizontal, 27.0)
-                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                .autocapitalization(.none)
-                .keyboardType(.default)
-                .disableAutocorrection(true)
+            ZStack(alignment: .leading) {
+                if text.isEmpty {
+                    Text(placeholder)
+                        .foregroundColor(.gray)
+                }
+                TextField("", text: $text)
+                    .padding(.horizontal, 27.0)
+                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                    .autocapitalization(.none)
+                    .keyboardType(.default)
+                    .disableAutocorrection(true)
+            }
         }
         .padding(.bottom)
     }
