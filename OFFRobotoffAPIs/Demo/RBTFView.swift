@@ -13,14 +13,11 @@ struct RBTFView: View {
     
     var body: some View {
         VStack {
-                NavigationLink(destination: RBTFQuestionsForProductView() ) {
-                    Text("Questions for Product API")
-                }
-                NavigationLink(destination: RBTFQuestionsRandomView() ) {
-                    Text("Random Questions API")
-                }
-            NavigationLink(destination: RBTFQuestionsPopularView() ) {
-                Text("Popular Questions API")
+            NavigationLink(destination: RBTFQuestionsView() ) {
+                Text("Questions API's")
+            }
+            NavigationLink(destination: RBTFInsightsView() ) {
+                Text("Insights API's")
             }
         }
         .navigationTitle("Robotoff API's")

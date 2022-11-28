@@ -21,13 +21,13 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
         count != nil ? Int(count!) : nil
     }
     
-    var questionsDictArray: [OrderedDictionary<String, String>] {
+    fileprivate var questionsDictArray: [OrderedDictionary<String, String>] {
         guard let questions = questionsResponse?.questions else { return [] }
         return questions.map({ $0.dict })
     }
     
     // get the properties
-    func update() {
+    fileprivate func update() {
         // get the remote data
         rbtfSession.RBTFQuestionsProduct(with: barcode, count: countInt, lang: language) { (result) in
             DispatchQueue.main.async {
@@ -125,21 +125,3 @@ struct RBTFQuestionsForProductView_Previews: PreviewProvider {
         RBTFQuestionsForProductView()
     }
 }
-
-fileprivate extension RBTF.Question {
-        
-    // We like to keep the presentation order of the elements in RBTF.Question as it maps to the Swagger documentation
-    var dict: OrderedDictionary<String, String> {
-        var temp: OrderedDictionary<String, String> = [:]
-        temp["barcode"] = barcode ?? "nil"
-        temp["type"] = questionType.rawValue
-        temp["value"] = value ?? "nil"
-        temp["question"] = question ?? "nil"
-        temp["insight_id"] = insight_id ?? "nil"
-        temp["insight_type"] = insightType.rawValue
-        temp["value_tag"] = value_tag ?? "nil"
-        temp["source_image_url"] = source_image_url ?? "nil"
-        return temp
-    }
-}
-

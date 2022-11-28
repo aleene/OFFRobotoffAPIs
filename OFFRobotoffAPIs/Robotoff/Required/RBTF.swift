@@ -13,17 +13,75 @@ struct RBTF {
  */
     enum APIs {
         case questions
-        case random
-        case popular
+        case questionsRandom
+        case questionsPopular
+        case questionsUnanswered
+        case insightsRandom
         
         var path: String {
             switch self {
             case .questions: return "/questions"
-            case .random: return "/questions/random"
-            case .popular: return "/questions/popular"
+            case .questionsRandom: return "/questions/random"
+            case .questionsPopular: return "/questions/popular"
+            case .questionsUnanswered: return "/questions/unanswered"
+            case .insightsRandom: return "/insights/random"
             }
         }
     }
+    
+    /**
+    The insight type, i.e. the subject the question is about.
+      - case **brand**: extracts the product's brand from the image OCR.
+      - case **category**: predicts the category of a product.
+      - case **expirationDate**: extracts the expiration date from the image OCR.
+      - case **imageOrientation**: predicts the image orientation of the given image.
+      - case **ingredientSpellcheck**: corrects the spelling in the given ingredients list.
+      - case **imageFlag**: flags inappropriate images based on OCR text.
+      - case **imageLang**: detects which languages are mentioned on the product from the image OCR.
+      - case **label**: predicts a label that appears on the product packaging photo.
+      - case **location**: the location of where the product comes from from the image OCR.
+      - case **nutrient**: the list of nutrients mentioned in a product, alongside their numeric value from the image OCR.
+      - case **nutrientMention**: mentions of nutrients from the image OCR (without actual values).
+      - case **nutritionImage**: tags images that have nutrition information based on the 'nutrient_mention' insight and the 'image_orientation' insight.
+      - case **nutritionTableStructure**: detects the nutritional table structure from the image.
+      - case **packaging**: detects the type of packaging based on the image OCR.
+      - case **productWeight**: extracts the product weight from the image OCR.
+      - case **store**: the store where the given product is sold from the image OCR.
+      - case **trace**: detects traces that are present in the product from the image OCR.
+    - case **unknown** if something unforeseen happened;
+    */
+        enum InsightType: String, CaseIterable {
+            case brand = "brand"
+            case category = "category"
+            case expirationDate = "expiration_date"
+            case imageFlag = "image_flag"
+            case imageLang = "image_lang"
+            case imageOrientation = "image_orientation"
+            case ingredientSpellcheck = "ingredient_spellcheck"
+            case label = "label"
+            case location = "location"
+            case nutrient = "nutrient"
+            case nutrientMention = "nutrient_mention"
+            case nutritionImage = "nutrition_image"
+            case nutritionTableStructure = "nutrition_table_structure"
+            case packaging = "packaging"
+            case productWeight = "product_weight"
+            case store = "store"
+            case trace = "trace"
+            case unknown = "unknown"
+            
+            /// Function that converts a string to a InsightType case. These strings are used in the json responses.
+            static func value(for string: String?) -> InsightType {
+                guard let validString = string else { return .unknown }
+                for item in InsightType.allCases {
+                    if item.rawValue == validString {
+                        return item
+                    }
+                }
+                return .unknown
+            }
+
+        }
 
 /**
     Some API's (ProductStats) can return a validation error with response code 401.
@@ -64,18 +122,6 @@ extension URLSession {
                         completion(result)
                         return
                     }
-              //  } else if response.status.rawValue == 404 {
-                    // the expected one did not work, so try another
-               //     OFFAPI.decode(data: response.body, type: RBTF.Detail.self) { result in
-               //         switch result {
-                //        case .success(let detail):
-                //            completion( .failure(RBTFError.detail(detail)) )
-                //            return
-                  //      default:
-                  //          completion( .failure(RBTFError.dataType) )
-                  //          return
-                   //     }
-                   // }
                 } else {
                     if let data = response.body {
                         print("failure: ", response.status.rawValue)
@@ -151,12 +197,41 @@ Init for all producttypes supported by OFF. This will setup the correct host and
         }
     }
     
+    init(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?) {
+        self.init(api: .questionsUnanswered)
+        // Are any query parameters required?
+        if count != nil ||
+            count != nil ||
+            insightType != nil ||
+            country != nil ||
+            page != nil {
+            var queryItems: [URLQueryItem] = []
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+            
+            if let validInsightType = insightType {
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+            }
+
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+                        
+            if let validPage = page,
+               validPage >= 1 {
+                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
+            }
+        }
+    }
+
     init(api: RBTF.APIs, languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?) {
         self.init(api: api)
         // Are any query parameters required?
         if count != nil ||
             languageCode != nil ||
-            count != nil ||
             !insightTypes.isEmpty ||
             country != nil ||
             !brands.isEmpty ||
@@ -196,6 +271,36 @@ Init for all producttypes supported by OFF. This will setup the correct host and
             if let validPage = page,
                validPage >= 1 {
                 queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
+            }
+        }
+    }
+    
+    /// for insight/random
+    init(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
+        self.init(api: .insightsRandom)
+        // Are any query parameters required?
+        if  insightType != nil ||
+            country != nil ||
+            valueTag != nil ||
+            count != nil {
+            
+            var queryItems: [URLQueryItem] = []
+            
+            if let validInsightType = insightType {
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+            }
+
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+            
+            if let validValueTag = valueTag {
+                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
+            }
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
             }
         }
     }

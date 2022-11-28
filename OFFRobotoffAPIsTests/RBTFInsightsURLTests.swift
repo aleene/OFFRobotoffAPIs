@@ -8,11 +8,11 @@
 import XCTest
 @testable import OFFRobotoffAPIs
 
-final class RBTFQuestionsRandomURLTest: XCTestCase {
+final class RBTFInsightsURLTest: XCTestCase {
 
     func testQuestionsRandom() throws {
-        let result = "https://robotoff.openfoodfacts.org/api/v1/questions/random"
-        let url = HTTPRequest(api: .random).url!
+        let result = "https://robotoff.openfoodfacts.org/api/v1/insights/random"
+        let url = HTTPRequest(api: .insightsRandom).url!
         XCTAssertEqual(url.description, result)
     }
 

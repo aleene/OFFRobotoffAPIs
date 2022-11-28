@@ -1,14 +1,14 @@
 //
-//  RBTFQuestionsPopularView.swift
-//  OFFRobotoffAPIs
+//  RBTFQuestionsRandomView.swift
+//  OFFRobotoffAPIsTests
 //
-//  Created by Arnaud Leene on 25/11/2022.
+//  Created by Arnaud Leene on 21/11/2022.
 //
 
 import SwiftUI
 import Collections
 
-class RBTFQuestionsPopularViewModel: ObservableObject {
+class RBTFQuestionsRandomViewModel: ObservableObject {
 
     @Published var questionsResponse: RBTF.QuestionsResponse?
     
@@ -24,16 +24,16 @@ class RBTFQuestionsPopularViewModel: ObservableObject {
 
     private var rbtfSession = URLSession.shared
 
-    var questionsDictArray: [OrderedDictionary<String, String>] {
+    fileprivate var questionsDictArray: [OrderedDictionary<String, String>] {
         guard let questions = questionsResponse?.questions else { return [] }
         return questions.map({ $0.dict })
     }
     
-    var brandsInput: [String] {
+    fileprivate var brandsInput: [String] {
         brands != nil ? [brands!] : []
     }
 
-    var insightTypesInput: [RBTF.InsightType] {
+    fileprivate var insightTypesInput: [RBTF.InsightType] {
         if insightTypes != nil {
             var input: [RBTF.InsightType] = []
             let strings = insightTypes!.split(separator: ",")
@@ -47,9 +47,9 @@ class RBTFQuestionsPopularViewModel: ObservableObject {
     }
     
     // get the properties
-    func update() {
+    fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsPopular(languageCode: language, count: count, insightTypes: insightTypesInput, country: country, brands: brandsInput, valueTag: valueTag, page: page){ (result) in
+        rbtfSession.RBTFQuestionsRandom(languageCode: language, count: count, insightTypes: insightTypesInput, country: country, brands: brandsInput, valueTag: valueTag, page: page){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -62,8 +62,8 @@ class RBTFQuestionsPopularViewModel: ObservableObject {
     }
 }
 
-struct RBTFQuestionsPopularView: View {
-    @StateObject var model = RBTFQuestionsPopularViewModel()
+struct RBTFQuestionsRandomView: View {
+    @StateObject var model = RBTFQuestionsRandomViewModel()
     
     @State private var language: String = ""
     @State private var count: String = ""
@@ -85,20 +85,20 @@ struct RBTFQuestionsPopularView: View {
                 if let products = model.questionsResponse {
                     
                     if products.responseStatus  == .found {
-                        ListView(text: "Popular questions", dictArray: model.questionsDictArray)
+                        ListView(text: "Random questions", dictArray: model.questionsDictArray)
                     } else {
-                        Text("No popular questions available")
+                        Text("No random questions available")
                     }
                 } else if model.errorMessage != nil {
                     Text(model.errorMessage!)
                 } else {
-                    Text("Search in progress for popular questions")
+                    Text("Search in progress for random questions")
                 }
             }
             .navigationTitle("Questions")
 
         } else {
-            Text("This fetch retrieves popular questions.")
+            Text("This fetch retrieves random questions.")
                 .padding()
             InputView(title: "Enter language code", placeholder: "en", text: $language)
             InputView(title: "Enter count", placeholder: "25", text: $count)
@@ -122,25 +122,8 @@ struct RBTFQuestionsPopularView: View {
     }
 }
 
-struct RBTFQuestionsPopularView_Previews: PreviewProvider {
+struct RBTFQuestionsRandomView_Previews: PreviewProvider {
     static var previews: some View {
-        RBTFQuestionsPopularView()
-    }
-}
-
-fileprivate extension RBTF.Question {
-        
-    // We like to keep the presentation order of the elements in RBTF.Question as it maps to the Swagger documentation
-    var dict: OrderedDictionary<String, String> {
-        var temp: OrderedDictionary<String, String> = [:]
-        temp["barcode"] = barcode ?? "nil"
-        temp["type"] = questionType.rawValue
-        temp["value"] = value ?? "nil"
-        temp["question"] = question ?? "nil"
-        temp["insight_id"] = insight_id ?? "nil"
-        temp["insight_type"] = insightType.rawValue
-        temp["value_tag"] = value_tag ?? "nil"
-        temp["source_image_url"] = source_image_url ?? "nil"
-        return temp
+        RBTFQuestionsRandomView()
     }
 }
