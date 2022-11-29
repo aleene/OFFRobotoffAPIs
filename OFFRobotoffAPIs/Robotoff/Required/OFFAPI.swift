@@ -26,18 +26,28 @@ public class OFFAPI {
                 return
             }
         }  catch let DecodingError.dataCorrupted(context) {
-            print(context)
+            print("decode " + context.debugDescription)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
+            return
+
         } catch let DecodingError.keyNotFound(key, context) {
             print("Key '\(key)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
+
         } catch let DecodingError.valueNotFound(value, context) {
             print("Value '\(value)' not found:", context.debugDescription)
             print("codingPath:", context.codingPath)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
+
         } catch let DecodingError.typeMismatch(type, context)  {
             print("Type '\(type)' mismatch:", context.debugDescription)
             print("codingPath:", context.codingPath)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
+
         } catch {
             print("error: ", error)
+            completion(Result.failure(RBTFError.parsing(error.localizedDescription)))
         }
         return
     }
@@ -53,9 +63,30 @@ public class OFFAPI {
                 completion(Result.failure(RBTFError.dataNil))
                 return
             }
+        }  catch let DecodingError.dataCorrupted(context) {
+            print("decode " + context.debugDescription)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
+            return
+
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
+
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
+
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(RBTFError.parsing(context.debugDescription)))
         } catch {
-            completion(Result.failure(RBTFError.parsing))
+            print("error: ", error)
+            completion(Result.failure(RBTFError.parsing(error.localizedDescription)))
         }
+        return
     }
 
 }

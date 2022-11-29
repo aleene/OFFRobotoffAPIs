@@ -310,7 +310,7 @@ Init for all producttypes supported by OFF. This will setup the correct host and
 // The specific errors that can be produced by the server
 public enum RBTFError: Error {
     case network
-    case parsing
+    case parsing(String)
     case request
     case connectionFailure
     case dataNil
@@ -340,8 +340,8 @@ public enum RBTFError: Error {
         switch self {
         case .network:
             return ""
-        case .parsing:
-            return ""
+        case .parsing(let detail):
+            return detail
         case .request:
             return ""
         case .authenticationRequired:
