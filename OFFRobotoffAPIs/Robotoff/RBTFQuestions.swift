@@ -20,13 +20,24 @@ The datastructure retrieved for a reponse 200 for the Questions Product API and 
  - questions: an array of *Question*
  - count: the number of questions
 */
-    public struct QuestionsResponse: Codable {
-        private var status: String?
+    public struct QuestionsResponse: Codable, Equatable {
+        var status: String?
         var questions: [Question]?
         var count: Int?
         
         var responseStatus: QuestionsResponseStatus {
             QuestionsResponseStatus.value(for: status)
+        }
+        
+        // Function to make QuestionsResponse Equatable
+        static func ==(lhs: QuestionsResponse, rhs: QuestionsResponse) -> Bool {
+            if rhs.status == lhs.status &&
+                rhs.count == lhs.count &&
+                rhs.questions == lhs.questions {
+                return true
+            }
+            return false
+            
         }
 
     }
@@ -57,11 +68,11 @@ The datastructure retrieved for a reponse 200 for the Questions Product API and 
 
     public struct Question: Codable, Equatable {
         var barcode: String?
-        private var type: String?
+        var type: String?
         var value: String?
         var question: String?
         var insight_id: String?
-        private var insight_type: String?
+        var insight_type: String?
         var value_tag: String?
         var source_image_url: String?
         

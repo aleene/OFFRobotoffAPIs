@@ -17,6 +17,7 @@ struct RBTF {
         case questionsPopular
         case questionsUnanswered
         case insightsRandom
+        case insightsBarcode
         
         var path: String {
             switch self {
@@ -25,6 +26,7 @@ struct RBTF {
             case .questionsPopular: return "/questions/popular"
             case .questionsUnanswered: return "/questions/unanswered"
             case .insightsRandom: return "/insights/random"
+            case .insightsBarcode: return "/insights" // the barcode must be addded
             }
         }
     }
@@ -176,6 +178,8 @@ Init for all producttypes supported by OFF. This will setup the correct host and
     }
     
     init(api: RBTF.APIs, barcode: OFFBarcode) {
+        guard api == .questions ||
+                api == .insightsBarcode else { fatalError("HTTPRequest:init(api:barcode:): unallowed RBTF.API specified") }
         self.init(api: api)
         self.path = self.path + "/" + barcode.barcode.description
     }
@@ -278,6 +282,36 @@ Init for all producttypes supported by OFF. This will setup the correct host and
     /// for insight/random
     init(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
         self.init(api: .insightsRandom)
+        // Are any query parameters required?
+        if  insightType != nil ||
+            country != nil ||
+            valueTag != nil ||
+            count != nil {
+            
+            var queryItems: [URLQueryItem] = []
+            
+            if let validInsightType = insightType {
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+            }
+
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+            
+            if let validValueTag = valueTag {
+                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
+            }
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+        }
+    }
+    
+    /// for insight/random
+    init(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
+        self.init(api: .insightsBarcode, barcode: barcode)
         // Are any query parameters required?
         if  insightType != nil ||
             country != nil ||

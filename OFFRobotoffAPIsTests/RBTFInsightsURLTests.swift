@@ -16,4 +16,11 @@ final class RBTFInsightsURLTest: XCTestCase {
         XCTAssertEqual(url.description, result)
     }
 
+    func testQuestionsBarcode() throws {
+        let result = "https://robotoff.openfoodfacts.org/api/v1/insights/1234"
+        let offBarcode = OFFBarcode(barcode: "1234")
+        let url = HTTPRequest(api: .insightsBarcode, barcode: offBarcode).url!
+        XCTAssertEqual(url.description, result)
+    }
+
 }
