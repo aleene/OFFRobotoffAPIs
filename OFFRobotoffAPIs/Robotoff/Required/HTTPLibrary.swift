@@ -232,7 +232,7 @@ extension URLSession {
                 // Check response code and handle each possible responses
                 if let httpResponse = urlResponse as? HTTPURLResponse {
                     let response = HTTPResponse(request: request, response: httpResponse, body: data)
-                    print(request.url?.description)
+                    print(request.url?.description ?? "no url description")
                     completion(.success(response))
                 } else {
                     let error = HTTPError(code: .invalidResponse, request: request, response: nil, underlyingError: nil)

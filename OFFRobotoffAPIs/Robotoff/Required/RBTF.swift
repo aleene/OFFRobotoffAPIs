@@ -119,9 +119,26 @@ extension URLSession {
             switch result {
             case .success(let response):
                 print("success :", response.status.rawValue)
-                if let responsetype = responses[response.status.rawValue] {
-                    OFFAPI.decode(data: response.body, type: responsetype) { result in
-                        completion(result)
+                if let responsetype = responses[response.status.rawValue],
+                let data = response.body {
+                    Decoding.decode(data: data, type: responsetype) { result in
+                        switch result {
+                        case .success(let gelukt):
+                            completion(.success(gelukt))
+                        case .failure(let decodingError):
+                            switch decodingError {
+                            case .dataCorrupted(let context):
+                                completion(.failure(.dataCorrupted(context)))
+                            case .keyNotFound(let key, let context):
+                                completion(.failure(.keyNotFound(key, context)))
+                            case .typeMismatch(let type, let context):
+                                completion(.failure(.typeMismatch(type, context)))
+                            case .valueNotFound(let type, let context):
+                                completion(.failure(.valueNotFound(type, context)))
+                            @unknown default:
+                                completion(.failure(.unsupportedSuccessResponseType))
+                            }
+                        }
                         return
                     }
                 } else {
@@ -344,7 +361,10 @@ Init for all producttypes supported by OFF. This will setup the correct host and
 // The specific errors that can be produced by the server
 public enum RBTFError: Error {
     case network
-    case parsing(String)
+    case dataCorrupted(DecodingError.Context)
+    case keyNotFound(CodingKey, DecodingError.Context)
+    case typeMismatch(Any.Type, DecodingError.Context)
+    case valueNotFound(Any.Type, DecodingError.Context)
     case request
     case connectionFailure
     case dataNil
@@ -356,7 +376,6 @@ public enum RBTFError: Error {
     case notFound
     case null
     case unsupportedSuccessResponseType
-    case validationError(Any)
     
     
     static func analyse(_ message: String) -> RBTFError {
@@ -374,8 +393,6 @@ public enum RBTFError: Error {
         switch self {
         case .network:
             return ""
-        case .parsing(let detail):
-            return detail
         case .request:
             return ""
         case .authenticationRequired:
@@ -403,21 +420,14 @@ public enum RBTFError: Error {
             return" RBTFError: null - probably a non-existing key"
         case .unsupportedSuccessResponseType:
             return ""
-        case .validationError(let detail):
-            if let validationError = detail as? RBTF.ValidationError {
-                if !validationError.detail.isEmpty {
-                    var errorMessage = ""
-                    for item in validationError.detail {
-                        errorMessage += item.msg ?? "FSNMError: message nil"
-                        errorMessage += "; "
-                    }
-                    return errorMessage
-                } else {
-                    return "RobotoffError: No error received"
-                }
-            } else {
-                return "RobotoffError: Not a validation error"
-            }
+        case .dataCorrupted(let context):
+            return "decode " + context.debugDescription
+        case .keyNotFound(let key, let context):
+            return "Key '\(key)' not found: \(context.debugDescription) codingPath:  \(context.codingPath)"
+        case .typeMismatch(let value, let context):
+            return "Value '\(value)' not found \(context.debugDescription) codingPath: \(context.codingPath)"
+        case .valueNotFound(let type, let context):
+            return "Type '\(type)' mismatch: \(context.debugDescription) codingPath:  \(context.codingPath)"
         }
     }
 }

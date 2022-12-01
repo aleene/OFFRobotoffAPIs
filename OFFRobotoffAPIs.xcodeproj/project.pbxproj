@@ -14,7 +14,7 @@
 		AB431171292A7F0800FE21BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB431170292A7F0800FE21BC /* Assets.xcassets */; };
 		AB431174292A7F0800FE21BC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB431173292A7F0800FE21BC /* Preview Assets.xcassets */; };
 		AB431180292A7F4500FE21BC /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117A292A7F4400FE21BC /* AuthController.swift */; };
-		AB431181292A7F4500FE21BC /* OFFAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117B292A7F4400FE21BC /* OFFAPI.swift */; };
+		AB431181292A7F4500FE21BC /* Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117B292A7F4400FE21BC /* Decoding.swift */; };
 		AB431182292A7F4500FE21BC /* OFFProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117C292A7F4500FE21BC /* OFFProductType.swift */; };
 		AB431183292A7F4500FE21BC /* OFFBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117D292A7F4500FE21BC /* OFFBarcode.swift */; };
 		AB431184292A7F4500FE21BC /* HTTPLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */; };
@@ -59,7 +59,7 @@
 		AB431170292A7F0800FE21BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB431173292A7F0800FE21BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AB43117A292A7F4400FE21BC /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
-		AB43117B292A7F4400FE21BC /* OFFAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAPI.swift; sourceTree = "<group>"; };
+		AB43117B292A7F4400FE21BC /* Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoding.swift; sourceTree = "<group>"; };
 		AB43117C292A7F4500FE21BC /* OFFProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProductType.swift; sourceTree = "<group>"; };
 		AB43117D292A7F4500FE21BC /* OFFBarcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFBarcode.swift; sourceTree = "<group>"; };
 		AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPLibrary.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 				AB43117A292A7F4400FE21BC /* AuthController.swift */,
 				AB43117F292A7F4500FE21BC /* RBTF.swift */,
 				AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */,
-				AB43117B292A7F4400FE21BC /* OFFAPI.swift */,
+				AB43117B292A7F4400FE21BC /* Decoding.swift */,
 				AB43117D292A7F4500FE21BC /* OFFBarcode.swift */,
 				AB43117C292A7F4500FE21BC /* OFFProductType.swift */,
 			);
@@ -345,7 +345,7 @@
 				AB51F58C2934B3A30040BA82 /* RBTFInsightsRandomView.swift in Sources */,
 				ABEDA127292BCB270033193B /* InputView.swift in Sources */,
 				AB51F58E2934B5650040BA82 /* RBTFInsights.swift in Sources */,
-				AB431181292A7F4500FE21BC /* OFFAPI.swift in Sources */,
+				AB431181292A7F4500FE21BC /* Decoding.swift in Sources */,
 				AB7F49142930C7680021D14F /* RBTFUnansweredQuestionsCount.swift in Sources */,
 				AB43116F292A7F0600FE21BC /* RBTFView.swift in Sources */,
 				ABEDA12A292BCB270033193B /* DictElementView.swift in Sources */,

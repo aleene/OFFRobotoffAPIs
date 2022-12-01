@@ -1,0 +1,80 @@
+ //
+//  OpenFoodFactsRequest.swift
+//  FoodViewer
+//
+//  Created by arnaud on 03/02/16.
+//  Copyright © 2016 Hovering Above. All rights reserved.
+//
+
+import Foundation
+
+public class Decoding {
+    
+/// Generic function to decode a json struct
+    public static func decode<T:Decodable>(data: Data, type: T.Type, completion: @escaping (_ result: Result<T, DecodingError>) -> Void)  {
+        do {
+            if let validString = String(data: data, encoding: .utf8) {
+                print(validString)
+            }
+
+            let decoded = try JSONDecoder().decode(type.self, from: data)
+            completion(Result.success(decoded))
+
+        }  catch let DecodingError.dataCorrupted(context) {
+            print("decode " + context.debugDescription)
+            completion(Result.failure(DecodingError.dataCorrupted(context)))
+
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(DecodingError.keyNotFound(key, context)))
+
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(DecodingError.valueNotFound(value, context)))
+
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(DecodingError.typeMismatch(type, context)))
+
+        } catch let error {
+            print("error: ", error)
+            completion(Result.failure(error as! DecodingError))
+        }
+        return
+    }
+
+/// Generic function to decode a json array
+    public static func decodeArray<T:Decodable>(data: Data, type: T.Type, completion: @escaping (_ result: Result<[T], DecodingError>) -> Void)  {
+        do {
+            let decoded = try JSONDecoder().decode([T].self, from: data)
+                completion(Result.success(decoded))
+        }  catch let DecodingError.dataCorrupted(context) {
+            print("decode " + context.debugDescription)
+            completion(Result.failure(DecodingError.dataCorrupted(context)))
+
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(DecodingError.keyNotFound(key, context)))
+
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(DecodingError.valueNotFound(value, context)))
+
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+            completion(Result.failure(DecodingError.typeMismatch(type, context)))
+
+        } catch let error {
+            print("error: ", error)
+            completion(Result.failure(error as! DecodingError))
+        }
+        return
+    }
+
+}
