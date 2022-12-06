@@ -20,7 +20,6 @@ You can reuse the libraries from this repository. The steps:
 
 Function which retrieves the possible questions for a specific product.
 ```
-
 func RBTFQuestionsProduct(with barcode: OFFBarcode, count: Int?, lang: String?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void)
 ```
 **Parameters**
@@ -30,6 +29,47 @@ func RBTFQuestionsProduct(with barcode: OFFBarcode, count: Int?, lang: String?, 
 
 **Returns**
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
+
+### Insights random API
+Function to retrieve a random insights with a list of query parameters to filter the questions
+Declaration
+```
+func RBTFInsights(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void)
+```
+Not all possible query parameters have been implemented, as they are not useful to everyone (server_domain, campaign, predictor).
+** Parameters **
+- insightType: filter by insight type
+- country: filter by country tag
+- valueTag:filter by value tag
+- count: the number of questions to return (default=1
+** Returns **
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.InsightsResponse struct and for the failure an Error.
+
+### Insights barcode API
+Function to retrieve a random insights with a list of query parameters to filter the questions
+Declaration
+```
+func RBTFInsights(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void)
+```
+** Parameters **
+- barcode: barcode for which this insights are sought (required)
+- insightType: filter by insight type
+- country: filter by country tag
+- valueTag: filter by value tag count: the number of questions to return (default=1
+
+Not all possible query parameters have been implemented, as they are not useful to everyone (server_domain, campaign, predictor).
+** Returns **
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.InsightsResponse struct and for the failure an Error.
+
+### Insights detail API
+Function to retrieve the details of a specific insight
+```
+func RBTFInsights(insightId: String, completion: @escaping (_ result: Result<RBTF.Insight, RBTFError>) -> Void)
+```
+** Parameters **
+- insightId: the id of an insight
+** Returns **
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.InsightsResponse struct and for the failure an Error.
 
 ## Results
 The API-calls can produce multiple positive (code 200) results jsons.
