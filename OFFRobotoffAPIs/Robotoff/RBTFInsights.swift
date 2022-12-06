@@ -34,7 +34,7 @@ The datastructure retrieved for a reponse 200 for the Insights Random API
         var data: InsightData?
         var timestamp: String?
         var completed_at: String?
-        var annotation: String?
+        var annotation: Int?
         var annotated_result: String?
         var n_votes: Int?
         var username: String?
@@ -80,6 +80,7 @@ The datastructure retrieved for a reponse 200 for the Insights Random API
     public struct InsightData: Codable {
         var lang: String?
         var confidence: Float?
+        var logo_id: Int?
     }
 /**
  The response status for the Insights Random API
@@ -123,7 +124,7 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
-    func RBTFInsightsRandom(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
+    func RBTFInsights(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
         let request = HTTPRequest(insightType: insightType, country: country, valueTag: valueTag, count: count)
         fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
             completion(result)
@@ -146,12 +147,31 @@ A completion block with a Result enum (success or failure). The associated value
      
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
-    func RBTFInsightsBarcode(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
+    func RBTFInsights(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
         let request = HTTPRequest(barcode: barcode, insightType: insightType, country: country, valueTag: valueTag, count: count)
             fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
                 completion(result)
                 return
             }
         }
+
+/**
+Function to retrieve the details of a specific insight
+
+ - Parameters:
+    - insightId:  the id of an insight
+
+- returns:
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.InsightsResponse struct and for the failure an Error.
+         
+*/
+    func RBTFInsights(insightId: String, completion: @escaping (_ result: Result<RBTF.Insight, RBTFError>) -> Void) {
+            let request = HTTPRequest(insightId: insightId)
+                fetch(request: request, responses: [200:RBTF.Insight.self]) { (result) in
+                    completion(result)
+                    return
+                }
+            }
+
 
 }

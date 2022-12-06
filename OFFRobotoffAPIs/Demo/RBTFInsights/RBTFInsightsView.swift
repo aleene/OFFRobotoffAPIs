@@ -17,6 +17,9 @@ struct RBTFInsightsView: View {
             NavigationLink(destination: RBTFInsightsBarcodeView() ) {
                 Text("Insights Barcode API")
             }
+            NavigationLink(destination: RBTFInsightsDetailView() ) {
+                Text("Insights Detail API")
+            }
         }
         .navigationTitle("Robotoff Insights API's")
     }

@@ -33,7 +33,7 @@ class RBTFInsightsRandomViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFInsightsRandom(insightType: insightTypeInput, country: country, valueTag: valueTag, count: count){ (result) in
+        rbtfSession.RBTFInsights(insightType: insightTypeInput, country: country, valueTag: valueTag, count: count){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):

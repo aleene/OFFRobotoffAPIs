@@ -8,7 +8,7 @@
 import XCTest
 @testable import OFFRobotoffAPIs
 
-final class RBTFQuestionsDecodeTests: XCTestCase {
+final class RBTFDecodingTests: XCTestCase {
 
     var expectation: XCTestExpectation!
 
@@ -31,15 +31,15 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                     if questionsResponse == decodedQuestionsResponse {
                         self.expectation?.fulfill()
                     } else {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeNoQuestions:Not equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeNoQuestions:Not equal.")
                     }
                 case .failure(let error):
-                    XCTFail("RBTFQuestionsDecodeTests:testDecodeNoQuestions:Error: \(error)")
+                    XCTFail("RBTFDecodingTests:testDecodeNoQuestions:Error: \(error)")
                 }
             }
 
         } catch {
-            XCTFail("RBTFQuestionsDecodeTests:testDecodeNoQuestions:No valid data.")
+            XCTFail("RBTFDecodingTests:testDecodeNoQuestions:No valid data.")
         }
                 
         wait(for: [expectation], timeout: 1.0)
@@ -70,14 +70,14 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                     if questionsResponse == decodedQuestionsResponse {
                         self.expectation?.fulfill()
                     } else {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeOneQuestions:Not equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeOneQuestions:Not equal.")
                     }
                 case .failure(let error):
-                    XCTFail("RBTFQuestionsDecodeTests:testDecodeOneQuestions:Error: \(error)")
+                    XCTFail("RBTFDecodingTests:testDecodeOneQuestions:Error: \(error)")
                 }
             }
         } catch {
-            XCTFail("RBTFQuestionsDecodeTests:testDecodeOneQuestions:No valid data.")
+            XCTFail("RBTFDecodingTests:testDecodeOneQuestions:No valid data.")
         }
         wait(for: [expectation], timeout: 1.0)
     }
@@ -101,17 +101,17 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                 switch result {
                 case .success(let decodedQuestionsResponse):
                     if questionsResponse == decodedQuestionsResponse {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeNotEqual: equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeNotEqual: equal.")
                     } else {
                         self.expectation?.fulfill()
                     }
                 case .failure(let error):
-                    XCTFail("RBTFQuestionsDecodeTests:testDecodeNotEqual:Error: \(error)")
+                    XCTFail("RBTFDecodingTests:testDecodeNotEqual:Error: \(error)")
                 }
             }
 
         } else {
-            XCTFail("RBTFQuestionsDecodeTests:testDecodeNotEqual:No valid data.")
+            XCTFail("RBTFDecodingTests:testDecodeNotEqual:No valid data.")
         }
                 
         wait(for: [expectation], timeout: 1.0)
@@ -137,29 +137,29 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                 switch result {
                 case .success(let decodedQuestionsResponse):
                     if questionsResponse == decodedQuestionsResponse {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeTypeMismatch: equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeTypeMismatch: equal.")
                     } else {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeTypeMismatch: not equal:")
+                        XCTFail("RBTFDecodingTests:testDecodeTypeMismatch: not equal:")
                     }
                 case .failure(let error):
                     switch error {
                     case .valueNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeTypeMismatch:valueNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeTypeMismatch:valueNotFound:")
                     case .typeMismatch(_, _):
                         self.expectation?.fulfill()
                     case .keyNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeTypeMismatch:keyNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeTypeMismatch:keyNotFound:")
                     case .dataCorrupted(_):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeTypeMismatch:dataCorrupted:")
+                        XCTFail("RBTFDecodingTests:testDecodeTypeMismatch:dataCorrupted:")
                     @unknown default:
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeTypeMismatch:Error:")
+                        XCTFail("RBTFDecodingTests:testDecodeTypeMismatch:Error:")
 
                     }
                 }
             }
 
         } else {
-            XCTFail("RBTFQuestionsDecodeTests:testDecodeTypeMismatch:No valid data.")
+            XCTFail("RBTFDecodingTests:testDecodeTypeMismatch:No valid data.")
         }
                 
         wait(for: [expectation], timeout: 1.0)
@@ -185,7 +185,7 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                 switch result {
                 case .success(let decodedQuestionsResponse):
                     if questionsResponse == decodedQuestionsResponse {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeKeyMismatch: equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeKeyMismatch: equal.")
                     } else {
                         self.expectation?.fulfill()
 
@@ -193,22 +193,22 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                 case .failure(let error):
                     switch error {
                     case .valueNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeKeyMismatch:valueNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeKeyMismatch:valueNotFound:")
                     case .typeMismatch(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeKeyMismatch:typeMismatch:")
+                        XCTFail("RBTFDecodingTests:testDecodeKeyMismatch:typeMismatch:")
                     case .keyNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeKeyMismatch:keyNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeKeyMismatch:keyNotFound:")
                     case .dataCorrupted(_):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeKeyMismatch:dataCorrupted:")
+                        XCTFail("RBTFDecodingTests:testDecodeKeyMismatch:dataCorrupted:")
                     @unknown default:
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeKeyMismatch:Error:")
+                        XCTFail("RBTFDecodingTests:testDecodeKeyMismatch:Error:")
 
                     }
                 }
             }
 
         } else {
-            XCTFail("RBTFQuestionsDecodeTests:testDecodeKeyMismatch:No valid data.")
+            XCTFail("RBTFDecodingTests:testDecodeKeyMismatch:No valid data.")
         }
                 
         wait(for: [expectation], timeout: 1.0)
@@ -234,29 +234,29 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                 switch result {
                 case .success(let decodedQuestionsResponse):
                     if questionsResponse == decodedQuestionsResponse {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeDataCorrupted: equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeDataCorrupted: equal.")
                     } else {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeDataCorrupted: not equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeDataCorrupted: not equal.")
 
                     }
                 case .failure(let error):
                     switch error {
                     case .valueNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeDataCorrupted:valueNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeDataCorrupted:valueNotFound:")
                     case .typeMismatch(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeDataCorrupted:typeMismatch:")
+                        XCTFail("RBTFDecodingTests:testDecodeDataCorrupted:typeMismatch:")
                     case .keyNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeDataCorrupted:keyNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeDataCorrupted:keyNotFound:")
                     case .dataCorrupted(_):
                         self.expectation?.fulfill()
                     @unknown default:
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeDataCorrupted:error:")
+                        XCTFail("RBTFDecodingTests:testDecodeDataCorrupted:error:")
                     }
                 }
             }
 
         } else {
-            XCTFail("RBTFQuestionsDecodeTests:testDecodeDataCorrupted:No valid data.")
+            XCTFail("RBTFDecodingTests:testDecodeDataCorrupted:No valid data.")
         }
                 
         wait(for: [expectation], timeout: 1.0)
@@ -283,7 +283,7 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                 switch result {
                 case .success(let decodedQuestionsResponse):
                     if questionsResponse == decodedQuestionsResponse {
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeExtraKey: equal.")
+                        XCTFail("RBTFDecodingTests:testDecodeExtraKey: equal.")
                     } else {
                         self.expectation?.fulfill()
 
@@ -291,21 +291,21 @@ final class RBTFQuestionsDecodeTests: XCTestCase {
                 case .failure(let error):
                     switch error {
                     case .valueNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeExtraKey:valueNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeExtraKey:valueNotFound:")
                     case .typeMismatch(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeExtraKey:typeMismatch:")
+                        XCTFail("RBTFDecodingTests:testDecodeExtraKey:typeMismatch:")
                     case .keyNotFound(_, _):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeExtraKey:keyNotFound:")
+                        XCTFail("RBTFDecodingTests:testDecodeExtraKey:keyNotFound:")
                     case .dataCorrupted(_):
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeExtraKey:dataCorrupted:")
+                        XCTFail("RBTFDecodingTests:testDecodeExtraKey:dataCorrupted:")
                     @unknown default:
-                        XCTFail("RBTFQuestionsDecodeTests:testDecodeExtraKey:error:")
+                        XCTFail("RBTFDecodingTests:testDecodeExtraKey:error:")
                     }
                 }
             }
 
         } else {
-            XCTFail("RBTFQuestionsDecodeTests:testDecodeExtraKey:No valid data.")
+            XCTFail("RBTFDecodingTests:testDecodeExtraKey:No valid data.")
         }
                 
         wait(for: [expectation], timeout: 1.0)

@@ -43,7 +43,7 @@ extension RBTF.Insight {
         temp["data"] =  data != nil ? langConfidence : "nil"
         temp["timestamp"] =  timestamp ?? "nil"
         temp["completed_at"] = completed_at ?? "nil"
-        temp["annotation"] = annotation ?? "nil"
+        temp["annotation"] = annotation != nil ? "\(annotation!)" : "nil"
         temp["annotated_result"] = annotated_result ?? "nil"
         temp["n_votes"] = n_votes != nil ? "\(n_votes!)" : "nil"
         temp["username"] = username ?? "nil"

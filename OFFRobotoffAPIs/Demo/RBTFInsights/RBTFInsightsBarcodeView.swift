@@ -38,7 +38,7 @@ class RBTFInsightsBarcodeViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFInsightsBarcode(barcode: offBarcode, insightType: insightTypeInput, country: country, valueTag: valueTag, count: count){ (result) in
+        rbtfSession.RBTFInsights(barcode: offBarcode, insightType: insightTypeInput, country: country, valueTag: valueTag, count: count){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):

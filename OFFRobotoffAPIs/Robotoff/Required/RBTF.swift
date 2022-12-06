@@ -16,8 +16,9 @@ struct RBTF {
         case questionsRandom
         case questionsPopular
         case questionsUnanswered
-        case insightsRandom
         case insightsBarcode
+        case insightsDetail
+        case insightsRandom
         
         var path: String {
             switch self {
@@ -25,6 +26,7 @@ struct RBTF {
             case .questionsRandom: return "/questions/random"
             case .questionsPopular: return "/questions/popular"
             case .questionsUnanswered: return "/questions/unanswered"
+            case .insightsDetail: return "/insights/detail" // yje insights id must be added
             case .insightsRandom: return "/insights/random"
             case .insightsBarcode: return "/insights" // the barcode must be addded
             }
@@ -354,6 +356,13 @@ Init for all producttypes supported by OFF. This will setup the correct host and
                 queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
             }
         }
+    }
+    
+    /// for insights/detail/(in\_insight\_id)
+    init(insightId: String) {
+        self.init(api: .insightsDetail)
+        self.path = self.path + "/" + insightId
+
     }
 
 }
