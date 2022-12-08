@@ -160,10 +160,15 @@ extension URLSession {
                     // unsupported response type
                     }
                 }
-            case .failure(_):
-                // the original response failed
-                //print (result.response.debugDescription)
-                completion( .failure( RBTFError.connectionFailure) )
+            case .failure(let error):
+                switch error.code  {
+                case .invalidRequest:
+                    completion(.failure(.insightUnknown))
+                default:
+                    completion( .failure( .connectionFailure) )
+                }
+                    // the original response failed
+                    //print (result.response.debugDescription)
                 return
             }
         }
@@ -374,6 +379,7 @@ public enum RBTFError: Error {
     case keyNotFound(CodingKey, DecodingError.Context)
     case typeMismatch(Any.Type, DecodingError.Context)
     case valueNotFound(Any.Type, DecodingError.Context)
+    case insightUnknown // used if the insight detail responds with a 404
     case request
     case connectionFailure
     case dataNil
@@ -419,6 +425,8 @@ public enum RBTFError: Error {
             } else {
                 return "RobotoffError: Wrong detail struct or nil value"
             }
+        case .insightUnknown:
+            return "RobotoffError: insightID unknown"
         case .methodNotAllowed:
             return "RobotoffError: Method Not Allowed, probably a missing parameter"
         case .noBody:

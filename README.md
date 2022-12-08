@@ -144,7 +144,7 @@ The insight type, i.e. the subject the question is about, can have the following
 
 ## Requirements
 The demo application has been tested under:
-- Xcode version 13.4.1
+- Xcode version 14.1
 - Swift version 15.0
 
 ## Documentation

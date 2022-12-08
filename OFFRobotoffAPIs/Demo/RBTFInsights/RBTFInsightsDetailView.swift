@@ -68,6 +68,7 @@ struct RBTFInsightsDetailView: View {
                 .padding()
             InputView(title: "Enter insight id", placeholder: "3cd5aecd-edcc-4237-87d0-6595fc4e53c9", text: $insightId)
             Button( action: {
+                model.insightId = insightId
                 model.update()
                 isFetching = true
                 })

@@ -98,7 +98,7 @@ public struct HTTPError: Error {
     public let underlyingError: Error?
     
     public enum Code {
-        case invalidRequest
+        case invalidRequest // used for 404
         case cannotConnect
         case cancelled
         case insecureConnection
@@ -233,7 +233,15 @@ extension URLSession {
                 if let httpResponse = urlResponse as? HTTPURLResponse {
                     let response = HTTPResponse(request: request, response: httpResponse, body: data)
                     print(request.url?.description ?? "no url description")
-                    completion(.success(response))
+                    if httpResponse.statusCode == 200 {
+                        completion(.success(response))
+                    } else if httpResponse.statusCode == 404 {
+                        let error = HTTPError(code: .invalidRequest, request: request, response: nil, underlyingError: nil)
+                        completion(.failure(error))
+                    } else {
+                        let error = HTTPError(code: .invalidRequest, request: request, response: nil, underlyingError: nil)
+                        completion(.failure(error))
+                    }
                 } else {
                     let error = HTTPError(code: .invalidResponse, request: request, response: nil, underlyingError: nil)
                     completion(.failure(error))
