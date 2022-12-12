@@ -19,6 +19,12 @@ struct RBTFView: View {
             NavigationLink(destination: RBTFInsightsView() ) {
                 Text("Insights API's")
             }
+            NavigationLink(destination: RBTFImagesView() ) {
+                Text("Images API's")
+            }
+            NavigationLink(destination: RBTFLogosView() ) {
+                Text("Logos API's")
+            }
         }
         .navigationTitle("Robotoff API's")
     }

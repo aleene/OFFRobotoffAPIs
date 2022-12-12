@@ -65,3 +65,34 @@ extension RBTF.Insight {
     }
 
 }
+
+extension RBTF.Logo {
+    
+    var dict: OrderedDictionary<String, String> {
+        var temp: OrderedDictionary<String, String> = [:]
+        temp["id"] = id != nil ? "\(id!)" : "nil"
+        temp["index"] = index != nil ? "\(index!)" : "nil"
+        temp["bounding_box"] = bounding_box != nil ? "\(bounding_box![0])" + ", " + "\(bounding_box![1])" + ", " + "\(bounding_box![2])" + ", " + "\(bounding_box![3])" : "nil"
+        temp["score"] = score != nil ? "\(score!)" : "nil"
+        temp["annotation_value"] = annotation_value ?? "nil"
+        temp["annotation_value_tag"] = annotation_value_tag ?? "nil"
+        temp["taxonomy_value"] = taxonomy_value ?? "nil"
+        temp["annotation_type"] = annotation_type ?? "nil"
+        temp["username"] = username ?? "nil"
+        temp["completed_at"] = completed_at ?? "nil"
+        temp["nearest_neighbours"] = nearest_neighbours ?? "nil"
+
+        // can I make this to a separate dict and add it?
+        temp["image:id"] = image?.id != nil ? "\(image!.id!)" : "nil"
+        temp["image:barcode"] = image?.barcode ?? "nil"
+        temp["image:uploaded_at"] = image?.uploaded_at ?? "nil"
+        temp["image:imaged_id"] = image?.imaged_id ?? "nil"
+        temp["image:source_image"] = image?.source_image ?? "nil"
+        temp["image:width"] = image?.width != nil ? "\(image!.width!)" : "nil"
+        temp["image:height"] = image?.height != nil ? "\(image!.height!)" : "nil"
+        temp["image:deleted"] = image?.deleted != nil ? (image!.deleted! ? "true" : "false" ) : "nil"
+        temp["image:server_domain"] = image?.server_domain ?? "nil"
+        temp["image:server_type"] = image?.server_type ?? "nil"
+        return temp
+    }
+}

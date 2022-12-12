@@ -19,6 +19,7 @@ struct RBTF {
         case insightsBarcode
         case insightsDetail
         case insightsRandom
+        case logos
         
         var path: String {
             switch self {
@@ -29,6 +30,7 @@ struct RBTF {
             case .insightsDetail: return "/insights/detail" // yje insights id must be added
             case .insightsRandom: return "/insights/random"
             case .insightsBarcode: return "/insights" // the barcode must be addded
+            case .logos: return "/images/logos"
             }
         }
     }
@@ -98,6 +100,10 @@ struct RBTF {
         var detail: String?
     }
 
+    public struct Error400: Codable {
+        var title: String?
+        var description: String?
+    }
 /**
  Some API's (ProductStats) can return a validation error with response code 422.
  */
@@ -120,9 +126,9 @@ extension URLSession {
         load(request: request) { result in
             switch result {
             case .success(let response):
-                print("success :", response.status.rawValue)
+                print("success :", response.response.statusCode)
                 if let responsetype = responses[response.status.rawValue],
-                let data = response.body {
+                   let data = response.body {
                     Decoding.decode(data: data, type: responsetype) { result in
                         switch result {
                         case .success(let gelukt):
@@ -142,6 +148,29 @@ extension URLSession {
                             }
                         }
                         return
+                    }
+                } else if response.response.statusCode == 400 {
+                    if let data = response.body {
+                        Decoding.decode(data: data, type: RBTF.Error400.self) { result in
+                            switch result {
+                            case .success(let gelukt):
+                                completion(.failure(.missingParameter(gelukt.description ?? "no description received")))
+                            case .failure(let decodingError):
+                                switch decodingError {
+                                case .dataCorrupted(let context):
+                                    completion(.failure(.dataCorrupted(context)))
+                                case .keyNotFound(let key, let context):
+                                    completion(.failure(.keyNotFound(key, context)))
+                                case .typeMismatch(let type, let context):
+                                    completion(.failure(.typeMismatch(type, context)))
+                                case .valueNotFound(let type, let context):
+                                    completion(.failure(.valueNotFound(type, context)))
+                                @unknown default:
+                                    completion(.failure(.unsupportedSuccessResponseType))
+                                }
+                            }
+                            return
+                        }
                     }
                 } else {
                     if let data = response.body {
@@ -265,7 +294,6 @@ Init for all producttypes supported by OFF. This will setup the correct host and
             !brands.isEmpty ||
             valueTag != nil ||
             page != nil {
-            var queryItems: [URLQueryItem] = []
             
             if let validLang = languageCode,
                validLang.count == 3,
@@ -311,9 +339,7 @@ Init for all producttypes supported by OFF. This will setup the correct host and
             country != nil ||
             valueTag != nil ||
             count != nil {
-            
-            var queryItems: [URLQueryItem] = []
-            
+                        
             if let validInsightType = insightType {
                 queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
             }
@@ -341,9 +367,7 @@ Init for all producttypes supported by OFF. This will setup the correct host and
             country != nil ||
             valueTag != nil ||
             count != nil {
-            
-            var queryItems: [URLQueryItem] = []
-            
+                        
             if let validInsightType = insightType {
                 queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
             }
@@ -370,6 +394,55 @@ Init for all producttypes supported by OFF. This will setup the correct host and
 
     }
 
+    
+    /// for logos detail fetch
+    init(logoIds: String) {
+        self.init(api: .logos)
+        
+        queryItems.append(URLQueryItem(name: "logo_ids", value: logoIds ))
+
+    }
+    
+    /// for logos detail fetch
+    init(count: UInt?, type: String?, barcode: OFFBarcode?, value: String?, taxonomy_value: String?, min_confidence: Int?, random: Bool?, annotated: Bool?) {
+        self.init(api: .logos)
+        
+        if let validCount = count {
+            queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+        }
+
+        if let validType = type {
+            queryItems.append(URLQueryItem(name: "type", value: "\(validType)" ))
+        }
+            
+        if let validBarcode = barcode {
+            queryItems.append(URLQueryItem(name: "barcode", value: "\(validBarcode.barcode)" ))
+        }
+            
+        if let validValue = value {
+            queryItems.append(URLQueryItem(name: "value", value: "\(validValue)" ))
+        }
+            
+        if let validTaxonomy_value = taxonomy_value {
+            queryItems.append(URLQueryItem(name: "value", value: "\(validTaxonomy_value)" ))
+        }
+            
+        if let validMin_confidence = min_confidence {
+            queryItems.append(URLQueryItem(name: "value", value: "\(validMin_confidence)" ))
+        }
+            
+        if let validRandom = random {
+            let value = validRandom ? "true" : "false"
+            queryItems.append(URLQueryItem(name: "value", value: "\(value)" ))
+        }
+            
+        if let validAnnotated = annotated {
+            let value = validAnnotated ? "true" : "false"
+            queryItems.append(URLQueryItem(name: "annotated", value: "\(value)" ))
+        }
+    }
+
+
 }
 
 // The specific errors that can be produced by the server
@@ -379,6 +452,7 @@ public enum RBTFError: Error {
     case keyNotFound(CodingKey, DecodingError.Context)
     case typeMismatch(Any.Type, DecodingError.Context)
     case valueNotFound(Any.Type, DecodingError.Context)
+    case missingParameter(String)
     case insightUnknown // used if the insight detail responds with a 404
     case request
     case connectionFailure
@@ -429,6 +503,8 @@ public enum RBTFError: Error {
             return "RobotoffError: insightID unknown"
         case .methodNotAllowed:
             return "RobotoffError: Method Not Allowed, probably a missing parameter"
+        case .missingParameter(let parameter):
+            return "RobotoffError: \(parameter)"
         case .noBody:
             return ""
         case .notFound:

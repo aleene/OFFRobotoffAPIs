@@ -235,10 +235,14 @@ extension URLSession {
                     print(request.url?.description ?? "no url description")
                     if httpResponse.statusCode == 200 {
                         completion(.success(response))
+                    } else if httpResponse.statusCode == 400 {
+                        // The response was not valid, but a json was received
+                        completion(.success(response))
                     } else if httpResponse.statusCode == 404 {
                         let error = HTTPError(code: .invalidRequest, request: request, response: nil, underlyingError: nil)
                         completion(.failure(error))
                     } else {
+                        print("statusCode not intercepted: ", httpResponse.statusCode)
                         let error = HTTPError(code: .invalidRequest, request: request, response: nil, underlyingError: nil)
                         completion(.failure(error))
                     }

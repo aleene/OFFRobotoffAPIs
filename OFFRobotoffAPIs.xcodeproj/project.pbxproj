@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		AB0A8DA429374E4900D62489 /* RBTFInsightsBarcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0A8DA329374E4900D62489 /* RBTFInsightsBarcodeView.swift */; };
 		AB0A8DA629379E7E00D62489 /* RBTFDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0A8DA529379E7E00D62489 /* RBTFDecodingTests.swift */; };
+		AB1D6BF329434C6E00D36A78 /* RBTFImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D6BF229434C6E00D36A78 /* RBTFImagesView.swift */; };
+		AB1D6BF529434D1900D36A78 /* RBTFLogosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D6BF429434D1900D36A78 /* RBTFLogosView.swift */; };
+		AB1D6BF729434D8200D36A78 /* RBTFLogos.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D6BF629434D8200D36A78 /* RBTFLogos.swift */; };
+		AB1D6BF929435E5B00D36A78 /* RBTFLogosURLTtests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D6BF829435E5B00D36A78 /* RBTFLogosURLTtests.swift */; };
+		AB1D6BFB2943626800D36A78 /* RBTFLogosFetchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D6BFA2943626800D36A78 /* RBTFLogosFetchView.swift */; };
 		AB43116D292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43116C292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift */; };
 		AB43116F292A7F0600FE21BC /* RBTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43116E292A7F0600FE21BC /* RBTFView.swift */; };
 		AB431171292A7F0800FE21BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB431170292A7F0800FE21BC /* Assets.xcassets */; };
@@ -27,6 +32,7 @@
 		AB51F5882934B33D0040BA82 /* RBTFInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51F5872934B33D0040BA82 /* RBTFInsightsView.swift */; };
 		AB51F58C2934B3A30040BA82 /* RBTFInsightsRandomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51F58B2934B3A30040BA82 /* RBTFInsightsRandomView.swift */; };
 		AB51F58E2934B5650040BA82 /* RBTFInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51F58D2934B5650040BA82 /* RBTFInsights.swift */; };
+		AB726559294740000032806D /* RBTFLogosSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB726558294740000032806D /* RBTFLogosSearchView.swift */; };
 		AB7F49102930C3E50021D14F /* RBTFQuestionsPopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F490F2930C3E50021D14F /* RBTFQuestionsPopularView.swift */; };
 		AB7F49142930C7680021D14F /* RBTFUnansweredQuestionsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */; };
 		AB7F49182930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F49172930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift */; };
@@ -54,6 +60,11 @@
 /* Begin PBXFileReference section */
 		AB0A8DA329374E4900D62489 /* RBTFInsightsBarcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsightsBarcodeView.swift; sourceTree = "<group>"; };
 		AB0A8DA529379E7E00D62489 /* RBTFDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFDecodingTests.swift; sourceTree = "<group>"; };
+		AB1D6BF229434C6E00D36A78 /* RBTFImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFImagesView.swift; sourceTree = "<group>"; };
+		AB1D6BF429434D1900D36A78 /* RBTFLogosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFLogosView.swift; sourceTree = "<group>"; };
+		AB1D6BF629434D8200D36A78 /* RBTFLogos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFLogos.swift; sourceTree = "<group>"; };
+		AB1D6BF829435E5B00D36A78 /* RBTFLogosURLTtests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFLogosURLTtests.swift; sourceTree = "<group>"; };
+		AB1D6BFA2943626800D36A78 /* RBTFLogosFetchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFLogosFetchView.swift; sourceTree = "<group>"; };
 		AB431169292A7F0600FE21BC /* OFFRobotoffAPIs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OFFRobotoffAPIs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB43116C292A7F0600FE21BC /* OFFRobotoffAPIsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFRobotoffAPIsApp.swift; sourceTree = "<group>"; };
 		AB43116E292A7F0600FE21BC /* RBTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFView.swift; sourceTree = "<group>"; };
@@ -72,6 +83,7 @@
 		AB51F5872934B33D0040BA82 /* RBTFInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsightsView.swift; sourceTree = "<group>"; };
 		AB51F58B2934B3A30040BA82 /* RBTFInsightsRandomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsightsRandomView.swift; sourceTree = "<group>"; };
 		AB51F58D2934B5650040BA82 /* RBTFInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsights.swift; sourceTree = "<group>"; };
+		AB726558294740000032806D /* RBTFLogosSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFLogosSearchView.swift; sourceTree = "<group>"; };
 		AB7F490F2930C3E50021D14F /* RBTFQuestionsPopularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsPopularView.swift; sourceTree = "<group>"; };
 		AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFUnansweredQuestionsCount.swift; sourceTree = "<group>"; };
 		AB7F49172930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFUnansweredQuestionsCountView.swift; sourceTree = "<group>"; };
@@ -106,6 +118,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB1D6BFC2943627300D36A78 /* RBTFLogos */ = {
+			isa = PBXGroup;
+			children = (
+				AB1D6BF429434D1900D36A78 /* RBTFLogosView.swift */,
+				AB1D6BFA2943626800D36A78 /* RBTFLogosFetchView.swift */,
+				AB726558294740000032806D /* RBTFLogosSearchView.swift */,
+			);
+			path = RBTFLogos;
+			sourceTree = "<group>";
+		};
 		AB431160292A7F0600FE21BC = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				AB43116E292A7F0600FE21BC /* RBTFView.swift */,
+				AB1D6BF229434C6E00D36A78 /* RBTFImagesView.swift */,
+				AB1D6BFC2943627300D36A78 /* RBTFLogos */,
 				AB51F58F2934C1760040BA82 /* RBTFInsights */,
 				AB51F58A2934B3660040BA82 /* RBTFQuestions */,
 				ABEDA12B292BCB2C0033193B /* Generic */,
@@ -173,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				AB51F58D2934B5650040BA82 /* RBTFInsights.swift */,
+				AB1D6BF629434D8200D36A78 /* RBTFLogos.swift */,
 				AB431189292A7FBB00FE21BC /* RBTFQuestions.swift */,
 				AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */,
 				ABDEFD8629324D4E000F826A /* Extensions */,
@@ -227,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				ABEDA12C292BD1A80033193B /* RBTFQuestionsURLTests.swift */,
+				AB1D6BF829435E5B00D36A78 /* RBTFLogosURLTtests.swift */,
 				ABEDA13D292BDFDE0033193B /* RBTFInsightsURLTests.swift */,
 				AB0A8DA529379E7E00D62489 /* RBTFDecodingTests.swift */,
 			);
@@ -344,6 +370,7 @@
 				AB7F49102930C3E50021D14F /* RBTFQuestionsPopularView.swift in Sources */,
 				AB431183292A7F4500FE21BC /* OFFBarcode.swift in Sources */,
 				AB0A8DA429374E4900D62489 /* RBTFInsightsBarcodeView.swift in Sources */,
+				AB1D6BF729434D8200D36A78 /* RBTFLogos.swift in Sources */,
 				AB51F5862934B2BB0040BA82 /* RBTFQuestionsView.swift in Sources */,
 				AB431185292A7F4500FE21BC /* RBTF.swift in Sources */,
 				AB51F58C2934B3A30040BA82 /* RBTFInsightsRandomView.swift in Sources */,
@@ -357,8 +384,12 @@
 				AB431180292A7F4500FE21BC /* AuthController.swift in Sources */,
 				AB43118A292A7FBB00FE21BC /* RBTFQuestions.swift in Sources */,
 				ABEDA128292BCB270033193B /* DictView.swift in Sources */,
+				AB1D6BFB2943626800D36A78 /* RBTFLogosFetchView.swift in Sources */,
 				AB43118E292BBC7700FE21BC /* RBTFQuestionsForProductView.swift in Sources */,
+				AB1D6BF329434C6E00D36A78 /* RBTFImagesView.swift in Sources */,
+				AB1D6BF529434D1900D36A78 /* RBTFLogosView.swift in Sources */,
 				AB431182292A7F4500FE21BC /* OFFProductType.swift in Sources */,
+				AB726559294740000032806D /* RBTFLogosSearchView.swift in Sources */,
 				AB7F49182930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift in Sources */,
 				ABEDA141292BE25C0033193B /* RBTFQuestionsRandomView.swift in Sources */,
 				AB51F5882934B33D0040BA82 /* RBTFInsightsView.swift in Sources */,
@@ -375,6 +406,7 @@
 				ABEDA13E292BDFDE0033193B /* RBTFInsightsURLTests.swift in Sources */,
 				ABEDA13C292BD3070033193B /* RBTFQuestionsURLTests.swift in Sources */,
 				AB0A8DA629379E7E00D62489 /* RBTFDecodingTests.swift in Sources */,
+				AB1D6BF929435E5B00D36A78 /* RBTFLogosURLTtests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
