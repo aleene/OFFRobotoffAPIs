@@ -108,6 +108,103 @@ The datastructure retrieved for a reponse 200 for the Insights Random API
 
 }
 
+class RBTFInsightsRequest : RBTFRequest {
+    
+/// for insights/detail/(in\_insight\_id)
+    convenience init(insightId: String) {
+        self.init(api: .insightsDetail)
+        self.path = self.path + "/" + insightId
+
+    }
+    
+    /// for insight/random
+    convenience init(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
+        self.init(api: .insightsBarcode, barcode: barcode)
+        // Are any query parameters required?
+        if  insightType != nil ||
+            country != nil ||
+            valueTag != nil ||
+            count != nil {
+                        
+            if let validInsightType = insightType {
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+            }
+
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+            
+            if let validValueTag = valueTag {
+                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
+            }
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+        }
+    }
+    
+    /// for insight/random
+    convenience init(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
+        self.init(api: .insightsRandom)
+        // Are any query parameters required?
+        if  insightType != nil ||
+            country != nil ||
+            valueTag != nil ||
+            count != nil {
+                        
+            if let validInsightType = insightType {
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+            }
+
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+            
+            if let validValueTag = valueTag {
+                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
+            }
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+        }
+    }
+    
+    convenience init(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?) {
+        self.init(api: .questionsUnanswered)
+        // Are any query parameters required?
+        if count != nil ||
+            count != nil ||
+            insightType != nil ||
+            country != nil ||
+            page != nil {
+            var queryItems: [URLQueryItem] = []
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+            
+            if let validInsightType = insightType {
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+            }
+
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+                        
+            if let validPage = page,
+               validPage >= 1 {
+                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
+            }
+        }
+    }
+
+}
+
 extension URLSession {
     
 /**
@@ -125,7 +222,7 @@ A completion block with a Result enum (success or failure). The associated value
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
     func RBTFInsights(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
-        let request = HTTPRequest(insightType: insightType, country: country, valueTag: valueTag, count: count)
+        let request = RBTFInsightsRequest(insightType: insightType, country: country, valueTag: valueTag, count: count)
         fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
             completion(result)
             return
@@ -148,7 +245,7 @@ A completion block with a Result enum (success or failure). The associated value
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
     func RBTFInsights(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
-        let request = HTTPRequest(barcode: barcode, insightType: insightType, country: country, valueTag: valueTag, count: count)
+        let request = RBTFInsightsRequest(barcode: barcode, insightType: insightType, country: country, valueTag: valueTag, count: count)
             fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
                 completion(result)
                 return
@@ -166,12 +263,12 @@ A completion block with a Result enum (success or failure). The associated value
          
 */
     func RBTFInsights(insightId: String, completion: @escaping (_ result: Result<RBTF.Insight, RBTFError>) -> Void) {
-            let request = HTTPRequest(insightId: insightId)
-                fetch(request: request, responses: [200:RBTF.Insight.self]) { (result) in
+        let request = RBTFInsightsRequest(insightId: insightId)
+        fetch(request: request, responses: [200:RBTF.Insight.self]) { (result) in
                     completion(result)
-                    return
-                }
+                return
             }
+        }
 
 
 }

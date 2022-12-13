@@ -205,7 +205,7 @@ extension URLSession {
 
 }
 
-extension HTTPRequest {
+class RBTFRequest: HTTPRequest {
     
 /**
 Init for all producttypes supported by OFF. This will setup the correct host and path of the API URL
@@ -214,234 +214,28 @@ Init for all producttypes supported by OFF. This will setup the correct host and
     - productType: one of the productTypes (.food, .beauty, .petFood, .product);
     - api: the api required (i.e. .auth, .ping, etc)
 */
-    init(for productType: OFFProductType, for api: RBTF.APIs) {
+    convenience init(for productType: OFFProductType, for api: RBTF.APIs) {
         self.init()
         self.host = "robotoff." + productType.host + ".org"
         self.path = "/api/v1" + api.path
     }
     
 /**
- Init for the food folksonomy API. This will setup the correct host and path of the API URL
+ Init for the food robotoff API. This will setup the correct host and path of the API URL
   
 - Parameters:
  - api: the api required (i.e. .auth, .ping, etc)
  */
-    init(api: RBTF.APIs) {
+    convenience init(api: RBTF.APIs) {
         self.init(for: .food, for: api)
     }
     
-    init(api: RBTF.APIs, barcode: OFFBarcode) {
+    convenience init(api: RBTF.APIs, barcode: OFFBarcode) {
         guard api == .questions ||
                 api == .insightsBarcode else { fatalError("HTTPRequest:init(api:barcode:): unallowed RBTF.API specified") }
         self.init(api: api)
         self.path = self.path + "/" + barcode.barcode.description
     }
-
-    init(api: RBTF.APIs, barcode: OFFBarcode, count: Int?, lang: String?) {
-        self.init(api: api)
-        self.path = self.path + "/" + barcode.barcode.description
-        if count != nil || lang != nil {
-            var queryItems: [URLQueryItem] = []
-            
-            if let validCount = count {
-                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
-            }
-            if let validLang = lang,
-               validLang.count == 3,
-               validLang.hasSuffix(":") {
-                queryItems.append(URLQueryItem(name: "lang", value: validLang ))
-            }
-        }
-    }
-    
-    init(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?) {
-        self.init(api: .questionsUnanswered)
-        // Are any query parameters required?
-        if count != nil ||
-            count != nil ||
-            insightType != nil ||
-            country != nil ||
-            page != nil {
-            var queryItems: [URLQueryItem] = []
-            
-            if let validCount = count,
-               validCount >= 1 {
-                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
-            }
-            
-            if let validInsightType = insightType {
-                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
-            }
-
-            if let validCountry = country {
-                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
-            }
-                        
-            if let validPage = page,
-               validPage >= 1 {
-                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
-            }
-        }
-    }
-
-    init(api: RBTF.APIs, languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?) {
-        self.init(api: api)
-        // Are any query parameters required?
-        if count != nil ||
-            languageCode != nil ||
-            !insightTypes.isEmpty ||
-            country != nil ||
-            !brands.isEmpty ||
-            valueTag != nil ||
-            page != nil {
-            
-            if let validLang = languageCode,
-               validLang.count == 3,
-               validLang.hasSuffix(":") {
-                queryItems.append(URLQueryItem(name: "lang", value: validLang ))
-            }
-            
-            if let validCount = count,
-               validCount >= 1 {
-                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
-            }
-            
-            if !insightTypes.isEmpty {
-                let insights = insightTypes.map({ $0.rawValue }).joined(separator: ",")
-                queryItems.append(URLQueryItem(name: "insight_types", value: "\(insights)" ))
-            }
-            
-            if let validCountry = country {
-                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
-            }
-            
-            if !brands.isEmpty {
-                let brandsString = brands.joined(separator: ",")
-                queryItems.append(URLQueryItem(name: "brands", value: "\(brandsString)" ))
-            }
-            
-            if let validValueTag = valueTag {
-                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
-            }
-            
-            if let validPage = page,
-               validPage >= 1 {
-                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
-            }
-        }
-    }
-    
-    /// for insight/random
-    init(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
-        self.init(api: .insightsRandom)
-        // Are any query parameters required?
-        if  insightType != nil ||
-            country != nil ||
-            valueTag != nil ||
-            count != nil {
-                        
-            if let validInsightType = insightType {
-                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
-            }
-
-            if let validCountry = country {
-                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
-            }
-            
-            if let validValueTag = valueTag {
-                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
-            }
-            
-            if let validCount = count,
-               validCount >= 1 {
-                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
-            }
-        }
-    }
-    
-    /// for insight/random
-    init(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
-        self.init(api: .insightsBarcode, barcode: barcode)
-        // Are any query parameters required?
-        if  insightType != nil ||
-            country != nil ||
-            valueTag != nil ||
-            count != nil {
-                        
-            if let validInsightType = insightType {
-                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
-            }
-
-            if let validCountry = country {
-                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
-            }
-            
-            if let validValueTag = valueTag {
-                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
-            }
-            
-            if let validCount = count,
-               validCount >= 1 {
-                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
-            }
-        }
-    }
-    
-    /// for insights/detail/(in\_insight\_id)
-    init(insightId: String) {
-        self.init(api: .insightsDetail)
-        self.path = self.path + "/" + insightId
-
-    }
-
-    
-    /// for logos detail fetch
-    init(logoIds: String) {
-        self.init(api: .logos)
-        
-        queryItems.append(URLQueryItem(name: "logo_ids", value: logoIds ))
-
-    }
-    
-    /// for logos detail fetch
-    init(count: UInt?, type: String?, barcode: OFFBarcode?, value: String?, taxonomy_value: String?, min_confidence: Int?, random: Bool?, annotated: Bool?) {
-        self.init(api: .logos)
-        
-        if let validCount = count {
-            queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
-        }
-
-        if let validType = type {
-            queryItems.append(URLQueryItem(name: "type", value: "\(validType)" ))
-        }
-            
-        if let validBarcode = barcode {
-            queryItems.append(URLQueryItem(name: "barcode", value: "\(validBarcode.barcode)" ))
-        }
-            
-        if let validValue = value {
-            queryItems.append(URLQueryItem(name: "value", value: "\(validValue)" ))
-        }
-            
-        if let validTaxonomy_value = taxonomy_value {
-            queryItems.append(URLQueryItem(name: "value", value: "\(validTaxonomy_value)" ))
-        }
-            
-        if let validMin_confidence = min_confidence {
-            queryItems.append(URLQueryItem(name: "value", value: "\(validMin_confidence)" ))
-        }
-            
-        if let validRandom = random {
-            let value = validRandom ? "true" : "false"
-            queryItems.append(URLQueryItem(name: "value", value: "\(value)" ))
-        }
-            
-        if let validAnnotated = annotated {
-            let value = validAnnotated ? "true" : "false"
-            queryItems.append(URLQueryItem(name: "annotated", value: "\(value)" ))
-        }
-    }
-
 
 }
 

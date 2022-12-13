@@ -14,7 +14,7 @@ public enum HTTPMethod: String {
     case put = "PUT"
 }
 
-public struct HTTPRequest {
+public class HTTPRequest {
     private var urlComponents = URLComponents()
     public var method: HTTPMethod = .get
     public var headers: [String:String] = [:]

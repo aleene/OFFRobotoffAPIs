@@ -43,6 +43,56 @@ extension RBTF {
     }
 }
 
+class RBTFLogosRequest : RBTFRequest {
+    
+    /// for logos detail fetch
+    convenience init(logoIds: String) {
+        self.init(api: .logos)
+        
+        queryItems.append(URLQueryItem(name: "logo_ids", value: logoIds ))
+
+    }
+    
+    /// for logos  fetch
+    convenience init(count: UInt?, type: String?, barcode: OFFBarcode?, value: String?, taxonomy_value: String?, min_confidence: Int?, random: Bool?, annotated: Bool?) {
+        self.init(api: .logos)
+        
+        if let validCount = count {
+            queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+        }
+
+        if let validType = type {
+            queryItems.append(URLQueryItem(name: "type", value: "\(validType)" ))
+        }
+            
+        if let validBarcode = barcode {
+            queryItems.append(URLQueryItem(name: "barcode", value: "\(validBarcode.barcode)" ))
+        }
+            
+        if let validValue = value {
+            queryItems.append(URLQueryItem(name: "value", value: "\(validValue)" ))
+        }
+            
+        if let validTaxonomy_value = taxonomy_value {
+            queryItems.append(URLQueryItem(name: "taxonomy_value", value: "\(validTaxonomy_value)" ))
+        }
+            
+        if let validMin_confidence = min_confidence {
+            queryItems.append(URLQueryItem(name: "min_confidence", value: "\(validMin_confidence)" ))
+        }
+            
+        if let validRandom = random {
+            let value = validRandom ? "true" : "false"
+            queryItems.append(URLQueryItem(name: "random", value: "\(value)" ))
+        }
+            
+        if let validAnnotated = annotated {
+            let value = validAnnotated ? "true" : "false"
+            queryItems.append(URLQueryItem(name: "annotated", value: "\(value)" ))
+        }
+    }
+
+}
 extension URLSession {
 
 /**
@@ -56,7 +106,7 @@ A completion block with a Result enum (success or failure). The associated value
          
 */
     func RBTFLogos(logoIds: String, completion: @escaping (_ result: Result<RBTF.LogosResponse, RBTFError>) -> Void) {
-        let request = HTTPRequest(logoIds: logoIds)
+        let request = RBTFLogosRequest(logoIds: logoIds)
                 fetch(request: request, responses: [200:RBTF.LogosResponse.self]) { (result) in
                     completion(result)
                     return
@@ -82,7 +132,7 @@ A completion block with a Result enum (success or failure). The associated value
              
 */
         func RBTFLogos(count: UInt?, type: String?, barcode: OFFBarcode?, value: String?, taxonomy_value: String?, min_confidence: Int?, random: Bool?, annotated: Bool?, completion: @escaping (_ result: Result<RBTF.LogosResponse, RBTFError>) -> Void) {
-            let request = HTTPRequest(count: count, type: type, barcode: barcode, value: value, taxonomy_value: taxonomy_value, min_confidence: min_confidence, random: random, annotated: annotated)
+            let request = RBTFLogosRequest(count: count, type: type, barcode: barcode, value: value, taxonomy_value: taxonomy_value, min_confidence: min_confidence, random: random, annotated: annotated)
                     fetch(request: request, responses: [200:RBTF.LogosResponse.self]) { (result) in
                         completion(result)
                         return
