@@ -116,6 +116,72 @@ The question type. Only one type is supported at 23-nov-2022.
 
 }
 
+class RBTFQuestionsRequest: RBTFRequest {
+    
+    convenience init(barcode: OFFBarcode, count: UInt?, lang: String?) {
+        self.init(api: .questions)
+        self.path = self.path + "/" + barcode.barcode.description
+        if count != nil || lang != nil {
+            if let validCount = count {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+            if let validLang = lang,
+               validLang.count == 3,
+               validLang.hasSuffix(":") {
+                queryItems.append(URLQueryItem(name: "lang", value: validLang ))
+            }
+        }
+    }
+    
+    convenience init(api: RBTF.APIs, languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?) {
+        self.init(api: api)
+        // Are any query parameters required?
+        if count != nil ||
+            languageCode != nil ||
+            !insightTypes.isEmpty ||
+            country != nil ||
+            !brands.isEmpty ||
+            valueTag != nil ||
+            page != nil {
+            
+            if let validLang = languageCode,
+               validLang.count == 3,
+               validLang.hasSuffix(":") {
+                queryItems.append(URLQueryItem(name: "lang", value: validLang ))
+            }
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+            
+            if !insightTypes.isEmpty {
+                let insights = insightTypes.map({ $0.rawValue }).joined(separator: ",")
+                queryItems.append(URLQueryItem(name: "insight_types", value: "\(insights)" ))
+            }
+            
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+            
+            if !brands.isEmpty {
+                let brandsString = brands.joined(separator: ",")
+                queryItems.append(URLQueryItem(name: "brands", value: "\(brandsString)" ))
+            }
+            
+            if let validValueTag = valueTag {
+                queryItems.append(URLQueryItem(name: "value_tag", value: "\(validValueTag)" ))
+            }
+            
+            if let validPage = page,
+               validPage >= 1 {
+                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
+            }
+        }
+    }
+    
+}
+
 extension URLSession {
     
 /**

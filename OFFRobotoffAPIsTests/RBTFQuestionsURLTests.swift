@@ -63,7 +63,7 @@ class RBTFQuestionsURLTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    // Check the query parts pf questions for a given product
+    // Check the query parts of questions for a given product
     func testQuestionsProductQueryURL() throws {
         let count: UInt = 5
         let barcode = OFFBarcode(barcode: "abarcode")
@@ -77,6 +77,66 @@ class RBTFQuestionsURLTests: XCTestCase {
                     continue
                 } else if query.name == "lang",
                           query.value == lang {
+                    continue
+                } else {
+                    XCTFail("testQuestionsProductQueryURL: query item missing")
+                }
+            }
+            self.expectation?.fulfill()
+        } else {
+            XCTFail("testQuestionsProductQueryURL:no query items")
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+
+    // Check the query parts of random
+    func testQuestionsRandomQueryURL() throws {
+        let lang = "avalue"
+        let count: UInt = 5
+        let insightTypes: [RBTF.InsightType] = [.brand]
+        let country = "en:france"
+        let brands = ["lidl"]
+        let valueTag = "en:organic"
+        let page: UInt = 5
+        let request = RBTFQuestionsRequest(api: .questionsRandom,
+                                           languageCode: lang,
+                                           count: count,
+                                           insightTypes: insightTypes,
+                                           country: country,
+                                           brands: brands,
+                                           valueTag: valueTag,
+                                           page: page)
+        let queries = request.queryItems
+        if !queries.isEmpty {
+            for query in queries {
+                if query.name == "count",
+                   query.value == "\(count)" {
+                    continue
+                } else if query.name == "lang",
+                          query.value == lang {
+                    continue
+                } else if query.name == "insight_types",
+                          let queryInsigntTypes = query.value?.components(separatedBy: ","),
+                          !queryInsigntTypes.isEmpty,
+                          let first = queryInsigntTypes.first,
+                          let firstType = insightTypes.first?.rawValue,
+                          first == firstType {
+                    continue
+                } else if query.name == "country",
+                          query.value == country {
+                    continue
+                } else if query.name == "brands",
+                          let queryBrands = query.value?.components(separatedBy: ","),
+                          !queryBrands.isEmpty,
+                          let first = queryBrands.first,
+                          let firstBrand = brands.first,
+                          first == firstBrand {
+                    continue
+                } else if query.name == "value_tag",
+                          query.value == valueTag {
+                    continue
+                } else if query.name == "page",
+                          query.value == "\(page)" {
                     continue
                 } else {
                     XCTFail("testQuestionsProductQueryURL: query item missing")
