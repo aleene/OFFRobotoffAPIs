@@ -209,13 +209,13 @@ Function to retrieve a random product wth a question.
 - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 */
-        func RBTFQuestionsRandom(completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
-            let request = RBTFRequest(api: .questionsRandom)
-            fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
+    func RBTFQuestionsRandom(completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+        let request = RBTFRequest(api: .questionsRandom)
+        fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
                 completion(result)
-                return
-            }
+            return
         }
+    }
 
 /**
 Function to retrieve a random product wth a question with a list of query parameters to filter the questions

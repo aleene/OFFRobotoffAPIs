@@ -39,7 +39,6 @@ class RBTFUnansweredQuestionsRequest: RBTFRequest {
             insightType != nil ||
             country != nil ||
             page != nil {
-            var queryItems: [URLQueryItem] = []
             
             if let validCount = count,
                validCount >= 1 {

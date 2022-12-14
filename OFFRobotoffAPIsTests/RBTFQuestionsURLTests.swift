@@ -89,7 +89,7 @@ class RBTFQuestionsURLTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
-    // Check the query parts of random
+    // Check the query parts of questions
     func testQuestionsRandomQueryURL() throws {
         let lang = "avalue"
         let count: UInt = 5
@@ -145,6 +145,45 @@ class RBTFQuestionsURLTests: XCTestCase {
             self.expectation?.fulfill()
         } else {
             XCTFail("testQuestionsProductQueryURL:no query items")
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    // Check the query parts of unanswered questions
+    func testUnansweredQuestionsQueryURL() throws {
+        let count: UInt = 5
+        let insightType: RBTF.InsightType = .brand
+        let page: UInt = 5
+        let country = "en:france"
+        let request = RBTFUnansweredQuestionsRequest(count: count,
+                                                     insightType: insightType,
+                                                     country: country,
+                                                     page: page)
+        let queries = request.queryItems
+        if !queries.isEmpty {
+            for query in queries {
+                if query.name == "count",
+                   query.value == "\(count)" {
+                    continue
+                } else if query.name == "type",
+                          let queryInsightTypes = query.value?.components(separatedBy: ","),
+                          !queryInsightTypes.isEmpty,
+                          let first = queryInsightTypes.first,
+                          first == insightType.rawValue {
+                    continue
+                } else if query.name == "page",
+                          query.value == "\(page)" {
+                    continue
+                } else if query.name == "country",
+                          query.value == country {
+                    continue
+                } else {
+                    XCTFail("testUnansweredQuestionsQueryURL: query item missing")
+                }
+            }
+            self.expectation?.fulfill()
+        } else {
+            XCTFail("testUnansweredQuestionsQueryURL: no query items")
         }
         wait(for: [expectation], timeout: 1.0)
     }
