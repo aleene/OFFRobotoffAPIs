@@ -117,7 +117,7 @@ class RBTFInsightsRequest : RBTFRequest {
 
     }
     
-    /// for insight/random
+    /// for filtered insights for a specific barcode
     convenience init(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
         self.init(api: .insightsBarcode, barcode: barcode)
         // Are any query parameters required?
@@ -145,7 +145,7 @@ class RBTFInsightsRequest : RBTFRequest {
         }
     }
     
-    /// for insight/random
+/// for irandom filtered nisights
     convenience init(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
         self.init(api: .insightsRandom)
         // Are any query parameters required?
@@ -173,35 +173,6 @@ class RBTFInsightsRequest : RBTFRequest {
         }
     }
     
-    convenience init(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?) {
-        self.init(api: .questionsUnanswered)
-        // Are any query parameters required?
-        if count != nil ||
-            count != nil ||
-            insightType != nil ||
-            country != nil ||
-            page != nil {
-            var queryItems: [URLQueryItem] = []
-            
-            if let validCount = count,
-               validCount >= 1 {
-                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
-            }
-            
-            if let validInsightType = insightType {
-                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
-            }
-
-            if let validCountry = country {
-                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
-            }
-                        
-            if let validPage = page,
-               validPage >= 1 {
-                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
-            }
-        }
-    }
 
 }
 

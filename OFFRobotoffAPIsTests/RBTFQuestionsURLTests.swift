@@ -62,5 +62,31 @@ class RBTFQuestionsURLTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 1.0)
     }
+    
+    // Check the query parts pf questions for a given product
+    func testQuestionsProductQueryURL() throws {
+        let count: UInt = 5
+        let barcode = OFFBarcode(barcode: "abarcode")
+        let lang = "avalue"
+        let request = RBTFQuestionsRequest(barcode: barcode, count: count, lang: lang)
+        let queries = request.queryItems
+        if !queries.isEmpty {
+            for query in queries {
+                if query.name == "count",
+                   query.value == "\(count)" {
+                    continue
+                } else if query.name == "lang",
+                          query.value == lang {
+                    continue
+                } else {
+                    XCTFail("testQuestionsProductQueryURL: query item missing")
+                }
+            }
+            self.expectation?.fulfill()
+        } else {
+            XCTFail("testQuestionsProductQueryURL:no query items")
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
 
 }

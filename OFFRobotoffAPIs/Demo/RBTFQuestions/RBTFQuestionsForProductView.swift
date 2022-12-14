@@ -17,8 +17,8 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
-    private var countInt : Int? {
-        count != nil ? Int(count!) : nil
+    private var countInt : UInt? {
+        count != nil ? UInt(count!) : nil
     }
     
     fileprivate var questionsDictArray: [OrderedDictionary<String, String>] {

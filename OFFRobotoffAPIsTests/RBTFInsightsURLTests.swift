@@ -16,6 +16,7 @@ final class RBTFInsightsURLTest: XCTestCase {
         expectation = expectation(description: "Expectation")
     }
 
+    // test the insights url fro a list of random insights
     func testInsightsRandom() throws {
         let result = "https://robotoff.openfoodfacts.org/api/v1/insights/random"
         let url = RBTFRequest(api: .insightsRandom).url!
@@ -27,6 +28,7 @@ final class RBTFInsightsURLTest: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
+    // test the insights for a specific barcode url
     func testInsightsBarcode() throws {
         let result = "https://robotoff.openfoodfacts.org/api/v1/insights/1234"
         let offBarcode = OFFBarcode(barcode: "1234")
@@ -39,6 +41,7 @@ final class RBTFInsightsURLTest: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
 
+    // test the detail insights url
     func testInsightsDetail() throws {
         let result = "https://robotoff.openfoodfacts.org/api/v1/insights/detail/an_insight_string"
         let url = RBTFInsightsRequest(insightId: "an_insight_string").url!
@@ -50,14 +53,18 @@ final class RBTFInsightsURLTest: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    // Check the query parts of this call
-    func testURLInsightsRandom() throws {
+    // Check the query URL parts of filtered insights for a specific barcode
+    func testURLInsightsBarcodeFiltered() throws {
         let barcode = OFFBarcode(barcode: "abarcode")
         let insightType = RBTF.InsightType.brand
         let country = "acountry"
         let valueTag = "aValueTag"
         let count: UInt = 5
-        let request = RBTFInsightsRequest(barcode: barcode, insightType: insightType, country: country, valueTag: valueTag, count: count)
+        let request = RBTFInsightsRequest(barcode: barcode,
+                                          insightType: insightType,
+                                          country: country,
+                                          valueTag: valueTag,
+                                          count: count)
         let queries = request.queryItems
         if !queries.isEmpty {
             for query in queries {
@@ -77,12 +84,45 @@ final class RBTFInsightsURLTest: XCTestCase {
                           query.value == insightType.rawValue {
                     continue
                 } else {
-                    XCTFail("testURLInsightsRandom: query item missing")
+                    XCTFail("testURLInsightsBarcodeFiltered: query item missing")
                 }
             }
             self.expectation?.fulfill()
         } else {
-            XCTFail("testURLInsightsRandom :no query items")
+            XCTFail("testURLInsightsBarcodeFiltered :no query items")
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+
+    // Check the query parts of this call
+    func testURLInsightsRandomFiltered() throws {
+        let insightType = RBTF.InsightType.brand
+        let country = "acountry"
+        let valueTag = "aValueTag"
+        let count: UInt = 5
+        let request = RBTFInsightsRequest(insightType: insightType, country: country, valueTag: valueTag, count: count)
+        let queries = request.queryItems
+        if !queries.isEmpty {
+            for query in queries {
+                if query.name == "count",
+                   query.value == "\(count)" {
+                    continue
+                } else if query.name == "country",
+                          query.value == country {
+                    continue
+                } else if query.name == "value_tag",
+                          query.value == valueTag {
+                    continue
+                } else if query.name == "type",
+                          query.value == insightType.rawValue {
+                    continue
+                } else {
+                    XCTFail("testURLInsightsRandomFiltered: query item missing")
+                }
+            }
+            self.expectation?.fulfill()
+        } else {
+            XCTFail("testURLInsightsRandomFiltered :no query items")
         }
         wait(for: [expectation], timeout: 1.0)
     }

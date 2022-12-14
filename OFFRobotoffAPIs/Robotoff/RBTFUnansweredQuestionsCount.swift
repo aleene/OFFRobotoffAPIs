@@ -31,12 +31,10 @@ extension RBTF {
 
 class RBTFQuestionsRequest: RBTFRequest {
     
-    convenience init(api: RBTF.APIs, barcode: OFFBarcode, count: Int?, lang: String?) {
-        self.init(api: api)
+    convenience init(barcode: OFFBarcode, count: UInt?, lang: String?) {
+        self.init(api: .questions)
         self.path = self.path + "/" + barcode.barcode.description
-        if count != nil || lang != nil {
-            var queryItems: [URLQueryItem] = []
-            
+        if count != nil || lang != nil {            
             if let validCount = count {
                 queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
             }
@@ -95,6 +93,36 @@ class RBTFQuestionsRequest: RBTFRequest {
         }
     }
     
+    convenience init(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?) {
+        self.init(api: .questionsUnanswered)
+        // Are any query parameters required?
+        if count != nil ||
+            count != nil ||
+            insightType != nil ||
+            country != nil ||
+            page != nil {
+            var queryItems: [URLQueryItem] = []
+            
+            if let validCount = count,
+               validCount >= 1 {
+                queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
+            }
+            
+            if let validInsightType = insightType {
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+            }
+
+            if let validCountry = country {
+                queryItems.append(URLQueryItem(name: "country", value: "\(validCountry)" ))
+            }
+                        
+            if let validPage = page,
+               validPage >= 1 {
+                queryItems.append(URLQueryItem(name: "page", value: "\(validPage)" ))
+            }
+        }
+    }
+
 }
 
 extension URLSession {
@@ -114,7 +142,7 @@ A completion block with a Result enum (success or failure). The associated value
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
 */
     func RBTFUnAnsweredQuestionsCount(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(count: count, insightType: insightType, country: country, page: page)
+        let request = RBTFQuestionsRequest(count: count, insightType: insightType, country: country, page: page)
         fetch(request: request, responses: [200:RBTF.UnansweredQuestionsResponse.self]) { (result) in
             completion(result)
             return

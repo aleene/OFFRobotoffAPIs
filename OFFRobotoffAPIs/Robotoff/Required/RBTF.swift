@@ -5,6 +5,8 @@
 //  Created by Arnaud Leene on 21/10/2022.
 //
 
+// This file contains the code that is required by multiple API's
+
 import Foundation
 
 struct RBTF {
