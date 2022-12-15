@@ -34,6 +34,7 @@
 		AB51F58C2934B3A30040BA82 /* RBTFInsightsRandomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51F58B2934B3A30040BA82 /* RBTFInsightsRandomView.swift */; };
 		AB51F58E2934B5650040BA82 /* RBTFInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51F58D2934B5650040BA82 /* RBTFInsights.swift */; };
 		AB726559294740000032806D /* RBTFLogosSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB726558294740000032806D /* RBTFLogosSearchView.swift */; };
+		AB7D8E3A294B7917002A6D8B /* RBTFURLPredictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8E39294B7917002A6D8B /* RBTFURLPredictTests.swift */; };
 		AB7F49102930C3E50021D14F /* RBTFQuestionsPopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F490F2930C3E50021D14F /* RBTFQuestionsPopularView.swift */; };
 		AB7F49142930C7680021D14F /* RBTFUnansweredQuestionsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */; };
 		AB7F49182930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F49172930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift */; };
@@ -87,6 +88,7 @@
 		AB51F58B2934B3A30040BA82 /* RBTFInsightsRandomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsightsRandomView.swift; sourceTree = "<group>"; };
 		AB51F58D2934B5650040BA82 /* RBTFInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsights.swift; sourceTree = "<group>"; };
 		AB726558294740000032806D /* RBTFLogosSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFLogosSearchView.swift; sourceTree = "<group>"; };
+		AB7D8E39294B7917002A6D8B /* RBTFURLPredictTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFURLPredictTests.swift; sourceTree = "<group>"; };
 		AB7F490F2930C3E50021D14F /* RBTFQuestionsPopularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsPopularView.swift; sourceTree = "<group>"; };
 		AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFUnansweredQuestionsCount.swift; sourceTree = "<group>"; };
 		AB7F49172930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFUnansweredQuestionsCountView.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				AB1D6BF829435E5B00D36A78 /* RBTFLogosURLTtests.swift */,
 				ABEDA13D292BDFDE0033193B /* RBTFInsightsURLTests.swift */,
 				AB0A8DA529379E7E00D62489 /* RBTFDecodingTests.swift */,
+				AB7D8E39294B7917002A6D8B /* RBTFURLPredictTests.swift */,
 			);
 			path = OFFRobotoffAPIsTests;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				ABEDA13E292BDFDE0033193B /* RBTFInsightsURLTests.swift in Sources */,
 				ABEDA13C292BD3070033193B /* RBTFQuestionsURLTests.swift in Sources */,
 				AB0A8DA629379E7E00D62489 /* RBTFDecodingTests.swift in Sources */,
+				AB7D8E3A294B7917002A6D8B /* RBTFURLPredictTests.swift in Sources */,
 				AB1D6BF929435E5B00D36A78 /* RBTFLogosURLTtests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

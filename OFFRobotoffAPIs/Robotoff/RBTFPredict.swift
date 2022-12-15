@@ -48,7 +48,7 @@ extension RBTF {
         case matcher = "matcher"
     }
     
-    fileprivate struct PredictRequestBody: Codable {
+    public struct PredictRequestBody: Codable {
         var barcode: String = ""
         var deepest_only: Bool = true
         var threshold: Double = 0.5
@@ -61,6 +61,7 @@ class RBTFPredictRequest : RBTFRequest {
     /// for predit  fetch
     convenience init(barcode: OFFBarcode, deepestOnly: Bool?, threshold: Double?, predictors: [RBTF.Predictors]?) {
         self.init(api: .predict, barcode: barcode)
+        method = .post
         
         var requestBody = RBTF.PredictRequestBody()
 
