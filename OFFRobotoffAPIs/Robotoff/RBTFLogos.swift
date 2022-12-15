@@ -93,6 +93,7 @@ class RBTFLogosRequest : RBTFRequest {
     }
 
 }
+
 extension URLSession {
 
 /**

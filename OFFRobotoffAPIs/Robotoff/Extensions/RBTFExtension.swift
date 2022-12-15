@@ -81,18 +81,91 @@ extension RBTF.Logo {
         temp["username"] = username ?? "nil"
         temp["completed_at"] = completed_at ?? "nil"
         temp["nearest_neighbours"] = nearest_neighbours ?? "nil"
-
-        // can I make this to a separate dict and add it?
-        temp["image:id"] = image?.id != nil ? "\(image!.id!)" : "nil"
-        temp["image:barcode"] = image?.barcode ?? "nil"
-        temp["image:uploaded_at"] = image?.uploaded_at ?? "nil"
-        temp["image:imaged_id"] = image?.imaged_id ?? "nil"
-        temp["image:source_image"] = image?.source_image ?? "nil"
-        temp["image:width"] = image?.width != nil ? "\(image!.width!)" : "nil"
-        temp["image:height"] = image?.height != nil ? "\(image!.height!)" : "nil"
-        temp["image:deleted"] = image?.deleted != nil ? (image!.deleted! ? "true" : "false" ) : "nil"
-        temp["image:server_domain"] = image?.server_domain ?? "nil"
-        temp["image:server_type"] = image?.server_type ?? "nil"
+        
+        temp = temp.merging(image?.dict.newKey(prefix: "image:") ?? [:]) { $1 }
         return temp
+    }
+    
+}
+
+extension RBTF.LogoImage {
+    
+    var dict: OrderedDictionary<String, String> {
+        var temp: OrderedDictionary<String, String> = [:]
+        // can I make this to a separate dict and add it? Yes we could
+        temp["id"] = id != nil ? "\(id!)" : "nil"
+        temp["barcode"] = barcode ?? "nil"
+        temp["uploaded_at"] = uploaded_at ?? "nil"
+        temp["imaged_id"] = imaged_id ?? "nil"
+        temp["source_image"] = source_image ?? "nil"
+        temp["width"] = width != nil ? "\(width!)" : "nil"
+        temp["height"] = height != nil ? "\(height!)" : "nil"
+        temp["deleted"] = deleted != nil ? (deleted! ? "true" : "false" ) : "nil"
+        temp["server_domain"] = server_domain ?? "nil"
+        temp["server_type"] = server_type ?? "nil"
+        
+        return temp
+    }
+
+}
+
+extension RBTF.PredictResponse {
+    
+    var dict: OrderedDictionary<String, String> {
+        var temp: OrderedDictionary<String, String> = [:]
+        
+        temp = temp.merging(neural?.dict.newKey(prefix: "neural:") ?? [:]) { $1 }
+        temp = temp.merging(matcher?.dict.newKey(prefix: "matcher:") ?? [:]) { $1 }
+        return temp
+    }
+    
+}
+
+extension RBTF.NeuralResponse {
+    var dict: OrderedDictionary<String, String> {
+        var temp: OrderedDictionary<String, String> = [:]
+        temp["value_tag"] = value_tag ?? "nil"
+        temp["confidence"] = confidence != nil ? "\(confidence!)" : "nil"
+        return temp
+    }
+}
+
+extension RBTF.MatcherResponse {
+    var dict: OrderedDictionary<String, String> {
+        var temp: OrderedDictionary<String, String> = [:]
+        temp["value_tag"] = value_tag ?? "nil"
+        temp = temp.merging(debug?.dict.newKey(prefix: "debug:") ?? [:]) { $1 }
+        return temp
+    }
+}
+
+extension RBTF.MatcherDebug {
+    var dict: OrderedDictionary<String, String> {
+        var temp: OrderedDictionary<String, String> = [:]
+        temp["pattern"] = pattern ?? "nil"
+        temp["lang"] = lang ?? "nil"
+        temp["product_name"] = product_name ?? "nil"
+        temp["processed_product_name"] = processed_product_name ?? "nil"
+        temp["category_name"] = category_name ?? "nil"
+        temp["start_idx"] = start_idx != nil ? "\(start_idx!)" : "nil"
+        temp["end_idx"] = end_idx != nil ? "\(end_idx!)" : "nil"
+        temp["is_full_match"] = is_full_match != nil ? is_full_match!.description : "nil"
+        return temp
+    }
+}
+
+extension OrderedDictionary <String, String> {
+/**
+ Function to prefix the keys of an ordered dictionary with a string.
+ 
+ - Parameters:
+    - prefix: string to put in front of all existing keys
+ */
+    func newKey(prefix: String) -> [String:String]{
+        var newDict: [String:String] = [:]
+        for (key, value) in self {
+            newDict[prefix + key] = value
+        }
+        return newDict
     }
 }

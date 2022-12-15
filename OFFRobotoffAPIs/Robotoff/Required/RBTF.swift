@@ -22,6 +22,7 @@ struct RBTF {
         case insightsDetail
         case insightsRandom
         case logos
+        case predict
         
         var path: String {
             switch self {
@@ -33,6 +34,7 @@ struct RBTF {
             case .insightsRandom: return "/insights/random"
             case .insightsBarcode: return "/insights" // the barcode must be addded
             case .logos: return "/images/logos"
+            case .predict: return "/predict/category"
             }
         }
     }
@@ -234,7 +236,9 @@ Init for all producttypes supported by OFF. This will setup the correct host and
     
     convenience init(api: RBTF.APIs, barcode: OFFBarcode) {
         guard api == .questions ||
-                api == .insightsBarcode else { fatalError("HTTPRequest:init(api:barcode:): unallowed RBTF.API specified") }
+            api == .insightsBarcode ||
+            api == .predict
+            else { fatalError("HTTPRequest:init(api:barcode:): unallowed RBTF.API specified") }
         self.init(api: api)
         self.path = self.path + "/" + barcode.barcode.description
     }
