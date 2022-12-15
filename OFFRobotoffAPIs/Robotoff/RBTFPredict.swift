@@ -18,8 +18,8 @@ extension RBTF {
      - count: the number of questions
      */
     public struct PredictResponse: Codable {
-        var neural: NeuralResponse?
-        var matcher: MatcherResponse?
+        var neural: [NeuralResponse]?
+        var matcher: [MatcherResponse]?
     }
     
     public struct NeuralResponse: Codable {
@@ -60,7 +60,7 @@ class RBTFPredictRequest : RBTFRequest {
     
     /// for predit  fetch
     convenience init(barcode: OFFBarcode, deepestOnly: Bool?, threshold: Double?, predictors: [RBTF.Predictors]?) {
-        self.init(api: .predict, barcode: barcode)
+        self.init(api: .predict)
         method = .post
         
         var requestBody = RBTF.PredictRequestBody()

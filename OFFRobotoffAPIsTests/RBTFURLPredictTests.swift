@@ -16,8 +16,19 @@ final class RBTFURLPredictTests: XCTestCase {
         expectation = expectation(description: "Expectation")
     }
     
-    // Check the the URL, including the body
     func testURLPredict() throws {
+        let result = "https://robotoff.openfoodfacts.org/api/v1/predict/category"
+        let url = RBTFRequest(api: .predict).url!
+        if url.description == result {
+            self.expectation?.fulfill()
+        } else {
+            XCTFail("testURLPredict: urls's unequal")
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+
+    // Check the body
+    func testURLPredictBody() throws {
         let barcode = OFFBarcode(barcode: "abarcode")
         let deepestOnly = false
         let threshold = 0.5

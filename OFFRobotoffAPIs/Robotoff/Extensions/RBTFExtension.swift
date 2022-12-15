@@ -114,8 +114,8 @@ extension RBTF.PredictResponse {
     var dict: OrderedDictionary<String, String> {
         var temp: OrderedDictionary<String, String> = [:]
         
-        temp = temp.merging(neural?.dict.newKey(prefix: "neural:") ?? [:]) { $1 }
-        temp = temp.merging(matcher?.dict.newKey(prefix: "matcher:") ?? [:]) { $1 }
+        temp = temp.merging(neural?.first?.dict.newKey(prefix: "neural:") ?? [:]) { $1 }
+        temp = temp.merging(matcher?.first?.dict.newKey(prefix: "matcher:") ?? [:]) { $1 }
         return temp
     }
     
