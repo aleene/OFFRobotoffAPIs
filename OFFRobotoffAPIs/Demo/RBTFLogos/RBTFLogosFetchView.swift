@@ -41,13 +41,7 @@ class RBTFLogosFetchViewModel: ObservableObject {
 struct RBTFLogosFetchView: View {
     @StateObject var model = RBTFLogosFetchViewModel()
     
-    @State private var logoIds: String = "122299" {
-        didSet {
-            if !logoIds.isEmpty {
-                model.logoIds = logoIds
-            }
-        }
-    }
+    @State private var logoIds: String = "122299"
 
     @State private var isFetching = false
     
@@ -73,6 +67,11 @@ struct RBTFLogosFetchView: View {
             Text("This fetch retrieves logos details.")
                 .padding()
             InputView(title: "Enter logo id", placeholder: "", text: $logoIds)
+                .onChange(of: logoIds, perform: { newValue in
+                    if !logoIds.isEmpty {
+                        model.logoIds = logoIds
+                    }
+                })
             Button( action: {
                 model.update()
                 isFetching = true

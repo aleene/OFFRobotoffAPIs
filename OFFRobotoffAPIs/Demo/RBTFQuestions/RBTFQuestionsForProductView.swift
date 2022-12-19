@@ -12,13 +12,17 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     
     @Published var questionsResponse: RBTF.QuestionsResponse?
     @Published var barcode: OFFBarcode = OFFBarcode(barcode: "")
-    @Published var count: String?
+    @Published var count: UInt?
     @Published var language: String?
     @Published var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
     private var countInt : UInt? {
         count != nil ? UInt(count!) : nil
+    }
+    
+    public var countString: String {
+        count != nil ? String(count!) : "nil"
     }
     
     fileprivate var questionsDictArray: [OrderedDictionary<String, String>] {
@@ -53,13 +57,13 @@ struct RBTFQuestionsForProductView: View {
     
     private var string1: String {
         var text = "The questions for the product with barcode \(model.barcode.barcode) with "
-        text += (model.count ?? "nil")
+        text += model.countString
         text += " and language " + (model.language ?? "en:")
         return text
     }
     
     private var string2: String {
-        var text = "No questions for product \(model.barcode.barcode) with " + (model.count ?? "nil")
+        var text = "No questions for product \(model.barcode.barcode) with " + model.countString
         text += " and language "
         text += (model.language ?? "en:") + " available"
         return text
@@ -67,7 +71,7 @@ struct RBTFQuestionsForProductView: View {
     
     private var string3: String {
         var text = "Search in progress for questions of \(model.barcode.barcode) with "
-        text += (model.count ?? "nil")
+        text += model.countString
         text += " and language "
         text += (model.language ?? "en:")
         return text
@@ -101,9 +105,24 @@ struct RBTFQuestionsForProductView: View {
             Text("This fetch retrieves the questions for a product.")
                 .padding()
             InputView(title: "Enter barcode", placeholder: "4056489098683", text: $barcode)
-            InputView(title: "Enter language code", placeholder: "en", text: $language)
-            InputView(title: "Enter count", placeholder: "25", text: $count)
-            Button(action: {
+                .onChange(of: barcode, perform: { newValue in
+                    if !barcode.isEmpty {
+                        model.barcode = OFFBarcode(barcode: barcode)
+                    }
+                })
+           InputView(title: "Enter language code", placeholder: "en", text: $language)
+                .onChange(of: language, perform: { newValue in
+                    if !language.isEmpty {
+                        model.language = language
+                    }
+                })
+           InputView(title: "Enter count", placeholder: "25", text: $count)
+                .onChange(of: count, perform: { newValue in
+                    if !count.isEmpty {
+                        model.count = UInt(count)
+                    }
+                })
+           Button(action: {
                 model.barcode = OFFBarcode(barcode: barcode)
                 model.update()
                 isFetching = true

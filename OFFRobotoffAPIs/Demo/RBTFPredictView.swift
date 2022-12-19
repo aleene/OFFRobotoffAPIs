@@ -28,7 +28,10 @@ class RBTFPredictViewModel: ObservableObject {
     
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFPredictCategoriesProduct(barcode: barcode, deepestOnly: deepestOnly, threshold: threshold, predictors: predictors ) { (result) in
+        rbtfSession.RBTFPredictCategoriesProduct(barcode: barcode,
+                                                 deepestOnly: deepestOnly,
+                                                 threshold: threshold,
+                                                 predictors: predictors ) { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -45,51 +48,10 @@ struct RBTFPredictView: View {
     
     @StateObject var model = RBTFPredictViewModel()
 
-    @State private var barcode: String = "" {
-        didSet {
-            if !barcode.isEmpty {
-                model.barcode = OFFBarcode(barcode: barcode)
-            }
-        }
-    }
-        
-    @State private var deepestOnly: String = "" {
-        didSet {
-            if !deepestOnly.isEmpty {
-                switch deepestOnly {
-                case "true":
-                    model.deepestOnly = true
-                default:
-                    model.deepestOnly = false
-                }
-            }
-        }
-    }
-    
-    @State private var threshold: String = "" {
-        didSet {
-            if !threshold.isEmpty {
-                model.threshold = Double(threshold)
-            }
-        }
-    }
-    
-    @State private var predictors: String = "" {
-        didSet {
-            if !predictors.isEmpty {
-                let preds = predictors.components(separatedBy: ",")
-                if !preds.isEmpty {
-                    for element in preds {
-                        for pred in RBTF.Predictors.allCases {
-                            if pred.rawValue == element {
-                                model.predictors.append(pred)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    @State private var barcode: String = ""
+    @State private var deepestOnly: String = ""
+    @State private var threshold: String = ""
+    @State private var predictors: String = ""
 
     @State private var isFetching = false
 
@@ -112,9 +74,43 @@ struct RBTFPredictView: View {
             Text("This fetch retrieves the category prediction for a product.")
                 .padding()
             InputView(title: "Enter barcode", placeholder: "748162621021", text: $barcode)
+                .onChange(of: barcode, perform: { newValue in
+                    if !barcode.isEmpty {
+                        model.barcode = OFFBarcode(barcode: barcode)
+                    }
+                })
             InputView(title: "Enter deepestOnly", placeholder: "true or false", text: $deepestOnly)
+                .onChange(of: deepestOnly, perform: { newValue in
+                    if !deepestOnly.isEmpty {
+                        switch deepestOnly {
+                        case "true":
+                            model.deepestOnly = true
+                        default:
+                            model.deepestOnly = false
+                        }
+                    }
+                })
             InputView(title: "Enter threshold", placeholder: "0.5", text: $threshold)
+                .onChange(of: threshold, perform: { newValue in
+                    if !threshold.isEmpty {
+                        model.threshold = Double(threshold)
+                    }
+                })
             InputView(title: "Enter predictors", placeholder: "neural or matcher", text: $predictors)
+                .onChange(of: predictors, perform: { newValue in
+                    if !predictors.isEmpty {
+                        let preds = predictors.components(separatedBy: ",")
+                        if !preds.isEmpty {
+                            for element in preds {
+                                for pred in RBTF.Predictors.allCases {
+                                    if pred.rawValue == element {
+                                        model.predictors.append(pred)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                })
             Button( action: {
                 model.update()
                 isFetching = true

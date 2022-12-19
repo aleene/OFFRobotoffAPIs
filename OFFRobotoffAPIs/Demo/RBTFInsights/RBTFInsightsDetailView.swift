@@ -44,7 +44,7 @@ class RBTFInsightsDetailViewModel: ObservableObject {
 struct RBTFInsightsDetailView: View {
     @StateObject var model = RBTFInsightsDetailViewModel()
     
-    @State private var insightId: String = "3cd5aecd-edcc-4237-87d0-6595fc4e53c9"
+    @State private var insightId: String = ""
 
     @State private var isFetching = false
         
@@ -67,6 +67,11 @@ struct RBTFInsightsDetailView: View {
             Text("This fetch retrieves the insight details for a specific insight.")
                 .padding()
             InputView(title: "Enter insight id", placeholder: "3cd5aecd-edcc-4237-87d0-6595fc4e53c9", text: $insightId)
+                .onChange(of: insightId, perform: { newValue in
+                    if !insightId.isEmpty {
+                        model.insightId = insightId
+                    }
+                })
             Button( action: {
                 model.insightId = insightId
                 model.update()

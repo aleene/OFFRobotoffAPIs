@@ -1,5 +1,5 @@
 //
-//  RBTFQuestionsProductURL.swift
+//  RBTFURLQuestionsTests.swift
 //  OFFRobotoffAPIs
 //
 //  Created by Arnaud Leene on 21/11/2022.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import OFFRobotoffAPIs
 
-class RBTFQuestionsURLTests: XCTestCase {
+class RBTFURLQuestionsTests: XCTestCase {
 
     var expectation: XCTestExpectation!
 

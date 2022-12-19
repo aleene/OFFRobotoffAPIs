@@ -20,6 +20,10 @@ struct RBTFInsightsView: View {
             NavigationLink(destination: RBTFInsightsDetailView() ) {
                 Text("Insights Detail API")
             }
+            NavigationLink(destination: RBTFInsightsAnnotateView() ) {
+                Text("Insights Annotate API")
+            }
+
         }
         .navigationTitle("Robotoff Insights API's")
     }

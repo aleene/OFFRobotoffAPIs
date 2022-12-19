@@ -10,14 +10,15 @@ import Collections
 
 class RBTFUnansweredQuestionsCountViewModel: ObservableObject {
 
+    // variable that needs to be tracked by the view
     @Published var unansweredQuestionsResponse: RBTF.UnansweredQuestionsResponse?
     
-    @Published var count: UInt?
-    @Published var country: String?
-    @Published var page: UInt?
-    @Published var insightType: String?
+    public var count: UInt?
+    public var country: String?
+    public var page: UInt?
+    public var insightType: String?
 
-    @Published var errorMessage: String?
+    public var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
 
@@ -91,9 +92,29 @@ struct RBTFUnansweredQuestionsCountView: View {
             Text("This fetch retrieves the unanswered questions count.")
                 .padding()
             InputView(title: "Enter count", placeholder: "25", text: $count)
+                .onChange(of: count, perform: { newValue in
+                    if !count.isEmpty {
+                        model.count = UInt(count)
+                    }
+                })
             InputView(title: "Enter country", placeholder: "en:france", text: $country)
+                .onChange(of: country, perform: { newValue in
+                    if !country.isEmpty {
+                        model.country = country
+                    }
+                })
             InputView(title: "Enter insight types string", placeholder: "categories", text: $insightType)
+                .onChange(of: insightType, perform: { newValue in
+                    if !insightType.isEmpty {
+                        model.insightType = insightType
+                    }
+                })
             InputView(title: "Enter page", placeholder: "1", text: $page)
+                .onChange(of: page, perform: { newValue in
+                    if !page.isEmpty {
+                        model.page = UInt(page)
+                    }
+                })
             Button( action: {
                 model.update()
                 isFetching = true

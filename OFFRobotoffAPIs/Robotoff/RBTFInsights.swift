@@ -82,6 +82,29 @@ The datastructure retrieved for a reponse 200 for the Insights Random API
         var confidence: Float?
         var logo_id: Int?
     }
+    
+    public struct AnnotateResponse: Codable {
+        var status_code: Int?
+        var status: String?
+        var description: String?
+    }
+    
+    public enum Annotation: Int {
+        case accept = 1
+        case refuse = 0
+        case skip = -1
+        
+        init(string: String) {
+            switch string {
+            case "accept":
+                self = .accept
+            case "refuse":
+                self = .refuse
+            default:
+                self = .skip
+            }
+        }
+    }
 /**
  The response status for the Insights Random API
  - case **found** if questions have been found;
@@ -145,7 +168,7 @@ class RBTFInsightsRequest : RBTFRequest {
         }
     }
     
-/// for irandom filtered nisights
+/// for random filtered insights
     convenience init(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
         self.init(api: .insightsRandom)
         // Are any query parameters required?
@@ -173,7 +196,29 @@ class RBTFInsightsRequest : RBTFRequest {
         }
     }
     
+    convenience init(insightID: String, annotation: RBTF.Annotation, username: String?, password: String?) {
+        self.init(api: .insightsAnnotate)
+        method = .post
+        
+            
+        let values: [URLQueryItem] = [
+            URLQueryItem(name: "insight_id", value: insightID),
+            URLQueryItem(name: "annotation", value: "\(annotation.rawValue)" ),
+            URLQueryItem(name: "update", value: "\(1)" ) ]
 
+        self.body = FormBody(values)
+
+        // should an authentication header be sent?
+        if let validUsername = username,
+            let validPassword = password {
+            let loginString = String(format: "%@:%@", validUsername, validPassword)
+            let loginData = loginString.data(using: String.Encoding.utf8)!
+            let base64LoginString = loginData.base64EncodedString()
+            headers["Authorization:basic"] = base64LoginString
+        }
+        
+    }
+    
 }
 
 extension URLSession {
@@ -241,5 +286,24 @@ A completion block with a Result enum (success or failure). The associated value
             }
         }
 
+/**
+Function to retrieve the details of a specific insight
+
+- Parameters:
+ - insightId:  the id of an insight
+ - annotation: what should be done with the insight? (accept, refuse or skip)
+ - username: the OFF username, if not given the annotation will be handles as an anonymous user
+ - password: the OFF password
+
+- returns:
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.AnnotateResponse struct and for the failure an Error.
+*/
+    func RBTFInsights(insightID: String, annotation: RBTF.Annotation, username: String?, password: String?, completion: @escaping (_ result: Result<RBTF.AnnotateResponse, RBTFError>) -> Void) {
+        let request = RBTFInsightsRequest(insightID: insightID, annotation: annotation, username: username, password: password)
+            fetch(request: request, responses: [200:RBTF.AnnotateResponse.self]) { (result) in
+                        completion(result)
+            return
+        }
+    }
 
 }

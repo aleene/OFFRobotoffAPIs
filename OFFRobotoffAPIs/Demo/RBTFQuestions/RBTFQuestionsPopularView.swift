@@ -101,13 +101,48 @@ struct RBTFQuestionsPopularView: View {
             Text("This fetch retrieves popular questions.")
                 .padding()
             InputView(title: "Enter language code", placeholder: "en", text: $language)
-            InputView(title: "Enter count", placeholder: "25", text: $count)
-            InputView(title: "Enter country", placeholder: "en:france", text: $country)
-            InputView(title: "Enter brands", placeholder: "brand1, brand2, all", text: $brands)
+                .onChange(of: language, perform: { newValue in
+                    if !language.isEmpty {
+                        model.language = language
+                    }
+                })
+         InputView(title: "Enter count", placeholder: "25", text: $count)
+                .onChange(of: count, perform: { newValue in
+                    if !count.isEmpty {
+                        model.count = UInt(count)
+                    }
+                })
+          InputView(title: "Enter country", placeholder: "en:france", text: $country)
+                .onChange(of: country, perform: { newValue in
+                    if !country.isEmpty {
+                        model.country = country
+                    }
+                })
+           InputView(title: "Enter brands", placeholder: "brand1, brand2, all", text: $brands)
+                .onChange(of: brands, perform: { newValue in
+                    if !brands.isEmpty {
+                        model.brands = brands
+                    }
+                })
             InputView(title: "Enter value tag", placeholder: "some value", text: $valueTag)
+                .onChange(of: valueTag, perform: { newValue in
+                    if !valueTag.isEmpty {
+                        model.valueTag = valueTag
+                    }
+                })
             InputView(title: "Enter insight types", placeholder: "all", text: $insightTypes)
+                .onChange(of: insightTypes, perform: { newValue in
+                    if !insightTypes.isEmpty {
+                        model.insightTypes = insightTypes
+                    }
+                })
             InputView(title: "Enter page", placeholder: "1", text: $page)
-            Button( action: {
+                .onChange(of: page, perform: { newValue in
+                    if !page.isEmpty {
+                        model.page = UInt(page)
+                    }
+                })
+           Button( action: {
                 model.update()
                 isFetching = true
                 })

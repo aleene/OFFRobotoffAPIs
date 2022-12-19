@@ -82,9 +82,29 @@ struct RBTFInsightsRandomView: View {
             Text("This fetch retrieves random insights.")
                 .padding()
             InputView(title: "Enter insight type", placeholder: "all", text: $insightType)
+                .onChange(of: insightType, perform: { newValue in
+                    if !insightType.isEmpty {
+                        model.insightType = insightType
+                    }
+                })
             InputView(title: "Enter country", placeholder: "en:france", text: $country)
+                .onChange(of: country, perform: { newValue in
+                    if !country.isEmpty {
+                        model.country = country
+                    }
+                })
             InputView(title: "Enter value tag", placeholder: "some value", text: $valueTag)
-            InputView(title: "Enter count", placeholder: "25", text: $count)
+                .onChange(of: valueTag, perform: { newValue in
+                    if !valueTag.isEmpty {
+                        model.valueTag = valueTag
+                    }
+                })
+           InputView(title: "Enter count", placeholder: "25", text: $count)
+                .onChange(of: count, perform: { newValue in
+                    if !count.isEmpty {
+                        model.count = UInt(count)
+                    }
+                })
             Button( action: {
                 model.update()
                 isFetching = true

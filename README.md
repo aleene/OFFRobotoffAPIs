@@ -71,6 +71,22 @@ func RBTFInsights(insightId: String, completion: @escaping (_ result: Result<RBT
 ** Returns **
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.InsightsResponse struct and for the failure an Error.
 
+### Predict category API
+Function to predict categories for a product
+
+```
+func RBTFPredictCategoriesProduct(barcode: OFFBarcode, deepestOnly: Bool?, threshold: Double?, predictors: [RBTF.Predictors]?, completion: @escaping (_ result: Result<RBTF.PredictResponse, RBTFError>) -> Void)
+```
+
+** Parameters **
+- barcode: the barcode of the product to categorize
+- deepestOnly: if true, only return the deepest elements in the category taxonomy (don’t return categories that are parents of other predicted categories)
+- threshold: default: 0.5; The score above which we consider the category to be detected
+- predictors: Array Predictors (Enum): .neural and/or .matcher; List of predictors to use, possible values are matcher (simple matching algorithm) and neural (neural network categorizer)
+
+** Returns **
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.PredictResponse struct and for the failure an Error.
+
 ## Results
 The API-calls can produce multiple positive (code 200) results jsons.
 
@@ -135,6 +151,40 @@ The insight type, i.e. the subject the question is about, can have the following
 - **product_weight**: extracts the product weight from the image OCR.
 - **store**: the store where the given product is sold from the image OCR.
 - **trace**: detects traces that are present in the product from the image OCR.
+
+### Predict response
+```
+public struct PredictResponse: Codable {
+    var neural: [NeuralResponse]?
+    var matcher: [MatcherResponse]?
+}
+```
+```
+
+public struct NeuralResponse: Codable {
+    var value_tag: String?
+    var confidence: Float?
+}
+```
+```
+
+public struct MatcherResponse: Codable {
+    var value_tag: String?
+    var debug: MatcherDebug?
+}
+```
+```
+public struct MatcherDebug: Codable {
+    var pattern: String?
+    var lang: String?
+    var product_name: String?
+    var processed_product_name: String?
+    var category_name: String?
+    var start_idx: Int?
+    var end_idx: Int?
+    var is_full_match: Bool?
+}
+```
 
 ## Errors
 

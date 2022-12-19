@@ -1,5 +1,5 @@
 //
-//  RBTFLogosURLTtests.swift
+//  RBTFURLLogosTests.swift
 //  OFFRobotoffAPIsTests
 //
 //  Created by Arnaud Leene on 09/12/2022.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import OFFRobotoffAPIs
 
-final class RBTFLogosURLTtests: XCTestCase {
+final class RBTFURLLogosTests: XCTestCase {
 
     var expectation: XCTestExpectation!
 

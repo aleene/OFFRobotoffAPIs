@@ -14,15 +14,16 @@ struct RBTF {
 /** all possible Robotoff API's
  */
     enum APIs {
-        case questions
-        case questionsRandom
-        case questionsPopular
-        case questionsUnanswered
+        case predict
+        case insightsAnnotate
         case insightsBarcode
         case insightsDetail
         case insightsRandom
         case logos
-        case predict
+        case questions
+        case questionsPopular
+        case questionsRandom
+        case questionsUnanswered
         
         var path: String {
             switch self {
@@ -30,7 +31,8 @@ struct RBTF {
             case .questionsRandom: return "/questions/random"
             case .questionsPopular: return "/questions/popular"
             case .questionsUnanswered: return "/questions/unanswered"
-            case .insightsDetail: return "/insights/detail" // yje insights id must be added
+            case .insightsAnnotate: return "/insights/annotate"
+            case .insightsDetail: return "/insights/detail" // the insight id must be added
             case .insightsRandom: return "/insights/random"
             case .insightsBarcode: return "/insights" // the barcode must be addded
             case .logos: return "/images/logos"

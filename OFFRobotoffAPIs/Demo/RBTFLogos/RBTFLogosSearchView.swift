@@ -58,76 +58,14 @@ class RBTFLogosSearchViewModel: ObservableObject {
 struct RBTFLogosSearchView: View {
     @StateObject var model = RBTFLogosSearchViewModel()
     
-    @State private var count: String = "" {
-        didSet {
-            if !count.isEmpty {
-                model.count = UInt(count)
-            }
-        }
-    }
-    @State private var type: String = "" {
-        didSet {
-            if !type.isEmpty {
-                model.type = type
-            }
-        }
-    }
-    @State private var barcode: String = "" {
-        didSet {
-            if !barcode.isEmpty {
-                model.barcode = OFFBarcode(barcode: barcode)
-            }
-        }
-    }
-    @State private var value: String = "" {
-        didSet {
-            if !value.isEmpty {
-                model.value = value
-            }
-        }
-    }
-    @State private var taxonomy_value: String = "" {
-        didSet {
-            if !taxonomy_value.isEmpty {
-                model.taxonomy_value = taxonomy_value
-            }
-        }
-    }
-    @State private var min_confidence: String = "" {
-        didSet {
-            if !min_confidence.isEmpty {
-                model.min_confidence = Int(min_confidence)
-            }
-        }
-    }
-    @State private var random: String = "" {
-        didSet {
-            if !random.isEmpty {
-                switch random {
-                case "true":
-                    model.random = true
-                case "false":
-                    model.random = false
-                default:
-                    break
-                }
-            }
-        }
-    }
-    @State private var annotated: String = "" {
-        didSet {
-            if !annotated.isEmpty {
-                switch annotated {
-                case "true":
-                    model.annotated = true
-                case "false":
-                    model.annotated = false
-                default:
-                    break
-                }
-            }
-        }
-    }
+    @State private var count: String = ""
+    @State private var type: String = ""
+    @State private var barcode: String = ""
+    @State private var value: String = ""
+    @State private var taxonomy_value: String = ""
+    @State private var min_confidence: String = ""
+    @State private var random: String = ""
+    @State private var annotated: String = ""
 
     @State private var isFetching = false
     
@@ -153,13 +91,75 @@ struct RBTFLogosSearchView: View {
             Text("This fetch retrieves logos.")
                 .padding()
             InputView(title: "Enter count", placeholder: "25", text: $count)
+                .onChange(of: count, perform: { newValue in
+                    if !count.isEmpty {
+                        model.count = UInt(count)
+                    }
+                })
+
             InputView(title: "Enter type", placeholder: "packager_code", text: $type)
+                .onChange(of: type, perform: { newValue in
+                    if !type.isEmpty {
+                        model.type = type
+                    }
+                })
+
             InputView(title: "Enter barcode", placeholder: "1234567890123", text: $barcode)
+                .onChange(of: barcode, perform: { newValue in
+                    if !barcode.isEmpty {
+                        model.barcode = OFFBarcode(barcode: barcode)
+                    }
+                })
+
             InputView(title: "Enter value", placeholder: "lidl", text: $value)
-            InputView(title: "Enter count", placeholder: "25", text: $count)
+                .onChange(of: value, perform: { newValue in
+                    if !value.isEmpty {
+                        model.value = value
+                    }
+                })
+
+            InputView(title: "Enter min confidence", placeholder: "25", text: $min_confidence)
+                .onChange(of: min_confidence, perform: { newValue in
+                    if !min_confidence.isEmpty {
+                        model.min_confidence = Int(min_confidence)
+                    }
+                })
+
             InputView(title: "Enter taxonomy_value", placeholder: "en:organic", text: $taxonomy_value)
+                .onChange(of: taxonomy_value, perform: { newValue in
+                    if !taxonomy_value.isEmpty {
+                        model.taxonomy_value = taxonomy_value
+                    }
+                })
+
             InputView(title: "Enter random", placeholder: "false", text: $random)
+                .onChange(of: random, perform: { newValue in
+                    if !random.isEmpty {
+                        switch random {
+                        case "true":
+                            model.random = true
+                        case "false":
+                            model.random = false
+                        default:
+                            break
+                        }
+                    }
+                })
+
             InputView(title: "Enter annotated (true/false)", placeholder: "nil", text: $annotated)
+                .onChange(of: annotated, perform: { newValue in
+                    if !annotated.isEmpty {
+                        switch annotated {
+                        case "true":
+                            model.annotated = true
+                        case "false":
+                            model.annotated = false
+                        default:
+                            break
+                        }
+                    }
+                })
+
             Button( action: {
                 model.update()
                 isFetching = true

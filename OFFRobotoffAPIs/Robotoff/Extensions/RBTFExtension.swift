@@ -115,7 +115,13 @@ extension RBTF.PredictResponse {
         var temp: OrderedDictionary<String, String> = [:]
         
         temp = temp.merging(neural?.first?.dict.newKey(prefix: "neural:") ?? [:]) { $1 }
-        temp = temp.merging(matcher?.first?.dict.newKey(prefix: "matcher:") ?? [:]) { $1 }
+        if let validMatches = matcher,
+           !validMatches.isEmpty {
+            for (index, match) in validMatches.enumerated() {
+                let newkey = "\(index):matcher:"
+                temp = temp.merging(match.dict.newKey(prefix: newkey)) { $1 }
+            }
+        }
         return temp
     }
     
@@ -150,6 +156,16 @@ extension RBTF.MatcherDebug {
         temp["start_idx"] = start_idx != nil ? "\(start_idx!)" : "nil"
         temp["end_idx"] = end_idx != nil ? "\(end_idx!)" : "nil"
         temp["is_full_match"] = is_full_match != nil ? is_full_match!.description : "nil"
+        return temp
+    }
+}
+
+extension RBTF.AnnotateResponse {
+    var dict: OrderedDictionary<String, String> {
+        var temp: OrderedDictionary<String, String> = [:]
+        temp["status_code"] = status_code != nil ? "\(status_code!)" : "nil"
+        temp["status"] = status ?? "nil"
+        temp["description"] = description ?? "nil"
         return temp
     }
 }
