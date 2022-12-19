@@ -118,7 +118,9 @@ The question type. Only one type is supported at 23-nov-2022.
 
 class RBTFQuestionsRequest: RBTFRequest {
     
-    convenience init(barcode: OFFBarcode, count: UInt?, lang: String?) {
+    convenience init(barcode: OFFBarcode,
+                     count: UInt?, lang:
+                     String?) {
         self.init(api: .questions)
         self.path = self.path + "/" + barcode.barcode.description
         if count != nil || lang != nil {
@@ -133,7 +135,14 @@ class RBTFQuestionsRequest: RBTFRequest {
         }
     }
     
-    convenience init(api: RBTF.APIs, languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?) {
+    convenience init(api: RBTF.APIs,
+                     languageCode: String?,
+                     count: UInt?,
+                     insightTypes: [RBTF.InsightType],
+                     country: String?,
+                     brands: [String],
+                     valueTag: String?,
+                     page: UInt?) {
         self.init(api: api)
         // Are any query parameters required?
         if count != nil ||
@@ -195,7 +204,14 @@ extension URLSession {
 - returns:
  A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 */
-    func RBTFQuestionsProduct(with barcode: OFFBarcode, count: UInt?, lang: String?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+    func RBTFQuestionsProduct(with barcode: OFFBarcode,
+                              count: UInt?,
+                              lang: String?,
+                              completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+        guard !barcode.barcode.isEmpty else {
+            completion(.failure(.barcodeEmpty))
+            return
+        }
         let request = RBTFQuestionsRequest(barcode: barcode, count: count, lang: lang)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)

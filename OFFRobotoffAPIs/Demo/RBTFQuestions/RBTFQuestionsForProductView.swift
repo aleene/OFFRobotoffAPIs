@@ -12,7 +12,7 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     
     @Published var questionsResponse: RBTF.QuestionsResponse?
     
-    fileprivate var barcode: OFFBarcode = OFFBarcode(barcode: "")
+    fileprivate var barcode: OFFBarcode = OFFBarcode(barcode: "3046920029759")
     fileprivate var count: UInt?
     fileprivate var language: String?
     fileprivate var errorMessage: String?
@@ -34,7 +34,10 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsProduct(with: barcode, count: countInt, lang: language) { (result) in
+        rbtfSession.RBTFQuestionsProduct(with: barcode,
+                                         count: countInt,
+                                         lang: language)
+        { (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -124,7 +127,6 @@ struct RBTFQuestionsForProductView: View {
                     }
                 })
            Button(action: {
-                model.barcode = OFFBarcode(barcode: barcode)
                 model.update()
                 isFetching = true
                 })
