@@ -21,17 +21,17 @@ class RBTFLogosSearchViewModel: ObservableObject {
 
     @Published var logosResponse: RBTF.LogosResponse?
     
-    @Published var logoIds: String = "test"
-    @Published var count: UInt?
-    @Published var type: String?
-    @Published var barcode: OFFBarcode?
-    @Published var value: String?
-    @Published var taxonomy_value: String?
-    @Published var min_confidence: Int?
-    @Published var random: Bool?
-    @Published var annotated: Bool?
+    fileprivate var logoIds: String = "test"
+    fileprivate var count: UInt?
+    fileprivate var type: String?
+    fileprivate var barcode: OFFBarcode?
+    fileprivate var value: String?
+    fileprivate var taxonomy_value: String?
+    fileprivate var min_confidence: Int?
+    fileprivate var random: Bool?
+    fileprivate var annotated: Bool?
 
-    @Published var errorMessage: String?
+    fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
     

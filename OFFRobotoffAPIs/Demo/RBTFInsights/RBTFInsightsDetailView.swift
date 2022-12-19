@@ -11,11 +11,11 @@ import Collections
 class RBTFInsightsDetailViewModel: ObservableObject {
     
     @Published var insight: RBTF.Insight?
-    @Published var insightId: String?
-    @Published var errorMessage: String?
+    
+    fileprivate var insightId: String?
+    fileprivate var errorMessage: String?
     
     private var rbtfSession = URLSession.shared
-    
     private var validInsightId: String {
         insightId ?? "3cd5aecd-edcc-4237-87d0-6595fc4e53c9"
     }

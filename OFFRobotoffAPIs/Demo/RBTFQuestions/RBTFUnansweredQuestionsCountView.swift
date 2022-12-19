@@ -13,12 +13,12 @@ class RBTFUnansweredQuestionsCountViewModel: ObservableObject {
     // variable that needs to be tracked by the view
     @Published var unansweredQuestionsResponse: RBTF.UnansweredQuestionsResponse?
     
-    public var count: UInt?
-    public var country: String?
-    public var page: UInt?
-    public var insightType: String?
+    fileprivate var count: UInt?
+    fileprivate var country: String?
+    fileprivate var page: UInt?
+    fileprivate var insightType: String?
 
-    public var errorMessage: String?
+    fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
 

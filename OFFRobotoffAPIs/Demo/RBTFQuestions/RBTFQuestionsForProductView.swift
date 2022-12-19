@@ -11,10 +11,11 @@ import Collections
 class RBTFQuestionsForProductViewModel: ObservableObject {
     
     @Published var questionsResponse: RBTF.QuestionsResponse?
-    @Published var barcode: OFFBarcode = OFFBarcode(barcode: "")
-    @Published var count: UInt?
-    @Published var language: String?
-    @Published var errorMessage: String?
+    
+    fileprivate var barcode: OFFBarcode = OFFBarcode(barcode: "")
+    fileprivate var count: UInt?
+    fileprivate var language: String?
+    fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
     private var countInt : UInt? {

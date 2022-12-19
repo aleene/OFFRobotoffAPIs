@@ -12,15 +12,15 @@ class RBTFQuestionsRandomViewModel: ObservableObject {
 
     @Published var questionsResponse: RBTF.QuestionsResponse?
     
-    @Published var language: String?
-    @Published var count: UInt?
-    @Published var country: String?
-    @Published var brands: String?
-    @Published var valueTag: String?
-    @Published var page: UInt?
-    @Published var insightTypes: String?
+    fileprivate var language: String?
+    fileprivate var count: UInt?
+    fileprivate var country: String?
+    fileprivate var brands: String?
+    fileprivate var valueTag: String?
+    fileprivate var page: UInt?
+    fileprivate var insightTypes: String?
 
-    @Published var errorMessage: String?
+    fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
 

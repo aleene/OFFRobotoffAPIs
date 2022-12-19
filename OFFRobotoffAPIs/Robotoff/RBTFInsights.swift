@@ -214,7 +214,7 @@ class RBTFInsightsRequest : RBTFRequest {
             let loginString = String(format: "%@:%@", validUsername, validPassword)
             let loginData = loginString.data(using: String.Encoding.utf8)!
             let base64LoginString = loginData.base64EncodedString()
-            headers["Authorization:basic"] = base64LoginString
+            headers["Authorization"] = "Basic " + base64LoginString
         }
         
     }

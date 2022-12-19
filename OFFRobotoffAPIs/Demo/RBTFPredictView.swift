@@ -12,14 +12,14 @@ class RBTFPredictViewModel: ObservableObject {
 
     @Published var predictResponse: RBTF.PredictResponse?
     
-    @Published var barcode = OFFBarcode(barcode: "748162621021")
-    @Published var deepestOnly: Bool?
-    @Published var threshold: Double?
-    @Published var predictors: [RBTF.Predictors] = []
+    fileprivate var barcode = OFFBarcode(barcode: "748162621021")
+    fileprivate var deepestOnly: Bool?
+    fileprivate var threshold: Double?
+    fileprivate var predictors: [RBTF.Predictors] = []
 
-    @Published var errorMessage: String?
+    fileprivate var errorMessage: String?
 
-    private var rbtfSession = URLSession.shared
+    fileprivate var rbtfSession = URLSession.shared
     
     fileprivate var predictResponseDictArray: [OrderedDictionary<String, String>] {
         guard let validPredictResponse = predictResponse else { return [] }

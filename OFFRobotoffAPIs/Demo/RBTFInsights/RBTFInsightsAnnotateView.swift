@@ -12,12 +12,12 @@ class RBTFInsightsAnnotateViewModel: ObservableObject {
 
     @Published var annotateResponse: RBTF.AnnotateResponse?
     
-    public var insightID: String = "cdcf033b-f156-4068-a1bd-858c5effd2ac"
-    public var annotation: RBTF.Annotation = .skip
-    public var username: String?
-    public var password: String?
+    fileprivate var insightID: String = "cdcf033b-f156-4068-a1bd-858c5effd2ac"
+    fileprivate var annotation: RBTF.Annotation = .skip
+    fileprivate var username: String?
+    fileprivate var password: String?
 
-    public var errorMessage: String?
+    fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
     

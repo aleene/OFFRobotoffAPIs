@@ -196,6 +196,7 @@ extension URLSession {
                     }
                 }
             case .failure(let error):
+                print("error code: \(error.code)")
                 switch error.code  {
                 case .invalidRequest:
                     completion(.failure(.insightUnknown))

@@ -12,9 +12,8 @@ class RBTFLogosFetchViewModel: ObservableObject {
 
     @Published var logosResponse: RBTF.LogosResponse?
     
-    @Published var logoIds: String = "122299"
-
-    @Published var errorMessage: String?
+    fileprivate var logoIds: String = "122299"
+    fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
     
