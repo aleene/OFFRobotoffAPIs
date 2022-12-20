@@ -118,11 +118,11 @@ The question type. Only one type is supported at 23-nov-2022.
 
 class RBTFQuestionsRequest: RBTFRequest {
     
-    convenience init(barcode: OFFBarcode,
+    convenience init(barcode: String,
                      count: UInt?, lang:
                      String?) {
         self.init(api: .questions)
-        self.path = self.path + "/" + barcode.barcode.description
+        self.path = self.path + "/" + barcode
         if count != nil || lang != nil {
             if let validCount = count {
                 queryItems.append(URLQueryItem(name: "count", value: "\(validCount)" ))
@@ -197,18 +197,18 @@ extension URLSession {
  Function which retrieves the possible questions for a specific product.
  
 - Parameters:
-    - offbarcode: the OFFBarcode for the product;
+    - offbarcode: the barcode for the product;
     - count: the  maximum numer of questions to be retrived for this product. If not specified the value is **1**;
     - lang: the language code for the question and possible answer. If not specified **en** is assumed (english);
 
 - returns:
  A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 */
-    func RBTFQuestionsProduct(with barcode: OFFBarcode,
+    func RBTFQuestionsProduct(with barcode: String,
                               count: UInt?,
                               lang: String?,
                               completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
-        guard !barcode.barcode.isEmpty else {
+        guard !barcode.isEmpty else {
             completion(.failure(.barcodeEmpty))
             return
         }
@@ -218,7 +218,7 @@ extension URLSession {
             return
         }
     }
-    
+
 /**
 Function to retrieve a random product wth a question.
 
