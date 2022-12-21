@@ -259,7 +259,7 @@ Init for all producttypes supported by OFF. This will setup the correct host and
 
 // The specific errors that can be produced by the server
 public enum RBTFError: Error {
-    case barcodeEmpty
+    case barcodeInvalid
     case network
     case dataCorrupted(DecodingError.Context)
     case keyNotFound(CodingKey, DecodingError.Context)
@@ -293,8 +293,8 @@ public enum RBTFError: Error {
     }
     public var description: String {
         switch self {
-        case .barcodeEmpty:
-            return "RobotoffError: A valid barcode is required"
+        case .barcodeInvalid:
+            return "RobotoffError: A valid barcode is required (length 8, 12 or 13)"
         case .network:
             return ""
         case .request:

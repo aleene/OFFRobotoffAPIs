@@ -141,7 +141,11 @@ class RBTFInsightsRequest : RBTFRequest {
     }
     
     /// for filtered insights for a specific barcode
-    convenience init(barcode: String, insightType: String?, country: String?, valueTag: String?, count: UInt?) {
+    convenience init(barcode: String,
+                     insightType: String?,
+                     country: String?,
+                     valueTag: String?,
+                     count: UInt?) {
         self.init(api: .insightsBarcode, barcode: barcode)
         // Are any query parameters required?
         if  insightType != nil ||
@@ -243,9 +247,17 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
-    func RBTFInsights(insightType: String?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(insightType: insightType, country: country, valueTag: valueTag, count: count)
-        fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
+    func RBTFInsights(insightType: String?,
+                      country: String?,
+                      valueTag: String?,
+                      count: UInt?,
+                      completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
+        let request = RBTFInsightsRequest(insightType: insightType,
+                                          country: country,
+                                          valueTag: valueTag,
+                                          count: count)
+        fetch(request: request,
+              responses: [200:RBTF.InsightsResponse.self]) { (result) in
             completion(result)
             return
         }
@@ -266,9 +278,19 @@ A completion block with a Result enum (success or failure). The associated value
      
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
-    func RBTFInsights(barcode: String, insightType: String?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(barcode: barcode, insightType: insightType, country: country, valueTag: valueTag, count: count)
-            fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
+    func RBTFInsights(barcode: String,
+                      insightType: String?,
+                      country: String?,
+                      valueTag: String?,
+                      count: UInt?,
+                      completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
+        let request = RBTFInsightsRequest(barcode: barcode,
+                                          insightType: insightType,
+                                          country: country,
+                                          valueTag: valueTag,
+                                          count: count)
+            fetch(request: request,
+                  responses: [200:RBTF.InsightsResponse.self]) { (result) in
                 completion(result)
                 return
             }
@@ -284,9 +306,11 @@ Function to retrieve the details of a specific insight
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.InsightsResponse struct and for the failure an Error.
          
 */
-    func RBTFInsights(insightId: String, completion: @escaping (_ result: Result<RBTF.Insight, RBTFError>) -> Void) {
+    func RBTFInsights(insightId: String,
+                      completion: @escaping (_ result: Result<RBTF.Insight, RBTFError>) -> Void) {
         let request = RBTFInsightsRequest(insightId: insightId)
-        fetch(request: request, responses: [200:RBTF.Insight.self]) { (result) in
+        fetch(request: request,
+              responses: [200:RBTF.Insight.self]) { (result) in
                     completion(result)
                 return
             }
@@ -304,9 +328,17 @@ Function to retrieve the details of a specific insight
 - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.AnnotateResponse struct and for the failure an Error.
 */
-    func RBTFInsights(insightID: String, annotation: Int, username: String?, password: String?, completion: @escaping (_ result: Result<RBTF.AnnotateResponse, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(insightID: insightID, annotation: annotation, username: username, password: password)
-            fetch(request: request, responses: [200:RBTF.AnnotateResponse.self]) { (result) in
+    func RBTFInsights(insightID: String,
+                      annotation: Int,
+                      username: String?,
+                      password: String?,
+                      completion: @escaping (_ result: Result<RBTF.AnnotateResponse, RBTFError>) -> Void) {
+        let request = RBTFInsightsRequest(insightID: insightID,
+                                          annotation: annotation,
+                                          username: username,
+                                          password: password)
+            fetch(request: request,
+                  responses: [200:RBTF.AnnotateResponse.self]) { (result) in
                         completion(result)
             return
         }

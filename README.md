@@ -98,6 +98,10 @@ Function to predict categories for a product
 ```
 func RBTFPredictCategoriesProduct(barcode: OFFBarcode, deepestOnly: Bool?, threshold: Double?, predictors: [RBTF.Predictors]?, completion: @escaping (_ result: Result<RBTF.PredictResponse, RBTFError>) -> Void)
 ```
+or without the special enumerator and struct
+```
+func RBTFPredictCategoriesProduct(barcode: String, deepestOnly: Bool?, threshold: Double?, predictors: [String]?, completion: @escaping (_ result: Result<RBTF.PredictResponse, RBTFError>) -> Void)
+```
 
 ** Parameters **
 - barcode: the barcode of the product to categorize
@@ -106,7 +110,7 @@ func RBTFPredictCategoriesProduct(barcode: OFFBarcode, deepestOnly: Bool?, thres
 - predictors: Array Predictors (Enum): .neural and/or .matcher; List of predictors to use, possible values are matcher (simple matching algorithm) and neural (neural network categorizer)
 
 ** Returns **
-A completion block with a Result enum (success or failure). The associated value for success is a RBTF.PredictResponse struct and for the failure an Error.
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.PredictResponse struct and for the failure an Error. An invalid barcode (lenth 0 or not 8,12 or 13 will result in an error)
 
 ## Results
 The API-calls can produce multiple positive (code 200) results jsons.

@@ -14,7 +14,7 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     
     fileprivate var barcode: OFFBarcode = OFFBarcode(barcode: "3046920029759")
     fileprivate var count: UInt?
-    fileprivate var language: String?
+    fileprivate var language: ISO693_1?
     fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
@@ -34,9 +34,9 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsProduct(with: barcode,
-                                         count: countInt,
-                                         lang: language)
+        rbtfSession.RBTFQuestionsProductExtended(with: barcode,
+                                                 count: countInt,
+                                                 lang: language)
         { (result) in
             DispatchQueue.main.async {
                 switch result {
@@ -62,14 +62,14 @@ struct RBTFQuestionsForProductView: View {
     private var string1: String {
         var text = "The questions for the product with barcode \(model.barcode.barcode) with "
         text += model.countString
-        text += " and language " + (model.language ?? "en:")
+        text += " and language " + (model.language?.rawValue ?? "en")
         return text
     }
     
     private var string2: String {
         var text = "No questions for product \(model.barcode.barcode) with " + model.countString
         text += " and language "
-        text += (model.language ?? "en:") + " available"
+        text += (model.language?.rawValue ?? "en") + " available"
         return text
     }
     
@@ -77,7 +77,7 @@ struct RBTFQuestionsForProductView: View {
         var text = "Search in progress for questions of \(model.barcode.barcode) with "
         text += model.countString
         text += " and language "
-        text += (model.language ?? "en:")
+        text += (model.language?.rawValue ?? "en")
         return text
     }
 
@@ -117,7 +117,7 @@ struct RBTFQuestionsForProductView: View {
            InputView(title: "Enter language code", placeholder: "en", text: $language)
                 .onChange(of: language, perform: { newValue in
                     if !language.isEmpty {
-                        model.language = language
+                        model.language = ISO693_1(rawValue: language)
                     }
                 })
            InputView(title: "Enter count", placeholder: "25", text: $count)

@@ -14,7 +14,7 @@ class RBTFUnansweredQuestionsCountViewModel: ObservableObject {
     @Published var unansweredQuestionsResponse: RBTF.UnansweredQuestionsResponse?
     
     fileprivate var count: UInt?
-    fileprivate var country: String?
+    fileprivate var country: Country?
     fileprivate var page: UInt?
     fileprivate var insightType: String?
 
@@ -42,7 +42,7 @@ class RBTFUnansweredQuestionsCountViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFUnAnsweredQuestionsCount(count: count, insightType: insightTypeInput, country: country, page: page ){ (result) in
+        rbtfSession.RBTFUnAnsweredQuestionsCountExtended(count: count, insightType: insightTypeInput, country: country, page: page ){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -100,7 +100,7 @@ struct RBTFUnansweredQuestionsCountView: View {
             InputView(title: "Enter country", placeholder: "en:france", text: $country)
                 .onChange(of: country, perform: { newValue in
                     if !country.isEmpty {
-                        model.country = country
+                        model.country = Country(rawValue: country)
                     }
                 })
             InputView(title: "Enter insight types string", placeholder: "categories", text: $insightType)

@@ -13,7 +13,7 @@ class RBTFInsightsRandomViewModel: ObservableObject {
     @Published var insightsResponse: RBTF.InsightsResponse?
     
     fileprivate var count: UInt?
-    fileprivate var country: String?
+    fileprivate var country: Country?
     fileprivate var valueTag: String?
     fileprivate var insightType: String?
 
@@ -90,7 +90,7 @@ struct RBTFInsightsRandomView: View {
             InputView(title: "Enter country", placeholder: "en:france", text: $country)
                 .onChange(of: country, perform: { newValue in
                     if !country.isEmpty {
-                        model.country = country
+                        model.country = Country(rawValue: country)
                     }
                 })
             InputView(title: "Enter value tag", placeholder: "some value", text: $valueTag)

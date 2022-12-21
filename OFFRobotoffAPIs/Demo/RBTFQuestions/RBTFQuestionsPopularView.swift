@@ -12,9 +12,9 @@ class RBTFQuestionsPopularViewModel: ObservableObject {
 
     @Published var questionsResponse: RBTF.QuestionsResponse?
     
-    fileprivate var language: String?
+    fileprivate var language: ISO693_1?
     fileprivate var count: UInt?
-    fileprivate var country: String?
+    fileprivate var country: Country?
     fileprivate var brands: String?
     fileprivate var valueTag: String?
     fileprivate var page: UInt?
@@ -49,7 +49,7 @@ class RBTFQuestionsPopularViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsPopular(languageCode: language, count: count, insightTypes: insightTypesInput, country: country, brands: brandsInput, valueTag: valueTag, page: page){ (result) in
+        rbtfSession.RBTFQuestionsPopularExtended(languageCode: language, count: count, insightTypes: insightTypesInput, country: country, brands: brandsInput, valueTag: valueTag, page: page){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -103,7 +103,7 @@ struct RBTFQuestionsPopularView: View {
             InputView(title: "Enter language code", placeholder: "en", text: $language)
                 .onChange(of: language, perform: { newValue in
                     if !language.isEmpty {
-                        model.language = language
+                        model.language = ISO693_1(rawValue: language)
                     }
                 })
          InputView(title: "Enter count", placeholder: "25", text: $count)
@@ -115,7 +115,7 @@ struct RBTFQuestionsPopularView: View {
           InputView(title: "Enter country", placeholder: "en:france", text: $country)
                 .onChange(of: country, perform: { newValue in
                     if !country.isEmpty {
-                        model.country = country
+                        model.country = Country(rawValue: country)
                     }
                 })
            InputView(title: "Enter brands", placeholder: "brand1, brand2, all", text: $brands)

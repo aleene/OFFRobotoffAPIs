@@ -52,7 +52,7 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, campaign, predictor).
 */
-    func RBTFUnAnsweredQuestionsExtensionCount(count: UInt?,
+    func RBTFUnAnsweredQuestionsCountExtended(count: UInt?,
                                       insightType: RBTF.InsightType?,
                                       country: Country?,
                                       page: UInt?,

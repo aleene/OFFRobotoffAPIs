@@ -12,33 +12,29 @@ class RBTFInsightsBarcodeViewModel: ObservableObject {
 
     @Published var insightsResponse: RBTF.InsightsResponse?
     
-    fileprivate var barcode: String = "3046920029759"
+    fileprivate var barcode = OFFBarcode(barcode: "3046920029759" )
     fileprivate var count: UInt?
-    fileprivate var country: String?
+    fileprivate var country: Country?
     fileprivate var valueTag: String?
-    fileprivate var insightType: String?
+    fileprivate var insightType: RBTF.InsightType?
 
     fileprivate var errorMessage: String?
 
     private var rbtfSession = URLSession.shared
-
-    fileprivate var offBarcode: OFFBarcode {
-        OFFBarcode(barcode: barcode)
-    }
     
     fileprivate var insightsDictArray: [OrderedDictionary<String, String>] {
         guard let questions = insightsResponse?.insights else { return [] }
         return questions.map({ $0.dict })
     }
     
-    fileprivate var insightTypeInput: RBTF.InsightType? {
-        insightType != nil ? RBTF.InsightType.value(for: insightType!): nil
-    }
-
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFInsights(barcode: offBarcode, insightType: insightTypeInput, country: country, valueTag: valueTag, count: count){ (result) in
+        rbtfSession.RBTFInsightsExtended(barcode: barcode,
+                                         insightType: insightType,
+                                         country: country,
+                                         valueTag: valueTag,
+                                         count: count){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
@@ -91,19 +87,19 @@ struct RBTFInsightsBarcodeView: View {
             InputView(title: "Enter barcode", placeholder: "3046920029759", text: $barcode)
                 .onChange(of: barcode, perform: { newValue in
                     if !barcode.isEmpty {
-                        model.barcode = barcode
+                        model.barcode = OFFBarcode(barcode: barcode)
                     }
                 })
             InputView(title: "Enter insight type", placeholder: "all", text: $insightType)
                 .onChange(of: insightType, perform: { newValue in
                     if !insightType.isEmpty {
-                        model.insightType = insightType
+                        model.insightType = RBTF.InsightType(rawValue: insightType)
                     }
                 })
             InputView(title: "Enter country", placeholder: "en:france", text: $country)
                 .onChange(of: country, perform: { newValue in
                     if !country.isEmpty {
-                        model.country = country
+                        model.country = Country(rawValue: country)
                     }
                 })
             InputView(title: "Enter value tag", placeholder: "some value", text: $valueTag)

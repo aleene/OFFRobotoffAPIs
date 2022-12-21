@@ -138,7 +138,7 @@ class RBTFQuestionsRequest: RBTFRequest {
     convenience init(api: RBTF.APIs,
                      languageCode: String?,
                      count: UInt?,
-                     insightTypes: [RBTF.InsightType],
+                     insightTypes: [String],
                      country: String?,
                      brands: [String],
                      valueTag: String?,
@@ -165,7 +165,7 @@ class RBTFQuestionsRequest: RBTFRequest {
             }
             
             if !insightTypes.isEmpty {
-                let insights = insightTypes.map({ $0.rawValue }).joined(separator: ",")
+                let insights = insightTypes.map({ $0 }).joined(separator: ",")
                 queryItems.append(URLQueryItem(name: "insight_types", value: "\(insights)" ))
             }
             
@@ -209,7 +209,7 @@ extension URLSession {
                               lang: String?,
                               completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
         guard !barcode.isEmpty else {
-            completion(.failure(.barcodeEmpty))
+            completion(.failure(.barcodeInvalid))
             return
         }
         let request = RBTFQuestionsRequest(barcode: barcode, count: count, lang: lang)

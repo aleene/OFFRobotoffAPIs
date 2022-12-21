@@ -43,6 +43,7 @@
 		ABADF963294A3649000D3986 /* RBTFPredict.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABADF962294A3649000D3986 /* RBTFPredict.swift */; };
 		ABAF496E2951C297002A8EF8 /* RBTFInsightsExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF496D2951C297002A8EF8 /* RBTFInsightsExtended.swift */; };
 		ABAF49702951C2BA002A8EF8 /* RBTFQuestionsExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF496F2951C2BA002A8EF8 /* RBTFQuestionsExtended.swift */; };
+		ABBA37D629531BF800B9B9E0 /* RBTFPredictExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBA37D529531BF800B9B9E0 /* RBTFPredictExtended.swift */; };
 		ABCDEFFD29530B4900CFCCE8 /* RBTFUnansweredQuestionsCountExtended.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCDEFFC29530B4900CFCCE8 /* RBTFUnansweredQuestionsCountExtended.swift */; };
 		ABDEFD8529324D05000F826A /* RBTFExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDEFD8429324D05000F826A /* RBTFExtension.swift */; };
 		ABEDA127292BCB270033193B /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABEDA123292BCB270033193B /* InputView.swift */; };
@@ -101,6 +102,7 @@
 		ABADF962294A3649000D3986 /* RBTFPredict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFPredict.swift; sourceTree = "<group>"; };
 		ABAF496D2951C297002A8EF8 /* RBTFInsightsExtended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsightsExtended.swift; sourceTree = "<group>"; };
 		ABAF496F2951C2BA002A8EF8 /* RBTFQuestionsExtended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsExtended.swift; sourceTree = "<group>"; };
+		ABBA37D529531BF800B9B9E0 /* RBTFPredictExtended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFPredictExtended.swift; sourceTree = "<group>"; };
 		ABCDEFFC29530B4900CFCCE8 /* RBTFUnansweredQuestionsCountExtended.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFUnansweredQuestionsCountExtended.swift; sourceTree = "<group>"; };
 		ABDEFD8429324D05000F826A /* RBTFExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFExtension.swift; sourceTree = "<group>"; };
 		ABEDA123292BCB270033193B /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
@@ -212,13 +214,11 @@
 			isa = PBXGroup;
 			children = (
 				AB51F58D2934B5650040BA82 /* RBTFInsights.swift */,
-				ABAF496D2951C297002A8EF8 /* RBTFInsightsExtended.swift */,
 				AB1D6BF629434D8200D36A78 /* RBTFLogos.swift */,
 				AB431189292A7FBB00FE21BC /* RBTFQuestions.swift */,
-				ABAF496F2951C2BA002A8EF8 /* RBTFQuestionsExtended.swift */,
 				AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */,
-				ABCDEFFC29530B4900CFCCE8 /* RBTFUnansweredQuestionsCountExtended.swift */,
 				ABADF962294A3649000D3986 /* RBTFPredict.swift */,
+				ABBA37D729531C0A00B9B9E0 /* Extended */,
 				ABDEFD8629324D4E000F826A /* Extensions */,
 				AB431186292A7F4E00FE21BC /* Required */,
 			);
@@ -247,6 +247,17 @@
 				AB0A8DA329374E4900D62489 /* RBTFInsightsBarcodeView.swift */,
 			);
 			path = RBTFInsights;
+			sourceTree = "<group>";
+		};
+		ABBA37D729531C0A00B9B9E0 /* Extended */ = {
+			isa = PBXGroup;
+			children = (
+				ABAF496D2951C297002A8EF8 /* RBTFInsightsExtended.swift */,
+				ABBA37D529531BF800B9B9E0 /* RBTFPredictExtended.swift */,
+				ABAF496F2951C2BA002A8EF8 /* RBTFQuestionsExtended.swift */,
+				ABCDEFFC29530B4900CFCCE8 /* RBTFUnansweredQuestionsCountExtended.swift */,
+			);
+			path = Extended;
 			sourceTree = "<group>";
 		};
 		ABDEFD8629324D4E000F826A /* Extensions */ = {
@@ -388,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABA0CD68293F489400573601 /* RBTFInsightsDetailView.swift in Sources */,
+				ABBA37D629531BF800B9B9E0 /* RBTFPredictExtended.swift in Sources */,
 				AB7F49102930C3E50021D14F /* RBTFQuestionsPopularView.swift in Sources */,
 				AB431183292A7F4500FE21BC /* OFFAdditions.swift in Sources */,
 				ABADF963294A3649000D3986 /* RBTFPredict.swift in Sources */,

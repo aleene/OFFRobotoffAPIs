@@ -9,10 +9,14 @@ import Foundation
 
 public struct OFFBarcode {
 
+    public struct Error {
+         static let BarcodeLength = "OFFBarcode: Barcode length is not a UPC, EAN8 or EAN13 code"
+    }
+    
     public var barcode: String {
         didSet {
             if !isCorrect {
-                print("OFFBarcode: Barcode length is not UPC, EAN8 or EAN13")
+                print(OFFBarcode.Error.BarcodeLength)
             }
         }
     }
@@ -404,7 +408,7 @@ public enum ISO693_1: String {
 
 }
 
-public enum Country {
+public enum Country: String {
     case france
     case unitedKingdom
     case netherlands
@@ -416,4 +420,5 @@ public enum Country {
         case .netherlands: return "en:netherlands"
         }
     }
+    
 }
