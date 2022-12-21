@@ -141,7 +141,7 @@ class RBTFInsightsRequest : RBTFRequest {
     }
     
     /// for filtered insights for a specific barcode
-    convenience init(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
+    convenience init(barcode: String, insightType: String?, country: String?, valueTag: String?, count: UInt?) {
         self.init(api: .insightsBarcode, barcode: barcode)
         // Are any query parameters required?
         if  insightType != nil ||
@@ -150,7 +150,7 @@ class RBTFInsightsRequest : RBTFRequest {
             count != nil {
                         
             if let validInsightType = insightType {
-                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType ))
             }
 
             if let validCountry = country {
@@ -169,7 +169,10 @@ class RBTFInsightsRequest : RBTFRequest {
     }
     
 /// for random filtered insights
-    convenience init(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?) {
+    convenience init(insightType: String?,
+                     country: String?,
+                     valueTag: String?,
+                     count: UInt?) {
         self.init(api: .insightsRandom)
         // Are any query parameters required?
         if  insightType != nil ||
@@ -178,7 +181,7 @@ class RBTFInsightsRequest : RBTFRequest {
             count != nil {
                         
             if let validInsightType = insightType {
-                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType ))
             }
 
             if let validCountry = country {
@@ -196,14 +199,17 @@ class RBTFInsightsRequest : RBTFRequest {
         }
     }
     
-    convenience init(insightID: String, annotation: RBTF.Annotation, username: String?, password: String?) {
+    convenience init(insightID: String,
+                     annotation: Int,
+                     username: String?,
+                     password: String?) {
         self.init(api: .insightsAnnotate)
         method = .post
         
             
         let values: [URLQueryItem] = [
             URLQueryItem(name: "insight_id", value: insightID),
-            URLQueryItem(name: "annotation", value: "\(annotation.rawValue)" ),
+            URLQueryItem(name: "annotation", value: "\(annotation)" ),
             URLQueryItem(name: "update", value: "\(1)" ) ]
 
         self.body = FormBody(values)
@@ -237,7 +243,7 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
-    func RBTFInsights(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
+    func RBTFInsights(insightType: String?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
         let request = RBTFInsightsRequest(insightType: insightType, country: country, valueTag: valueTag, count: count)
         fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
             completion(result)
@@ -260,7 +266,7 @@ A completion block with a Result enum (success or failure). The associated value
      
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, campaign, predictor).
 */
-    func RBTFInsights(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
+    func RBTFInsights(barcode: String, insightType: String?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
         let request = RBTFInsightsRequest(barcode: barcode, insightType: insightType, country: country, valueTag: valueTag, count: count)
             fetch(request: request, responses: [200:RBTF.InsightsResponse.self]) { (result) in
                 completion(result)
@@ -298,7 +304,7 @@ Function to retrieve the details of a specific insight
 - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.AnnotateResponse struct and for the failure an Error.
 */
-    func RBTFInsights(insightID: String, annotation: RBTF.Annotation, username: String?, password: String?, completion: @escaping (_ result: Result<RBTF.AnnotateResponse, RBTFError>) -> Void) {
+    func RBTFInsights(insightID: String, annotation: Int, username: String?, password: String?, completion: @escaping (_ result: Result<RBTF.AnnotateResponse, RBTFError>) -> Void) {
         let request = RBTFInsightsRequest(insightID: insightID, annotation: annotation, username: username, password: password)
             fetch(request: request, responses: [200:RBTF.AnnotateResponse.self]) { (result) in
                         completion(result)

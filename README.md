@@ -16,7 +16,7 @@ You can reuse the libraries from this repository. The steps:
 ## Usage
 ### Initialisation
 
-### Product API.
+### Product endpoint.
 
 Function which retrieves the possible questions for a specific product.
 ```
@@ -29,6 +29,27 @@ func RBTFQuestionsProduct(with barcode: OFFBarcode, count: Int?, lang: String?, 
 
 **Returns**
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
+
+### Unanswered questions endpoint
+Function to retrieve a random product wth a question with a list of query parameters to filter the questions
+```
+func RBTFUnAnsweredQuestionsExtensionCount(count: UInt?, insightType: RBTF.InsightType?, country: Country?, page: UInt?, completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void)
+```
+or without enumerated types
+```
+func RBTFUnAnsweredQuestionsCount(count: UInt?, insightType: String?, country: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void)
+
+```
+**Parameters**
+- count: the number of questions to return (default=1)
+- insightType: filter by insight type (i.e. InsightType.brand or "brand")
+- country: filter by country tag (i.e. Country.france or "en:france"")
+- page: page index to return (starting at 1), default=1
+
+**Returns**
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
+Not all possible query parameters have been implemented, as they are not useful to everyone (server_domain, reserved_barcode, campaign, predictor).
+
 
 ### Insights random API
 Function to retrieve a random insights with a list of query parameters to filter the questions

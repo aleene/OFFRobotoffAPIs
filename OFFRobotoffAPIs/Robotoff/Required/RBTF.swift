@@ -246,6 +246,15 @@ Init for all producttypes supported by OFF. This will setup the correct host and
         self.path = self.path + "/" + barcode.barcode.description
     }
 
+    convenience init(api: RBTF.APIs, barcode: String) {
+        guard api == .questions ||
+            api == .insightsBarcode ||
+            api == .predict
+            else { fatalError("HTTPRequest:init(api:barcode:): unallowed RBTF.API specified") }
+        self.init(api: api)
+        self.path = self.path + "/" + barcode.description
+    }
+
 }
 
 // The specific errors that can be produced by the server

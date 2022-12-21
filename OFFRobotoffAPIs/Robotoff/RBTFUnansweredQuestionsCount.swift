@@ -5,15 +5,17 @@
 //  Created by Arnaud Leene on 25/11/2022.
 //
 
+// Use this file if you want to use the Unanswered Questions Endpoint
+
 import Foundation
 
 extension RBTF {
     
-    /**
-     The datastructure retrieved for a reponse 200 for the Questions Product API and Questions Random API
+/**
+The datastructure retrieved for a reponse 200 for the Questions Product API and Questions Random API
      
-     **Variables:**
-     - responseStatus: the *QuestionsResponseStatus* of the response:
+- Variables:**
+    - responseStatus: the *QuestionsResponseStatus* of the response:
      - questions: a dictionary with as key the value_tag (String) and as value the number of questions (int)
      - count: the number of questions
      */
@@ -31,7 +33,9 @@ extension RBTF {
 
 class RBTFUnansweredQuestionsRequest: RBTFRequest {
             
-    convenience init(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?) {
+    convenience init(count: UInt?,
+                     insightType: String?,
+                     country: String?, page: UInt?) {
         self.init(api: .questionsUnanswered)
         // Are any query parameters required?
         if count != nil ||
@@ -46,7 +50,7 @@ class RBTFUnansweredQuestionsRequest: RBTFRequest {
             }
             
             if let validInsightType = insightType {
-                queryItems.append(URLQueryItem(name: "type", value: validInsightType.rawValue ))
+                queryItems.append(URLQueryItem(name: "type", value: validInsightType ))
             }
 
             if let validCountry = country {
@@ -78,7 +82,11 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
 */
-    func RBTFUnAnsweredQuestionsCount(count: UInt?, insightType: RBTF.InsightType?, country: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void) {
+    func RBTFUnAnsweredQuestionsCount(count: UInt?,
+                                      insightType: String?,
+                                      country: String?,
+                                      page: UInt?,
+                                      completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void) {
         let request = RBTFUnansweredQuestionsRequest(count: count, insightType: insightType, country: country, page: page)
         fetch(request: request, responses: [200:RBTF.UnansweredQuestionsResponse.self]) { (result) in
             completion(result)
