@@ -5,6 +5,8 @@
 //  Created by Arnaud Leene on 25/10/2022.
 //
 
+// An implementation of the HTTP interactions with an API endpoint.
+
 import Foundation
 
 public enum HTTPMethod: String {
@@ -107,6 +109,8 @@ public struct HTTPError: Error {
     }
 }
 
+//MARK: ------------------------
+
 public protocol HTTPBody {
     var isEmpty: Bool { get }
     var additionalHeaders: [String:String] { get }
@@ -194,9 +198,21 @@ public struct JSONBody: HTTPBody {
     }
 }
 
+//MARK: ------------------------
+
 extension URLSession {
 
-    public func load(request: HTTPRequest, completion: @escaping (HTTPResult) -> Void) {
+/**
+ Function that retrieves the data from an API endpoint.
+ 
+ - Parameters:
+    - request: the request which contains the url, body and query parts required for the endpoint
+    - completion: the completiion block
+ 
+It is possible that not all possible responses have been correctly intercepted.
+*/
+    public func load(request: HTTPRequest,
+                     completion: @escaping (HTTPResult) -> Void) {
         
         guard let url = request.url else {
             let error = HTTPError(code: .invalidRequest, request: request, response: nil, underlyingError: nil)

@@ -67,8 +67,8 @@ class RBTFURLQuestionsTests: XCTestCase {
     func testQuestionsProductQueryURL() throws {
         let count: UInt = 5
         let barcode = OFFBarcode(barcode: "abarcode")
-        let lang = "avalue"
-        let request = RBTFQuestionsRequest(barcode: barcode, count: count, lang: lang)
+        let lang = ISO693_1.english
+        let request = RBTFQuestionsExtendedRequest(barcode: barcode, count: count, lang: lang)
         let queries = request.queryItems
         if !queries.isEmpty {
             for query in queries {
@@ -76,7 +76,7 @@ class RBTFURLQuestionsTests: XCTestCase {
                    query.value == "\(count)" {
                     continue
                 } else if query.name == "lang",
-                          query.value == lang {
+                          query.value == lang.rawValue {
                     continue
                 } else {
                     XCTFail("testQuestionsProductQueryURL: query item missing")
@@ -91,14 +91,14 @@ class RBTFURLQuestionsTests: XCTestCase {
 
     // Check the query parts of questions
     func testQuestionsRandomQueryURL() throws {
-        let lang = "avalue"
+        let lang = ISO693_1.english
         let count: UInt = 5
         let insightTypes: [RBTF.InsightType] = [.brand]
-        let country = "en:france"
+        let country = Country.france
         let brands = ["lidl"]
         let valueTag = "en:organic"
         let page: UInt = 5
-        let request = RBTFQuestionsRequest(api: .questionsRandom,
+        let request = RBTFQuestionsExtendedRequest(api: .questionsRandom,
                                            languageCode: lang,
                                            count: count,
                                            insightTypes: insightTypes,
@@ -113,7 +113,7 @@ class RBTFURLQuestionsTests: XCTestCase {
                    query.value == "\(count)" {
                     continue
                 } else if query.name == "lang",
-                          query.value == lang {
+                          query.value == lang.rawValue {
                     continue
                 } else if query.name == "insight_types",
                           let queryInsigntTypes = query.value?.components(separatedBy: ","),
@@ -123,7 +123,7 @@ class RBTFURLQuestionsTests: XCTestCase {
                           first == firstType {
                     continue
                 } else if query.name == "country",
-                          query.value == country {
+                          query.value == country.rawValue {
                     continue
                 } else if query.name == "brands",
                           let queryBrands = query.value?.components(separatedBy: ","),
@@ -154,10 +154,10 @@ class RBTFURLQuestionsTests: XCTestCase {
         let count: UInt = 5
         let insightType: RBTF.InsightType = .brand
         let page: UInt = 5
-        let country = "en:france"
+        let country = Country.france
         let request = RBTFUnansweredQuestionsRequest(count: count,
-                                                     insightType: insightType,
-                                                     country: country,
+                                                     insightType: insightType.rawValue,
+                                                     country: country.rawValue,
                                                      page: page)
         let queries = request.queryItems
         if !queries.isEmpty {
@@ -167,15 +167,15 @@ class RBTFURLQuestionsTests: XCTestCase {
                     continue
                 } else if query.name == "type",
                           let queryInsightTypes = query.value?.components(separatedBy: ","),
-                          !queryInsightTypes.isEmpty,
-                          let first = queryInsightTypes.first,
-                          first == insightType.rawValue {
-                    continue
+                          !queryInsightTypes.isEmpty {
+                    if queryInsightTypes.first == insightType.rawValue {
+                        continue
+                    }
                 } else if query.name == "page",
                           query.value == "\(page)" {
                     continue
                 } else if query.name == "country",
-                          query.value == country {
+                          query.value == country.rawValue {
                     continue
                 } else {
                     XCTFail("testUnansweredQuestionsQueryURL: query item missing")

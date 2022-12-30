@@ -42,7 +42,7 @@ class RBTFUnansweredQuestionsCountViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFUnAnsweredQuestionsCountExtended(count: count, insightType: insightTypeInput, country: country, page: page ){ (result) in
+        rbtfSession.RBTFUnansweredQuestionsCountExtended(count: count, insightType: insightTypeInput, country: country, page: page ){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):

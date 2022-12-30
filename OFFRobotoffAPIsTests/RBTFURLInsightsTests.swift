@@ -72,8 +72,8 @@ final class RBTFURLInsightsTests: XCTestCase {
         let country = "acountry"
         let valueTag = "aValueTag"
         let count: UInt = 5
-        let request = RBTFInsightsRequest(barcode: barcode,
-                                          insightType: insightType,
+        let request = RBTFInsightsRequest(barcode: barcode.barcode,
+                                          insightType: insightType.rawValue,
                                           country: country,
                                           valueTag: valueTag,
                                           count: count)
@@ -109,10 +109,10 @@ final class RBTFURLInsightsTests: XCTestCase {
     // Check the query parts of this call
     func testURLInsightsRandomFiltered() throws {
         let insightType = RBTF.InsightType.brand
-        let country = "acountry"
+        let country = Country.france
         let valueTag = "aValueTag"
         let count: UInt = 5
-        let request = RBTFInsightsRequest(insightType: insightType, country: country, valueTag: valueTag, count: count)
+        let request = RBTFInsightsRequest(insightType: insightType.rawValue, country: country.rawValue, valueTag: valueTag, count: count)
         let queries = request.queryItems
         if !queries.isEmpty {
             for query in queries {
@@ -120,7 +120,7 @@ final class RBTFURLInsightsTests: XCTestCase {
                    query.value == "\(count)" {
                     continue
                 } else if query.name == "country",
-                          query.value == country {
+                          query.value == country.rawValue {
                     continue
                 } else if query.name == "value_tag",
                           query.value == valueTag {
@@ -136,31 +136,6 @@ final class RBTFURLInsightsTests: XCTestCase {
         } else {
             XCTFail("testURLInsightsRandomFiltered :no query items")
         }
-        wait(for: [expectation], timeout: 1.0)
-    }
-
-    // Check the body
-    func testURLAnnotateBody() throws {
-        let insightID = "98127398"
-        let annotation: RBTF.Annotation = .refuse
-        let update = 1
-        let request = RBTFInsightsRequest(insightID: insightID,
-                                          annotation: annotation,
-                                          username: nil,
-                                          password: nil)
-        do {
-            let data = try JSONDecoder().decode(RBTF.InsightAnnotateBody.self, from: request.body.encode())
-            if data.insight_id == insightID &&
-                data.update == update &&
-                data.annotation == "\(annotation.rawValue)" {
-                self.expectation?.fulfill()
-            } else {
-                XCTFail("testURLAnnotateBody: no values")
-            }
-        } catch {
-            XCTFail("testURLAnnotateBody: no data")
-        }
-        
         wait(for: [expectation], timeout: 1.0)
     }
 

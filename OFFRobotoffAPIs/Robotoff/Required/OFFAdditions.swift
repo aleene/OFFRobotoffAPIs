@@ -4,15 +4,18 @@
 //
 //  Created by aleene 13/10/2022
 //
+// This file contains all the additional files related to OpenFoodFacts. These files improve the readability of the code. These files can be used for any other OFF-related project as well. REQUIRED
 
 import Foundation
 
 public struct OFFBarcode {
 
+    /// error strings of OFFBarcode
     public struct Error {
          static let BarcodeLength = "OFFBarcode: Barcode length is not a UPC, EAN8 or EAN13 code"
     }
     
+    // the barcode string
     public var barcode: String {
         didSet {
             if !isCorrect {
@@ -21,17 +24,21 @@ public struct OFFBarcode {
         }
     }
     
+    /// does the barcode have an UPC length (12)?
     public var isUPC: Bool { barcode.count == 12 }
     
+    /// does the barcode have an EAN-8 length (8)?
     public var isEAN8: Bool { barcode.count == 8 }
 
+    /// does the barcode have an EAN-13 length (13)?
     public var isEAN13: Bool { barcode.count == 13 }
 
+    /// Does the barcode has a correct length (8, 12 or 12 digits)
     public var isCorrect: Bool { isEAN8 || isUPC || isEAN13 }
 
 }
 
-/// Enumeration of the ISO 639-1 languages and code
+/// Enumeration of the ISO 639-1 languages and codes as raw values
 public enum ISO693_1: String {
     case abkhazian = "ab"
     case afar = "aa"
@@ -217,7 +224,7 @@ public enum ISO693_1: String {
     case zhuang = "za"
     case zulu = "zu"
     
-    /// The ISO language name
+    /// The ISO language name string. Note that there might exist alternative spellings
     var description: String {
         switch self {
         case .abkhazian: return "abkhazian"
@@ -408,6 +415,7 @@ public enum ISO693_1: String {
 
 }
 
+/// The ISO country and region names
 public enum Country: String {
     case france
     case unitedKingdom
@@ -418,6 +426,36 @@ public enum Country: String {
         case .france: return "en:france"
         case .unitedKingdom: return "en:united-kingdom"
         case .netherlands: return "en:netherlands"
+        }
+    }
+    
+}
+/**
+An enumerator type describing all possible OpenFoodFacts product types that are supported
+ 
+Values:
+    - food - for food products
+    - petFood - for petfood products
+    - beauty - for beauty products
+    - product - for any other product (not food, petfood, beauty)
+*/
+public enum OFFProductType: String {
+    case food
+    case petFood
+    case beauty
+    case product
+    
+    /// A a human readable description of the current value for Product Type.
+    var description: String {
+        switch self {
+        case .food:
+            return "Food product"
+        case .petFood:
+            return "Petfood product"
+        case .beauty:
+            return "Beauty product"
+        case .product:
+            return "General product"
         }
     }
     

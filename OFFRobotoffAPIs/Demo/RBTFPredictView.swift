@@ -28,7 +28,7 @@ class RBTFPredictViewModel: ObservableObject {
     
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFPredictCategoriesProduct(barcode: barcode,
+        rbtfSession.RBTFPredictCategoriesProductExtended(barcode: barcode,
                                                  deepestOnly: deepestOnly,
                                                  threshold: threshold,
                                                  predictors: predictors ) { (result) in

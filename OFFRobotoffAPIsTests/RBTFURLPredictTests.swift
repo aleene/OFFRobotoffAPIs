@@ -34,10 +34,10 @@ final class RBTFURLPredictTests: XCTestCase {
         let threshold = 0.5
         let predictors: [RBTF.Predictors] = [.matcher]
         
-        let request = RBTFPredictRequest(barcode: barcode,
+        let request = RBTFPredictRequest(barcode: barcode.barcode,
                                          deepestOnly: deepestOnly,
                                          threshold: threshold,
-                                         predictors: predictors)
+                                         predictors: predictors.map({ $0.rawValue }))
         do {
             let data = try JSONDecoder().decode(RBTF.PredictRequestBody.self, from: request.body.encode())
             if data.barcode == barcode.barcode &&

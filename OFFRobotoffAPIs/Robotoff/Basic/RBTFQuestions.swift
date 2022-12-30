@@ -250,7 +250,7 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
 */
-    func RBTFQuestionsRandom(languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+    func RBTFQuestionsRandom(languageCode: String?, count: UInt?, insightTypes: [String], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
         let request = RBTFQuestionsRequest(api: .questionsRandom, languageCode: languageCode, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)
@@ -288,7 +288,7 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
 */
-    func RBTFQuestionsPopular(languageCode: String?, count: UInt?, insightTypes: [RBTF.InsightType], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+    func RBTFQuestionsPopular(languageCode: String?, count: UInt?, insightTypes: [String], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
         let request = RBTFQuestionsRequest(api: .questionsPopular, languageCode: languageCode, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)

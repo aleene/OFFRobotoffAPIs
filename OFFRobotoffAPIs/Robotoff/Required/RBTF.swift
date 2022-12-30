@@ -186,13 +186,12 @@ extension URLSession {
                             completion( .failure(RBTFError.analyse(str)) )
                             return
                         } else {
-                            completion(.failure( RBTFError.dataType) )
+                            completion(.failure( RBTFError.errorAnalysis) )
                             return
                         }
                     } else {
                         completion(.failure( RBTFError.noBody) )
                         return
-                    // unsupported response type
                     }
                 }
             case .failure(let error):
@@ -259,26 +258,23 @@ Init for all producttypes supported by OFF. This will setup the correct host and
 
 // The specific errors that can be produced by the server
 public enum RBTFError: Error {
-    case barcodeInvalid
-    case network
-    case dataCorrupted(DecodingError.Context)
-    case keyNotFound(CodingKey, DecodingError.Context)
-    case typeMismatch(Any.Type, DecodingError.Context)
-    case valueNotFound(Any.Type, DecodingError.Context)
-    case missingParameter(String)
-    case insightUnknown // used if the insight detail responds with a 404
-    case request
-    case connectionFailure
-    case dataNil
-    case dataType
-    case detail(Any) // if a 404 Detail struct is received
     case authenticationRequired
+    case barcodeInvalid
+    case connectionFailure
+    case dataCorrupted(DecodingError.Context)
+    //case detail(Any) // if a 404 Detail struct is received
+    case errorAnalysis
+    case insightUnknown // used if the insight detail responds with a 404
+    case keyNotFound(CodingKey, DecodingError.Context)
     case methodNotAllowed
+    case missingParameter(String)
     case noBody
-    case notFound
-    case null
+    //case notFound
+   // case null
+    case typeMismatch(Any.Type, DecodingError.Context)
     case unsupportedSuccessResponseType
-    
+    case valueNotFound(Any.Type, DecodingError.Context)
+
     
     static func analyse(_ message: String) -> RBTFError {
         if message.contains("Not Found") {
@@ -293,27 +289,21 @@ public enum RBTFError: Error {
     }
     public var description: String {
         switch self {
-        case .barcodeInvalid:
-            return "RobotoffError: A valid barcode is required (length 8, 12 or 13)"
-        case .network:
-            return ""
-        case .request:
-            return ""
         case .authenticationRequired:
             return "RobotoffError: Authentication Required. Log in before using this function"
+        case .barcodeInvalid:
+            return "RobotoffError: A valid barcode is required (length 8, 12 or 13)"
         case .connectionFailure:
             return "RobotoffError: Not able to connect to the Folksonomy server"
-        case .dataNil:
-            return ""
-        case .dataType:
-            return "RobotoffError: unexpected datatype"
-        case .detail(let detail):
-            if let validDetail = detail as? RBTF.Detail,
-               let valid = validDetail.detail {
-                    return valid
-            } else {
-                return "RobotoffError: Wrong detail struct or nil value"
-            }
+        case .errorAnalysis:
+            return "RobotoffError: unexpected error in error json"
+        //case .detail(let detail):
+        //    if let validDetail = detail as? RBTF.Detail,
+        //       let valid = validDetail.detail {
+        //            return valid
+         //   } else {
+         //       return "RobotoffError: Wrong detail struct or nil value"
+        //    }
         case .insightUnknown:
             return "RobotoffError: insightID unknown"
         case .methodNotAllowed:
@@ -322,20 +312,20 @@ public enum RBTFError: Error {
             return "RobotoffError: \(parameter)"
         case .noBody:
             return ""
-        case .notFound:
-            return "RBTF:Error: API not found, probably a typo in the path"
-        case .null:
-            return" RBTFError: null - probably a non-existing key"
+        //case .notFound:
+        //    return "RobotoffError: API not found, probably a typo in the path"
+        //case .null:
+        //    return" RobotoffError: null - probably a non-existing key"
         case .unsupportedSuccessResponseType:
             return ""
         case .dataCorrupted(let context):
-            return "decode " + context.debugDescription
+            return "RobotoffError:decode " + context.debugDescription
         case .keyNotFound(let key, let context):
-            return "Key '\(key)' not found: \(context.debugDescription) codingPath:  \(context.codingPath)"
+            return "RobotoffError:Key '\(key)' not found: \(context.debugDescription) codingPath:  \(context.codingPath)"
         case .typeMismatch(let value, let context):
-            return "Value '\(value)' not found \(context.debugDescription) codingPath: \(context.codingPath)"
+            return "RobotoffError:Value '\(value)' not found \(context.debugDescription) codingPath: \(context.codingPath)"
         case .valueNotFound(let type, let context):
-            return "Type '\(type)' mismatch: \(context.debugDescription) codingPath:  \(context.codingPath)"
+            return "RobotoffError:Type '\(type)' mismatch: \(context.debugDescription) codingPath:  \(context.codingPath)"
         }
     }
 }

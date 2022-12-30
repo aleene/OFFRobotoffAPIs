@@ -18,9 +18,7 @@
 		AB43116F292A7F0600FE21BC /* RBTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43116E292A7F0600FE21BC /* RBTFView.swift */; };
 		AB431171292A7F0800FE21BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB431170292A7F0800FE21BC /* Assets.xcassets */; };
 		AB431174292A7F0800FE21BC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB431173292A7F0800FE21BC /* Preview Assets.xcassets */; };
-		AB431180292A7F4500FE21BC /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117A292A7F4400FE21BC /* AuthController.swift */; };
 		AB431181292A7F4500FE21BC /* Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117B292A7F4400FE21BC /* Decoding.swift */; };
-		AB431182292A7F4500FE21BC /* OFFProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117C292A7F4500FE21BC /* OFFProductType.swift */; };
 		AB431183292A7F4500FE21BC /* OFFAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117D292A7F4500FE21BC /* OFFAdditions.swift */; };
 		AB431184292A7F4500FE21BC /* HTTPLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */; };
 		AB431185292A7F4500FE21BC /* RBTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43117F292A7F4500FE21BC /* RBTF.swift */; };
@@ -35,6 +33,7 @@
 		AB51F58C2934B3A30040BA82 /* RBTFInsightsRandomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51F58B2934B3A30040BA82 /* RBTFInsightsRandomView.swift */; };
 		AB51F58E2934B5650040BA82 /* RBTFInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB51F58D2934B5650040BA82 /* RBTFInsights.swift */; };
 		AB726559294740000032806D /* RBTFLogosSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB726558294740000032806D /* RBTFLogosSearchView.swift */; };
+		AB7CCC42295EE1180051FD0C /* OFFAddtionsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7CCC41295EE1180051FD0C /* OFFAddtionsExtension.swift */; };
 		AB7D8E3A294B7917002A6D8B /* RBTFURLPredictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7D8E39294B7917002A6D8B /* RBTFURLPredictTests.swift */; };
 		AB7F49102930C3E50021D14F /* RBTFQuestionsPopularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F490F2930C3E50021D14F /* RBTFQuestionsPopularView.swift */; };
 		AB7F49142930C7680021D14F /* RBTFUnansweredQuestionsCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */; };
@@ -78,9 +77,7 @@
 		AB43116E292A7F0600FE21BC /* RBTFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFView.swift; sourceTree = "<group>"; };
 		AB431170292A7F0800FE21BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB431173292A7F0800FE21BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		AB43117A292A7F4400FE21BC /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		AB43117B292A7F4400FE21BC /* Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoding.swift; sourceTree = "<group>"; };
-		AB43117C292A7F4500FE21BC /* OFFProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProductType.swift; sourceTree = "<group>"; };
 		AB43117D292A7F4500FE21BC /* OFFAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAdditions.swift; sourceTree = "<group>"; };
 		AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPLibrary.swift; sourceTree = "<group>"; };
 		AB43117F292A7F4500FE21BC /* RBTF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RBTF.swift; sourceTree = "<group>"; };
@@ -94,6 +91,7 @@
 		AB51F58B2934B3A30040BA82 /* RBTFInsightsRandomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsightsRandomView.swift; sourceTree = "<group>"; };
 		AB51F58D2934B5650040BA82 /* RBTFInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFInsights.swift; sourceTree = "<group>"; };
 		AB726558294740000032806D /* RBTFLogosSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFLogosSearchView.swift; sourceTree = "<group>"; };
+		AB7CCC41295EE1180051FD0C /* OFFAddtionsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFAddtionsExtension.swift; sourceTree = "<group>"; };
 		AB7D8E39294B7917002A6D8B /* RBTFURLPredictTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFURLPredictTests.swift; sourceTree = "<group>"; };
 		AB7F490F2930C3E50021D14F /* RBTFQuestionsPopularView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFQuestionsPopularView.swift; sourceTree = "<group>"; };
 		AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RBTFUnansweredQuestionsCount.swift; sourceTree = "<group>"; };
@@ -186,12 +184,11 @@
 		AB431186292A7F4E00FE21BC /* Required */ = {
 			isa = PBXGroup;
 			children = (
-				AB43117A292A7F4400FE21BC /* AuthController.swift */,
 				AB43117F292A7F4500FE21BC /* RBTF.swift */,
 				AB43117E292A7F4500FE21BC /* HTTPLibrary.swift */,
 				AB43117B292A7F4400FE21BC /* Decoding.swift */,
 				AB43117D292A7F4500FE21BC /* OFFAdditions.swift */,
-				AB43117C292A7F4500FE21BC /* OFFProductType.swift */,
+				AB7CCC41295EE1180051FD0C /* OFFAddtionsExtension.swift */,
 			);
 			path = Required;
 			sourceTree = "<group>";
@@ -205,6 +202,7 @@
 				AB1D6BFC2943627300D36A78 /* RBTFLogos */,
 				AB51F58F2934C1760040BA82 /* RBTFInsights */,
 				AB51F58A2934B3660040BA82 /* RBTFQuestions */,
+				ABDEFD8629324D4E000F826A /* Extensions */,
 				ABEDA12B292BCB2C0033193B /* Generic */,
 			);
 			path = Demo;
@@ -213,13 +211,8 @@
 		AB431188292A7F9600FE21BC /* Robotoff */ = {
 			isa = PBXGroup;
 			children = (
-				AB51F58D2934B5650040BA82 /* RBTFInsights.swift */,
-				AB1D6BF629434D8200D36A78 /* RBTFLogos.swift */,
-				AB431189292A7FBB00FE21BC /* RBTFQuestions.swift */,
-				AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */,
-				ABADF962294A3649000D3986 /* RBTFPredict.swift */,
+				AB7CCC43295EF9700051FD0C /* Basic */,
 				ABBA37D729531C0A00B9B9E0 /* Extended */,
-				ABDEFD8629324D4E000F826A /* Extensions */,
 				AB431186292A7F4E00FE21BC /* Required */,
 			);
 			path = Robotoff;
@@ -247,6 +240,18 @@
 				AB0A8DA329374E4900D62489 /* RBTFInsightsBarcodeView.swift */,
 			);
 			path = RBTFInsights;
+			sourceTree = "<group>";
+		};
+		AB7CCC43295EF9700051FD0C /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				AB51F58D2934B5650040BA82 /* RBTFInsights.swift */,
+				AB1D6BF629434D8200D36A78 /* RBTFLogos.swift */,
+				AB431189292A7FBB00FE21BC /* RBTFQuestions.swift */,
+				AB7F49132930C7680021D14F /* RBTFUnansweredQuestionsCount.swift */,
+				ABADF962294A3649000D3986 /* RBTFPredict.swift */,
+			);
+			path = Basic;
 			sourceTree = "<group>";
 		};
 		ABBA37D729531C0A00B9B9E0 /* Extended */ = {
@@ -413,19 +418,18 @@
 				AB51F58C2934B3A30040BA82 /* RBTFInsightsRandomView.swift in Sources */,
 				ABEDA127292BCB270033193B /* InputView.swift in Sources */,
 				AB51F58E2934B5650040BA82 /* RBTFInsights.swift in Sources */,
+				AB7CCC42295EE1180051FD0C /* OFFAddtionsExtension.swift in Sources */,
 				AB431181292A7F4500FE21BC /* Decoding.swift in Sources */,
 				AB7F49142930C7680021D14F /* RBTFUnansweredQuestionsCount.swift in Sources */,
 				AB43116F292A7F0600FE21BC /* RBTFView.swift in Sources */,
 				ABEDA12A292BCB270033193B /* DictElementView.swift in Sources */,
 				AB431184292A7F4500FE21BC /* HTTPLibrary.swift in Sources */,
-				AB431180292A7F4500FE21BC /* AuthController.swift in Sources */,
 				AB43118A292A7FBB00FE21BC /* RBTFQuestions.swift in Sources */,
 				ABEDA128292BCB270033193B /* DictView.swift in Sources */,
 				AB1D6BFB2943626800D36A78 /* RBTFLogosFetchView.swift in Sources */,
 				AB43118E292BBC7700FE21BC /* RBTFQuestionsForProductView.swift in Sources */,
 				AB1D6BF329434C6E00D36A78 /* RBTFImagesView.swift in Sources */,
 				AB1D6BF529434D1900D36A78 /* RBTFLogosView.swift in Sources */,
-				AB431182292A7F4500FE21BC /* OFFProductType.swift in Sources */,
 				AB726559294740000032806D /* RBTFLogosSearchView.swift in Sources */,
 				AB7F49182930CAA20021D14F /* RBTFUnansweredQuestionsCountView.swift in Sources */,
 				ABEDA141292BE25C0033193B /* RBTFQuestionsRandomView.swift in Sources */,

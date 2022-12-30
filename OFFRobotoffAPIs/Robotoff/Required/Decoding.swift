@@ -6,12 +6,25 @@
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
 
+// Extensions to help decoding received jsons.
+// The files are required, but depend on the endpoint used
+
 import Foundation
 
 public class Decoding {
     
-/// Generic function to decode a json struct
-    public static func decode<T:Decodable>(data: Data, type: T.Type, completion: @escaping (_ result: Result<T, DecodingError>) -> Void)  {
+/**
+Generic function to decode a json struct
+ 
+ - Parameters:
+    - data: the data which contains the json
+    - type: the type that is expected
+    - completion: a Result enum with either the json as type or a decoding error
+ 
+ */
+    public static func decode<T:Decodable>(data: Data,
+                                           type: T.Type,
+                                           completion: @escaping (_ result: Result<T, DecodingError>) -> Void)  {
         do {
             if let validString = String(data: data, encoding: .utf8) {
                 print(validString)
@@ -46,7 +59,15 @@ public class Decoding {
         return
     }
 
-/// Generic function to decode a json array
+/**
+Generic function to decode a json array containing elements of type
+     
+- Parameters:
+ - data: the data which contains the json
+ - type: the type that is expected
+ - completion: a Result enum with either the json as type or a decoding error
+     
+     */
     public static func decodeArray<T:Decodable>(data: Data, type: T.Type, completion: @escaping (_ result: Result<[T], DecodingError>) -> Void)  {
         do {
             let decoded = try JSONDecoder().decode([T].self, from: data)

@@ -6,15 +6,30 @@ This is an demonstration app for the various Folksonomy API's of Open Food Facts
 Robotoff provides a simple API allowing consumers to fetch predictions and annotate them. Robotoff can interact with all Openfoodfacts products: Openfoodfacts, Openbeautyfacts, etc. and all environments (production, development, pro).
 
 ## Demo
-The demo application allows you to see the results of API-calls.
+The demo application allows you to see the implementation and the raw results of API-calls.
 
 ## Installation
-You can reuse the libraries from this repository. The steps:
-- OFF-folder - all the files in this folder should copied.
-- RBTF-folder - copy only the files for the API's that you are going to use.
+You can reuse the libraries from this repository. For reuse you need one or more folders from the folder Robotoff.
+
+The steps:
+- Required-folder - all the files in this folder are required and should copied;
+- Basic-folder - you can copy only the files for the endpoints that you are going to use. (or just copy everything) These files only use basic types (Strings, UInt), so you have to figure out the required input for the API-calls yourself. However for the ouput (received jsons), you do need the defined types;
+- Extended-folder - this folder contains implementations that make used of higher level structures for languages, countries, annotation, insight types, etc. These implementations are preferred as they limit the possible errors
 
 ## Usage
-### Initialisation
+### Aproach
+The usage of each endpoint is the similar:
+ 1 setup the session, like `rbtfSession = URLSession.shared`
+ 2 call the API, like `rbtfSession.RBTFcall()`
+ 3 process the result on the main queue like
+```
+switch result {
+case .success(let response):
+    self.response = response
+case .failure(let error):
+    self.errorMessage = error.description
+}
+```
 
 ### Product endpoint.
 
@@ -212,11 +227,30 @@ public struct MatcherDebug: Codable {
 ```
 
 ## Errors
-
+The implementation has encoded a variety of possible errors, so that these can be intercepted and prevented by the user of this library. Most errors are already intercepted of prevented by the API's:
+ - authenticationRequired: the call resulted in error json, which states that a valid authentication should be provided;
+ - barcodeInvalid: the barcode has an incorrect length, i.e. is not 8, 12 or 13 digits;
+ - connectionFailure: something went wrong. Used for not intercepted errors;
+ - dataCorrupted: the json decoder had an issue with the data (not sure when this occurs))
+ - errorAnalysis: the error json contains an error that is not intercepted
+ - insightUnknown: a 404 when the insight does not exist
+ - keyNotFound: a required key when decoding was not found
+ - methodNotAllowed: the error json spedified that a method has been supplied that is not existing
+ - missingParameter: the url is missing a parameter
+ - noBody: no body has been received
+ - typeMismatch: the decoder found an unexpected type
+ - unsupportedSuccessResponseType: a not intercepted decoding error
+ - valueNotFound: the decoder found an unexpected value
+ 
 ## Testing
-
+A series of tests have been implemented to test some aspects:
+ - the decoding
+ - the endpoint URL's
+ 
 ## To Be Done
-
+- manu=y more errors could be intercepted
+- tests for the network
+ 
 ## Requirements
 The demo application has been tested under:
 - Xcode version 14.1

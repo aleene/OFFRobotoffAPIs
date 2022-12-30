@@ -93,7 +93,7 @@ extension URLSession {
      
      Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
      */
-    func RBTFQuestionsRandom(language: ISO693_1?, count: UInt?, insightTypes: [RBTF.InsightType], country: Country?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+    func RBTFQuestionsRandomExtended(language: ISO693_1?, count: UInt?, insightTypes: [RBTF.InsightType], country: Country?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
         let request = RBTFQuestionsExtendedRequest(api: .questionsRandom, language: language, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)
