@@ -11,14 +11,14 @@ import Foundation
 
 extension RBTF {
     
-    /**
-     The datastructure retrieved for a reponse 200 for the Questions Product API and Questions Random API
+/**
+The datastructure retrieved for a reponse 200 for the Questions Product API and Questions Random API
      
-     **Variables:**
-     - responseStatus: the *QuestionsResponseStatus* of the response:
-     - questions: an array of *Question*
-     - count: the number of questions
-     */
+**Variables:**
+    - responseStatus: the *QuestionsResponseStatus* of the response:
+    - questions: an array of *Question*
+    - count: the number of questions
+*/
     public struct PredictResponse: Codable {
         var neural: [NeuralResponse]?
         var matcher: [MatcherResponse]?
@@ -46,7 +46,7 @@ extension RBTF {
     }
     
     
-    public struct PredictRequestBody: Codable {
+    fileprivate struct PredictRequestBody: Codable {
         var barcode: String = ""
         var deepest_only: Bool = true
         var threshold: Double = 0.5
@@ -54,7 +54,7 @@ extension RBTF {
     }
 }
 
-class RBTFPredictRequest : RBTFRequest {
+class RBTFPredictRequestBasic : RBTFRequest {
     
     /// for predit  fetch
     convenience init(barcode: String,
@@ -100,8 +100,12 @@ Function to predict categories for a product
  - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.PredictResponse struct and for the failure an Error.
 */
-    func RBTFPredictCategoriesProduct(barcode: String, deepestOnly: Bool?, threshold: Double?, predictors: [String]?, completion: @escaping (_ result: Result<RBTF.PredictResponse, RBTFError>) -> Void) {
-        let request = RBTFPredictRequest(barcode: barcode, deepestOnly: deepestOnly, threshold: threshold, predictors: predictors)
+    func RBTFPredictCategoriesProductBasic(barcode: String,
+                                           deepestOnly: Bool?,
+                                           threshold: Double?,
+                                           predictors: [String]?,
+                                           completion: @escaping (_ result: Result<RBTF.PredictResponse, RBTFError>) -> Void) {
+        let request = RBTFPredictRequestBasic(barcode: barcode, deepestOnly: deepestOnly, threshold: threshold, predictors: predictors)
         fetch(request: request, responses: [200:RBTF.PredictResponse.self]) { (result) in
             completion(result)
             return

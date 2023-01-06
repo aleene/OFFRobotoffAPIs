@@ -9,7 +9,7 @@
 
 import Foundation
 
-fileprivate class RBTFUnansweredQuestionsExtendedRequest: RBTFUnansweredQuestionsRequest {
+fileprivate class RBTFUnansweredQuestionsRequest: RBTFUnansweredQuestionsRequestBasic {
     
 /**
 Initialiser for a HTTP request to create an URL for  the Unanswered Questions Endpoint.
@@ -52,15 +52,15 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, campaign, predictor).
 */
-    func RBTFUnansweredQuestionsCountExtended(count: UInt?,
-                                      insightType: RBTF.InsightType?,
-                                      country: Country?,
-                                      page: UInt?,
-                                      completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void) {
-        let request = RBTFUnansweredQuestionsExtendedRequest(count: count,
-                                                             insightType: insightType,
-                                                              country: country,
-                                                              page: page)
+    func RBTFUnansweredQuestionsCount(count: UInt?,
+                                       insightType: RBTF.InsightType?,
+                                       country: Country?,
+                                       page: UInt?,
+                                       completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void) {
+        let request = RBTFUnansweredQuestionsRequest(count: count,
+                                                     insightType: insightType,
+                                                     country: country,
+                                                     page: page)
         fetch(request: request, responses: [200:RBTF.UnansweredQuestionsResponse.self]) { (result) in
             completion(result)
             return

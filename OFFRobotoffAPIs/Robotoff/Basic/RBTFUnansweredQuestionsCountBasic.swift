@@ -12,13 +12,12 @@ import Foundation
 extension RBTF {
     
 /**
-The datastructure retrieved for a reponse 200 for the Questions Product API and Questions Random API
+The datastructure retrieved for a 200-reponse 200 for the UnansweredQuestions endpoint.
      
 - Variables:**
-    - responseStatus: the *QuestionsResponseStatus* of the response:
-     - questions: a dictionary with as key the value_tag (String) and as value the number of questions (int)
-     - count: the number of questions
-     */
+ - questions: a dictionary with as key the value_tag (String) and as value the number of questions (int)
+ - count: the number of questions
+*/
     public struct UnansweredQuestionsResponse: Codable {
         private var status: String?
         var questions: [[String?:Int]]
@@ -31,7 +30,7 @@ The datastructure retrieved for a reponse 200 for the Questions Product API and 
     }
 }
 
-class RBTFUnansweredQuestionsRequest: RBTFRequest {
+class RBTFUnansweredQuestionsRequestBasic: RBTFRequest {
             
     convenience init(count: UInt?,
                      insightType: String?,
@@ -87,7 +86,10 @@ Not all possible query parameters have been implemented, as they are not useful 
                                       country: String?,
                                       page: UInt?,
                                       completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void) {
-        let request = RBTFUnansweredQuestionsRequest(count: count, insightType: insightType, country: country, page: page)
+        let request = RBTFUnansweredQuestionsRequestBasic(count: count,
+                                                          insightType: insightType,
+                                                          country: country,
+                                                          page: page)
         fetch(request: request, responses: [200:RBTF.UnansweredQuestionsResponse.self]) { (result) in
             completion(result)
             return

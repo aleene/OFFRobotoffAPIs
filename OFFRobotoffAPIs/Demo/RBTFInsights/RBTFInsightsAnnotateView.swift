@@ -29,7 +29,7 @@ class RBTFInsightsAnnotateViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFInsightsExtended(insightID: insightID,
+        rbtfSession.RBTFInsights(insightID: insightID,
                                  annotation: annotation,
                                  username: username,
                                  password: password) { (result) in

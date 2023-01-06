@@ -49,7 +49,7 @@ class RBTFQuestionsPopularViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsPopularExtended(languageCode: language, count: count, insightTypes: insightTypesInput, country: country, brands: brandsInput, valueTag: valueTag, page: page){ (result) in
+        rbtfSession.RBTFQuestionsPopular(language: language, count: count, insightTypes: insightTypesInput, country: country, brands: brandsInput, valueTag: valueTag, page: page){ (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):

@@ -34,7 +34,7 @@ class RBTFQuestionsForProductViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsProductExtended(with: barcode,
+        rbtfSession.RBTFQuestionsForProduct(with: barcode,
                                                  count: countInt,
                                                  lang: language)
         { (result) in

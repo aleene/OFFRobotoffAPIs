@@ -17,10 +17,12 @@ The steps:
 - Extended-folder - this folder contains implementations that make used of higher level structures for languages, countries, annotation, insight types, etc. These implementations are preferred as they limit the possible errors
 
 ## Usage
+Only the usage for the extended API-calls is described.
+
 ### Aproach
-The usage of each endpoint is the similar:
+The usage of each endpoint is similar:
  1 setup the session, like `rbtfSession = URLSession.shared`
- 2 call the API, like `rbtfSession.RBTFcall()`
+ 2 call the API, like `rbtfSession.RBTFcallExtended()`
  3 process the result on the main queue like
 ```
 switch result {
@@ -31,46 +33,59 @@ case .failure(let error):
 }
 ```
 
-### Product endpoint.
+### Product Questions endpoint.
 
 Function which retrieves the possible questions for a specific product.
 ```
-func RBTFQuestionsProduct(with barcode: OFFBarcode, count: Int?, lang: String?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void)
+func RBTFQuestionsProduct(with barcode: OFFBarcode, count: UInt?, lang: ISO693_1?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void)
 ```
 **Parameters**
 - offbarcode: the OFFBarcode for the product;
-- count: the maximum numer of questions to be retrived for this product. If not specified the value is 1;
-- lang: the language code for the question and possible answer. If not specified en is assumed (english);
+- count: the maximum number of questions to be retreived for this product. If not specified the value is 1;
+- lang: the language for the question and possible answer. If not specified ISO693_1..english is assumed ();
 
 **Returns**
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 
-### Unanswered questions endpoint
-Function to retrieve a random product wth a question with a list of query parameters to filter the questions
-```
-func RBTFUnAnsweredQuestionsExtensionCount(count: UInt?, insightType: RBTF.InsightType?, country: Country?, page: UInt?, completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void)
-```
-or without enumerated types
-```
-func RBTFUnAnsweredQuestionsCount(count: UInt?, insightType: String?, country: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void)
+### Popular Questions endpoint.
 
+Function to retrieve 25 popular products wth a question with a list of query parameters to filter the questions
+```
+func RBTFQuestionsPopularExtended(language: ISO693_1?, count: UInt?, insightTypes: [RBTF.InsightType], country: Country?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void)
 ```
 **Parameters**
+- language: the language of the question/value
+- count: the number of questions to return (default=1
+- insightTypes: list, filter by insight types
+- country: filter by country tag
+- brands: list, filter by brands
+- valueTag: filter by value tag, i.e the value that is going to be sent to Product Opener, example: value_tag=en:organic
+- page: page index to return (starting at 1), default=1
+Not all possible query parameters have been implemented, as they are not useful to everyone (server_domain, reserved_barcode, capaign, predictor).
+**Returns**
+A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
+
+### Unanswered Questions endpoint
+Function to retrieve a random product wth a question with a list of query parameters to filter the questions
+```
+func RBTFUnansweredQuestionsCount(count: UInt?, insightType: RBTF.InsightType?, country: Country?, page: UInt?, completion: @escaping (_ result: Result<RBTF.UnansweredQuestionsResponse, RBTFError>) -> Void)
+```
+
+**Parameters**
 - count: the number of questions to return (default=1)
-- insightType: filter by insight type (i.e. InsightType.brand or "brand")
-- country: filter by country tag (i.e. Country.france or "en:france"")
+- insightType: filter by insight type (i.e. InsightType.brand)
+- country: filter by country tag (i.e. Country.france)
 - page: page index to return (starting at 1), default=1
 
 **Returns**
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 Not all possible query parameters have been implemented, as they are not useful to everyone (server_domain, reserved_barcode, campaign, predictor).
 
-
 ### Insights random API
 Function to retrieve a random insights with a list of query parameters to filter the questions
 Declaration
 ```
-func RBTFInsights(insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void)
+func RBTFInsights(insightType: RBTF.InsightType?, country: Country?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void)
 ```
 Not all possible query parameters have been implemented, as they are not useful to everyone (server_domain, campaign, predictor).
 ** Parameters **
@@ -85,7 +100,7 @@ A completion block with a Result enum (success or failure). The associated value
 Function to retrieve a random insights with a list of query parameters to filter the questions
 Declaration
 ```
-func RBTFInsights(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: String?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void)
+func RBTFInsights(barcode: OFFBarcode, insightType: RBTF.InsightType?, country: Country?, valueTag: String?, count: UInt?, completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void)
 ```
 ** Parameters **
 - barcode: barcode for which this insights are sought (required)
@@ -113,10 +128,6 @@ Function to predict categories for a product
 ```
 func RBTFPredictCategoriesProduct(barcode: OFFBarcode, deepestOnly: Bool?, threshold: Double?, predictors: [RBTF.Predictors]?, completion: @escaping (_ result: Result<RBTF.PredictResponse, RBTFError>) -> Void)
 ```
-or without the special enumerator and struct
-```
-func RBTFPredictCategoriesProduct(barcode: String, deepestOnly: Bool?, threshold: Double?, predictors: [String]?, completion: @escaping (_ result: Result<RBTF.PredictResponse, RBTFError>) -> Void)
-```
 
 ** Parameters **
 - barcode: the barcode of the product to categorize
@@ -127,7 +138,7 @@ func RBTFPredictCategoriesProduct(barcode: String, deepestOnly: Bool?, threshold
 ** Returns **
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.PredictResponse struct and for the failure an Error. An invalid barcode (lenth 0 or not 8,12 or 13 will result in an error)
 
-## Results
+## Result schemas
 The API-calls can produce multiple positive (code 200) results jsons.
 
 ### QuestionsResponse json
@@ -192,6 +203,15 @@ The insight type, i.e. the subject the question is about, can have the following
 - **store**: the store where the given product is sold from the image OCR.
 - **trace**: detects traces that are present in the product from the image OCR.
 
+### Unanswered Questions Response Struct
+The datastructure retrieved for a 200-reponse 200 for the UnansweredQuestions endpoint.
+
+```
+struct UnansweredQuestionsResponse
+- questions: a dictionary with as key the value_tag (String) and as value the number of questions (int)
+- count: the number of questions
+```
+
 ### Predict response
 ```
 public struct PredictResponse: Codable {
@@ -248,7 +268,7 @@ A series of tests have been implemented to test some aspects:
  - the endpoint URL's
  
 ## To Be Done
-- manu=y more errors could be intercepted
+- many more errors could be intercepted
 - tests for the network
  
 ## Requirements

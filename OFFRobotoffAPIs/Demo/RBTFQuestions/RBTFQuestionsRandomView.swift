@@ -36,7 +36,7 @@ class RBTFQuestionsRandomViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFQuestionsRandomExtended(language: language,
+        rbtfSession.RBTFQuestionsRandom(language: language,
                                                 count: count,
                                                 insightTypes: insightTypes,
                                                 country: country,

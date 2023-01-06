@@ -108,37 +108,35 @@ A completion block with a Result enum (success or failure). The associated value
 */
     func RBTFLogos(logoIds: String, completion: @escaping (_ result: Result<RBTF.LogosResponse, RBTFError>) -> Void) {
         let request = RBTFLogosRequest(logoIds: logoIds)
-                fetch(request: request, responses: [200:RBTF.LogosResponse.self]) { (result) in
-                    completion(result)
-                    return
-                }
-            }
+        fetch(request: request, responses: [200:RBTF.LogosResponse.self]) { (result) in
+            completion(result)
+            return
+        }
+    }
 
-    /**
-     
+/**
 Function to get a list of logos with details
 
 - Parameters:
-     - count: Number of results to return (default 25);
-     - type: Filter by logo type (example: **type=packager_code**);
-     - barcode: Filter by barcode;
-     - value: Filter by annotated value (example: **value=lidl**);
-     - taxonomy_value: Filter by taxonomy value, i.e. the canonical value present is the associated taxonomy. This parameter is mutually exclusive with value, and should be used for label type (example: **taxonomy_value=en:organic**);.
-     - min_confidence: Filter logos that have a confidence score above a threshold;
-     - random: If true, randomized result order (default false);
-     - annotated: The annotation status of the logo. If not provided, both annotated and non-annotated logos are returned (default nil)
+ - count: Number of results to return (default 25);
+ - type: Filter by logo type (example: **type=packager_code**);
+ - barcode: Filter by barcode;
+ - value: Filter by annotated value (example: **value=lidl**);
+ - taxonomy_value: Filter by taxonomy value, i.e. the canonical value present is the associated taxonomy. This parameter is mutually exclusive with value, and should be used for label type (example: **taxonomy_value=en:organic**);.
+ - min_confidence: Filter logos that have a confidence score above a threshold;
+ - random: If true, randomized result order (default false);
+ - annotated: The annotation status of the logo. If not provided, both annotated and non-annotated logos are returned (default nil)
          
 - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.LogosResponse struct and for the failure an Error.
              
 */
-        func RBTFLogos(count: UInt?, type: String?, barcode: OFFBarcode?, value: String?, taxonomy_value: String?, min_confidence: Int?, random: Bool?, annotated: Bool?, completion: @escaping (_ result: Result<RBTF.LogosResponse, RBTFError>) -> Void) {
-            let request = RBTFLogosRequest(count: count, type: type, barcode: barcode, value: value, taxonomy_value: taxonomy_value, min_confidence: min_confidence, random: random, annotated: annotated)
-                    fetch(request: request, responses: [200:RBTF.LogosResponse.self]) { (result) in
+    func RBTFLogos(count: UInt?, type: String?, barcode: OFFBarcode?, value: String?, taxonomy_value: String?, min_confidence: Int?, random: Bool?, annotated: Bool?, completion: @escaping (_ result: Result<RBTF.LogosResponse, RBTFError>) -> Void) {
+        let request = RBTFLogosRequest(count: count, type: type, barcode: barcode, value: value, taxonomy_value: taxonomy_value, min_confidence: min_confidence, random: random, annotated: annotated)
+        fetch(request: request, responses: [200:RBTF.LogosResponse.self]) { (result) in
                         completion(result)
-                        return
-                    }
-                }
-
+            return
+        }
+    }
 
 }

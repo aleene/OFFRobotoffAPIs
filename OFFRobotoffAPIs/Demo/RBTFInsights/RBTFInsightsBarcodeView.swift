@@ -30,7 +30,7 @@ class RBTFInsightsBarcodeViewModel: ObservableObject {
     // get the properties
     fileprivate func update() {
         // get the remote data
-        rbtfSession.RBTFInsightsExtended(barcode: barcode,
+        rbtfSession.RBTFInsights(barcode: barcode,
                                          insightType: insightType,
                                          country: country,
                                          valueTag: valueTag,

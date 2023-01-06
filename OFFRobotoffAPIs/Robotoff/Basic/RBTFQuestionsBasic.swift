@@ -116,7 +116,7 @@ The question type. Only one type is supported at 23-nov-2022.
 
 }
 
-class RBTFQuestionsRequest: RBTFRequest {
+class RBTFQuestionsRequestBasic: RBTFRequest {
     
     convenience init(barcode: String,
                      count: UInt?, lang:
@@ -204,7 +204,7 @@ extension URLSession {
 - returns:
  A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 */
-    func RBTFQuestionsProduct(with barcode: String,
+    func RBTFQuestionsProductRaw(with barcode: String,
                               count: UInt?,
                               lang: String?,
                               completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
@@ -212,7 +212,7 @@ extension URLSession {
             completion(.failure(.barcodeInvalid))
             return
         }
-        let request = RBTFQuestionsRequest(barcode: barcode, count: count, lang: lang)
+        let request = RBTFQuestionsRequestBasic(barcode: barcode, count: count, lang: lang)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)
             return
@@ -225,7 +225,7 @@ Function to retrieve a random product wth a question.
 - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 */
-    func RBTFQuestionsRandom(completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+    func RBTFQuestionsRandomRaw(completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
         let request = RBTFRequest(api: .questionsRandom)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
                 completion(result)
@@ -250,8 +250,8 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
 */
-    func RBTFQuestionsRandom(languageCode: String?, count: UInt?, insightTypes: [String], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
-        let request = RBTFQuestionsRequest(api: .questionsRandom, languageCode: languageCode, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
+    func RBTFQuestionsRandomBasic(languageCode: String?, count: UInt?, insightTypes: [String], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+        let request = RBTFQuestionsRequestBasic(api: .questionsRandom, languageCode: languageCode, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)
             return
@@ -263,7 +263,7 @@ Function to retrieve 25 popular products wth a question.
 - returns:
 A completion block with a Result enum (success or failure). The associated value for success is a RBTF.QuestionsResponse struct and for the failure an Error.
 */
-        func RBTFQuestionsPopular(completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+        func RBTFQuestionsPopularBasic(completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
             let request = RBTFRequest(api: .questionsPopular)
             fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
                 completion(result)
@@ -288,8 +288,8 @@ A completion block with a Result enum (success or failure). The associated value
  
 Not all possible query parameters have been implemented, as they are not useful to everyone (server\_domain, reserved\_barcode, capaign, predictor).
 */
-    func RBTFQuestionsPopular(languageCode: String?, count: UInt?, insightTypes: [String], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
-        let request = RBTFQuestionsRequest(api: .questionsPopular, languageCode: languageCode, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
+    func RBTFQuestionsPopularBasic(languageCode: String?, count: UInt?, insightTypes: [String], country: String?, brands: [String], valueTag: String?, page: UInt?, completion: @escaping (_ result: Result<RBTF.QuestionsResponse, RBTFError>) -> Void) {
+        let request = RBTFQuestionsRequestBasic(api: .questionsPopular, languageCode: languageCode, count: count, insightTypes: insightTypes, country: country, brands: brands, valueTag: valueTag, page: page)
         fetch(request: request, responses: [200:RBTF.QuestionsResponse.self]) { (result) in
             completion(result)
             return

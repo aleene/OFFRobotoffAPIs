@@ -131,7 +131,7 @@ The datastructure retrieved for a reponse 200 for the Insights Random API
 
 }
 
-class RBTFInsightsRequest : RBTFRequest {
+class RBTFInsightsRequestBasic : RBTFRequest {
     
 /// for insights/detail/(in\_insight\_id)
     convenience init(insightId: String) {
@@ -252,7 +252,7 @@ Not all possible query parameters have been implemented, as they are not useful 
                       valueTag: String?,
                       count: UInt?,
                       completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(insightType: insightType,
+        let request = RBTFInsightsRequestBasic(insightType: insightType,
                                           country: country,
                                           valueTag: valueTag,
                                           count: count)
@@ -284,7 +284,7 @@ Not all possible query parameters have been implemented, as they are not useful 
                       valueTag: String?,
                       count: UInt?,
                       completion: @escaping (_ result: Result<RBTF.InsightsResponse, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(barcode: barcode,
+        let request = RBTFInsightsRequestBasic(barcode: barcode,
                                           insightType: insightType,
                                           country: country,
                                           valueTag: valueTag,
@@ -308,7 +308,7 @@ A completion block with a Result enum (success or failure). The associated value
 */
     func RBTFInsights(insightId: String,
                       completion: @escaping (_ result: Result<RBTF.Insight, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(insightId: insightId)
+        let request = RBTFInsightsRequestBasic(insightId: insightId)
         fetch(request: request,
               responses: [200:RBTF.Insight.self]) { (result) in
                     completion(result)
@@ -333,7 +333,7 @@ A completion block with a Result enum (success or failure). The associated value
                       username: String?,
                       password: String?,
                       completion: @escaping (_ result: Result<RBTF.AnnotateResponse, RBTFError>) -> Void) {
-        let request = RBTFInsightsRequest(insightID: insightID,
+        let request = RBTFInsightsRequestBasic(insightID: insightID,
                                           annotation: annotation,
                                           username: username,
                                           password: password)
